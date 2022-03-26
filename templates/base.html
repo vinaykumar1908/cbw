@@ -1,0 +1,169 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+           
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <title>{%block title%}{%endblock title%}</title>
+        <style>
+.center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid blue;
+  padding: 10px;
+  text-align: center;
+  border-style: inset; 
+  border-width: 5px; 
+  border-radius: 10px;
+  border-style: inset; 
+  border-width: 5px; 
+  border-radius: 10px;
+}
+.center2 {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blue;
+  padding: 50px;
+  text-align: center;
+  border-style: inset; 
+  border-width: 5px; 
+  border-radius: 10px;
+  border-style: inset; 
+  border-width: 5px; 
+  border-radius: 10px;
+}
+
+</style>
+        {%block head%}{%endblock head%}
+        
+    </head>
+    <body class='bg-info'>
+        <!-- #region Navbar-->
+        
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            
+              <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'home'%}">CBW LKO</a>
+              </div>
+              {% if user.is_authenticated %}
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'home'%}">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Departments <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Stores</a></li>
+                    {% if user.Posted == 'TKD Administration' or user.Posted == 'TKD Contract Office' or user.Posted == 'TKD M&P Section'  %}
+                    <li><a href="#">MnP Dept</a></li>
+                    <li><a href="">Contracts Dept</a></li>
+                    {%endif%}
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages and Knowledge  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Message Board</a></li>
+                    <li><a href="#"> Knowledge Park</a></li>
+                
+                  </ul>
+                
+                <li><a href="#">Member Details</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Rakes <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Modules Entry and List</a></li>
+                    <li><a href="#">Rakes Entry and List</a></li>
+
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Staff Entry and List</a></li>
+                    
+                    <li><a href="#">Gang Entry and List</a></li>
+                    <li><a href="#">Supervisor Entry and List</a></li>
+
+                  </ul>
+                </li>
+                
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Examinations <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                  <li><a href="#">Closed Circuit</a></li>
+                    <li><a href="#">Safe To Run</a></li>
+                    
+                  </ul>
+                </li>
+                {% if user.Posted == 'TKD Administration' %}
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Letters <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                  <li><a href="#">Confidentials</a></li>
+                    <li><a href="#">Explanation Calls</a></li>
+                    <li><a href="#">Inspections</a></li>
+                    <li><a href="#">Letter to Addressee</a></li>
+                    <li><a href="#">Letter to ConCor</a></li>
+                  
+                  </ul>
+{%endif%}   
+
+                  
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Charts <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">CC Material Charts</a></li>
+                    <li><a href="#">STR Material Charts</a></li>
+                    <li><a href="#">CC Detention Charts</a></li>
+                    <li><a href="#">STR Detention Charts</a></li>
+                  </ul>
+                </li>
+                
+              </ul>
+              
+              
+              <a class="nav-item nav-link navbar-right  btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px; margin-right:0px; margin-top:5px;" href="#">s Profile</a>
+              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px;  margin-right:5px; margin-top:5px;" href="#">Logout</a>
+              {% else %}
+              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 700; font-size: 15px; margin-right:0px; margin-top:5px;" href="#">Login</a>
+              {% endif %}
+            </div>
+          </nav>
+          
+          </div>
+            <!-- Navbar Right Side -->
+            
+        <!-- #endregion Navbar -->
+       <div class='bg-transparent'>
+       {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+            {% block content %}{% endblock %}
+       </div>
+        
+      
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    </body>
+    <!-- this should go after your </body> -->
+<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
+<script src="/jquery.js"></script>
+<script src="/build/jquery.datetimepicker.full.min.js"></script>
+    {% block afterbody %}{% endblock %}
+</html>
