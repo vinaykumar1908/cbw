@@ -66,9 +66,9 @@
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Departments <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Stores</a></li>
-                    {% if user.Posted == 'TKD Administration' or user.Posted == 'TKD Contract Office' or user.Posted == 'TKD M&P Section'  %}
+                    {% if user.Posted == 'CB Administration' or user.Posted == 'Contract Office' or user.Posted == 'M&P Section'  %}
                     <li><a href="#">MnP Dept</a></li>
-                    <li><a href="">Contracts Dept</a></li>
+                    <li><a href="#">Contracts Dept</a></li>
                     {%endif%}
                   </ul>
                 </li>
@@ -129,10 +129,10 @@
               </ul>
               
               
-              <a class="nav-item nav-link navbar-right  btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px; margin-right:0px; margin-top:5px;" href="#">s Profile</a>
-              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px;  margin-right:5px; margin-top:5px;" href="#">Logout</a>
+              <a class="nav-item nav-link navbar-right  btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px; margin-right:0px; margin-top:5px;" href="{%url 'profile'%}">{{user.username}}'s Profile</a>
+              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px;  margin-right:5px; margin-top:5px;" href="{% url 'logout'%}">Logout</a>
               {% else %}
-              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 700; font-size: 15px; margin-right:0px; margin-top:5px;" href="#">Login</a>
+              <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 700; font-size: 15px; margin-right:0px; margin-top:5px;" href="{% url 'login'%}">Login</a>
               {% endif %}
             </div>
           </nav>

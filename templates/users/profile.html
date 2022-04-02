@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+    <div class="content-section">
+  <div class="media center" style="">
+    <img class="rounded-circle account-img img-thumbnail" src="{{user.image.url}}">
+    <div class="media-body">
+      <h2 class="account-heading">{{user.username}}</h2>
+      <p class="text-secondary">Email Id: {{user.email}}</p>
+      <h4 class="account-heading">ID Card Number: {{user.IDNumber}}</h4>
+      <h4 class="account-heading">Designation: {{user.Designation}}</h4>
+      <h4 class="account-heading">Place Of Posting: {{user.Posted}}</h4>
+      <h4 class="account-heading">Date Of Joining: {{user.DateOfJoining}}</h4>
+      <h4 class="account-heading">Mobile: {{user.Mobile}}</h4>
+      <h4 class="account-heading">Address: {{user.LocalAddress}}</h4>
+
+
+      <a class="btn-sm" style="margin-bottom: 30px;background-color:Grey; color:White; font-weight: 700; font-size: 15px; margin-right:0px; margin-top:5px;" href="{%url 'updateProfile'%}">Update Info</a>
+     
+    </div>
+  </div>
+  </div>
+  
+
+
+{% endblock content %}
