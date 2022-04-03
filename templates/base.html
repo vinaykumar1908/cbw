@@ -63,8 +63,12 @@
               {% if user.is_authenticated %}
               <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'home'%}">Home</a></li>
-                
-              
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Deficiency Reports<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'defi_home'%}">Add New Report</a></li>
+                    
+                  </ul>
+                </li>
               
               <a class="nav-item nav-link navbar-right  btn-lg"  style="background-color:Grey; color:White; font-weight: 500; font-size: 15px; margin-right:0px; margin-top:5px;" href="{%url 'profile'%}">{{user.username}}'s Profile</a>
               <a class="nav-item nav-link navbar-right btn-lg" style="background-color:Grey; color:White; font-weight: 500; font-size: 15px;  margin-right:5px; margin-top:5px;" href="{% url 'logout'%}">Logout</a>

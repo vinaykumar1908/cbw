@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'defi.apps.DefiConfig',
 ]
 
 MIDDLEWARE = [

@@ -4,7 +4,7 @@ from home import views
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     #path('success/', views.homeView, name='TestLink'),
-    #path('stores/', include('stores.urls')),
+    path('defi/', include('defi.urls')),
     #path('ROH/', include('ROH.urls')),
     #path('sickline/', include('sickline.urls')),
     #path('yard/', include('yard.urls')),
