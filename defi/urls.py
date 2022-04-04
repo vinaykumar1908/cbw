@@ -3,7 +3,7 @@ from defi import views
 
 
 urlpatterns = [
-    path('', views.DefiHome.as_view(), name='defi_home'),
-    #path('STR/', views.STRHomePageView, name='STR_home'),
+    path('', views.DefiHome2, name='defi_home'),
+    path('addRake/', views.AddRake, name='addRake'),
     #path('CC/', views.CCHomePageView, name='CC_home'),
 ]

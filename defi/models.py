@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.conf import settings
 class Rake(models.Model):
-    Name = models.CharField(max_length=100)
+    Name = models.CharField(max_length=100,unique=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     upload = models.FileField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True)

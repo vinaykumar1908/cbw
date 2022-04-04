@@ -2,22 +2,199 @@
 
 
 {%block title%}
-success
+CBW - Deficiencies Report List
 {%endblock title%}
-{%block head%}
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-{%endblock head%}
+
 
 {%block content%}
 
-<h1>OK! GREAT SUCCESS 2!!</h1>
-<input type="text" id="autocomplete" name="Item"  style="background-color: white; color:black" />
+<h1>Deficiencies Report List</h1>
 
-<script>
-$( "#autocomplete" ).autocomplete({
-  source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
-});
-</script>
-{%endblock content%}
+
+<div class="container-fluid">
+  <div class="col">
+    <div class="row-sm">
+      <!-- <a class="btn btn-success" href=""><h5> New Entry </h5></a> -->
+      <a class="btn btn-success" href="{%url 'home'%}">
+        <h5> Back </h5>
+      </a>
+    </div>
+
+    <div class="row-sm">
+      <h4> Search Control </h4>
+      <!-- <a class="btn btn-success" href=""><h5> New Entry </h5></a> -->
+      <!-- <a class="btn btn-success" href=""><h5> Back </h5></a> -->
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" ,class="form-control form-group " , id="moduleName" name="moduleName"
+          style="background-color: white; color:black" placeholder="Search By Car" aria-label="Search By Car">
+        <script>
+          $("#moduleName").autocomplete({
+            source: '#'
+                });
+        </script>
+        <input type="submit" value="GO" style="background-color: lightcoral; color:black">
+      </form>
+      
+
+      <form method="POST" action="{%url 'addRake'%}">
+        {% csrf_token %}
+
+
+        <h3>Add Rake Name and TC/DPC Names</h3>
+        <input type="text" ,class="form-control form-group " , id="RakeName" name="RakeName"
+          style="background-color: white; color:black" placeholder="Enter Rake Name" aria-label="Enter Rake Name">
+        <br>
+        <input type="text" ,class="form-control form-group " , id="M1" name="M1"
+          style="background-color: white; color:black" placeholder="Enter Car 1" aria-label="Enter Car 1">
+        <script>
+          $("#M1").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M2" name="M2"
+          style="background-color: white; color:black" placeholder="Enter Car 2" aria-label="Enter Car 2">
+        <script>
+          $("#M2").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M3" name="M3"
+          style="background-color: white; color:black" placeholder="Enter Car 3" aria-label="Enter Car 3">
+        <script>
+          $("#M3").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M4" name="M4"
+          style="background-color: white; color:black" placeholder="Enter Car 4" aria-label="Enter Car 4">
+        <script>
+          $("#M4").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M5" name="M5"
+          style="background-color: white; color:black" placeholder="Enter Car 5" aria-label="Enter Car 5">
+        <script>
+          $("#M5").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M6" name="M6"
+          style="background-color: white; color:black" placeholder="Enter Car 6" aria-label="Enter Car 6">
+        <script>
+          $("#M6").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M7" name="M7"
+          style="background-color: white; color:black" placeholder="Enter Car 7" aria-label="Enter Car 7">
+        <script>
+          $("#M7").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M8" name="M8"
+          style="background-color: white; color:black" placeholder="Enter Car 8" aria-label="Enter Car 8">
+        <script>
+          $("#M8").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="text" ,class="form-control form-group " , id="M9" name="M9"
+          style="background-color: white; color:black" placeholder="Enter Car 9" aria-label="Enter Car 9">
+        <script>
+          $("#M9").autocomplete({
+            source: '#'
+                });
+        </script>
+
+        <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+      </form>
+    </div>
+  </div>
+
+  <div style='center'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>Rake Name</th>
+          <th>Car 1</th>
+          <th>Car 2</th>
+          <th>Car 3</th>
+          <th>Car 4</th>
+          <th>Car 5</th>
+          <th>Car 6</th>
+          <th>Car 7</th>
+          <th>Car 8</th>
+          <th>Car 9</th>
+          <th>Operator</th>
+        </tr>
+      </thead>
+      {%for r,d,t in info%}
+      
+      <tbody>
+        <tr class='danger'>
+          <td class='text-primary'>{{forloop.counter}}</td>
+          <td class='text-primary'>{{r.date_posted}}</td>
+          <td class='text-primary'><a href="#">{{r.Name}}</a></td>
+          <td class='text-primary'>{{d.DPCName}}</td>
+          <td class='text-primary'>{{t.TCName}}</td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+          <td class='text-primary'></td>
+        </tr>
+      </tbody>
+      {%endfor%}
+    </table>
+    <div class="pagination">
+      {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+      <a class="btn page-item  btn-outline-info text-success mb-4" href="?page=1">First</a>
+      <a class="btn page-item  btn-outline-info text-success mb-4"
+        href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <a class="btn page-item active badge badge-success btn-info text-success mb-4" href="?page={{ num }}">{{ num
+        }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+        class="btn page-item active badge badge-success btn-outline-info text-success mb-4" href="?page={{ num }}">{{
+        num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="btn page-item btn-outline-info text-success mb-4"
+          href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn page-item btn-outline-info text-success mb-4"
+          href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+
+        {% endif %}
+    </div>
+    </div) {%endblock content%} {% block afterbody %} 
+    <script>
+      $("#moduleName").autocomplete({
+        source: ''
+    });
+    </script>
+
+    {% endblock afterbody %}
