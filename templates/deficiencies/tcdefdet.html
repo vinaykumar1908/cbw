@@ -1,0 +1,86 @@
+{%extends 'base.html'%}
+
+
+{%block title%}
+CBW - Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}
+{%endblock title%}
+
+
+{%block content%}
+<div class="center">
+<h1>Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}</h1>
+</div>
+<div class="row center">
+    <div class="col center2">
+        <form method="POST" action="{%url 'addTCremark' object.pk %}">
+            {% csrf_token %}
+            <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
+            <h5>Use the Autofill to fetch the part and the deficiency from the database</h5>
+            <input type="text" id="Part" name="Part" style="background-color: white; color:black" placeholder="Part"
+                aria-label="Part" />
+            <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency"
+                aria-label="Deficiency" />
+            <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </form>
+    </div>
+    <div style="flex-grow: 0.1; background-color:MediumSeaGreen;">
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Part</h3>
+        <form method="POST" action="{%url 'addTCpart' object.pk %}">
+            {% csrf_token %}
+            <h5>*Part(Add new part if not available in database)</h5>
+            <input type="text" id="addTCpart" name="addTCpart" style="background-color: white; color:black" />
+
+            <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </form>
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
+        <form method="POST" action="{%url 'addTCdef' object.pk %}">
+            {% csrf_token %}
+            <h5>*Deficiency(Enter new deficiency if not available in database)</h5>
+            <input type="text" id="addTCdef" name="addTCdef" style="background-color: white; color:black" />
+
+            <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </form>
+
+    </div>
+
+</div>
+<div class="center">
+<div style="flex-grow: 8; background-color:DodgerBlue;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Date</th>
+                <th>TC Name</th>
+
+                <th>Part</th>
+                <th>Deficiency</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%for obj in q %}
+            <tr class='danger'>
+                <td class='text-primary'>{{forloop.counter}}</td>
+                <td class='text-primary'>{{obj.Date}}</td>
+                <td class='text-primary'>{{obj.TCName}}</td>
+                <td class='text-primary'>{{obj.TCDefArea}}</td>
+                <td class='text-primary'>{{obj.TCDef}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
+
+    
+</div>
+
+{%endblock content%} {% block afterbody %}
+<script>
+    $("#moduleName").autocomplete({
+        source: ''
+    });
+</script>
+
+{% endblock afterbody %}
