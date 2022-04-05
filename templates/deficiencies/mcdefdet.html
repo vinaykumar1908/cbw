@@ -18,8 +18,18 @@ CBW - Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}
             <h5>Use the Autofill to fetch the part and the deficiency from the database</h5>
             <input type="text" id="Part" name="Part" style="background-color: white; color:black" placeholder="Part"
                 aria-label="Part" />
+                <script>
+                    $("#Part").autocomplete({
+                        source: '{%url 'MCpartAutocomplete'%}'
+                                    });
+                </script>
             <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency"
                 aria-label="Deficiency" />
+                <script>
+                    $("#Def").autocomplete({
+                        source: '{%url 'MCdefAutocomplete'%}'
+                                        });
+                </script>
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
     </div>

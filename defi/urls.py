@@ -19,5 +19,11 @@ urlpatterns = [
     path('addMCpart/<int:Serial>/', views.addMCpart, name='addMCpart'),
     path('addMCdef/<int:Serial>/', views.addMCdef, name='addMCdef'),
     path('addMCremark/<int:Serial>/', views.addMCRemark, name='addMCremark'),
+    path('PartAutocomplete/', views.partAutocomplete, name='partAutocomplete'),
+    path('DefAutocomplete/', views.defAutocomplete, name='defAutocomplete'),
+    path('TCPartAutocomplete/', views.TCpartAutocomplete, name='TCpartAutocomplete'),
+    path('TCDefAutocomplete/', views.TCdefAutocomplete, name='TCdefAutocomplete'),
+    path('MCPartAutocomplete/', views.MCpartAutocomplete, name='MCpartAutocomplete'),
+    path('MCDefAutocomplete/', views.MCdefAutocomplete, name='MCdefAutocomplete'),
     #path('CC/', views.CCHomePageView, name='CC_home'),
 ]

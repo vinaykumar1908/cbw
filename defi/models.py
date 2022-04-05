@@ -32,14 +32,14 @@ class MC(models.Model):
         return self.MCName
 
 class DPCArea(models.Model):
-    DPCArea = models.CharField(max_length=100, blank=True, null=True)
+    DPCArea = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.DPCArea
 
 class DPCDef(models.Model):
-    DPCDef = models.CharField(max_length=100, blank=True, null=True)
+    DPCDef = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
@@ -54,14 +54,14 @@ class DPCRemark(models.Model):
         return self.DPCName.DPCName
 
 class TCArea(models.Model):
-    TCCArea = models.CharField(max_length=100, blank=True, null=True)
+    TCCArea = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.TCCArea
 
 class TCDef(models.Model):
-    TCDef = models.CharField(max_length=100, blank=True, null=True)
+    TCDef = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
@@ -76,14 +76,14 @@ class TCRemark(models.Model):
         return self.TCName.TCName
 
 class MCArea(models.Model):
-    MCArea = models.CharField(max_length=100, blank=True, null=True)
+    MCArea = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.MCArea
 
 class MCDef(models.Model):
-    MCDef = models.CharField(max_length=100, blank=True, null=True)
+    MCDef = models.CharField(max_length=100, blank=True, null=True, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):

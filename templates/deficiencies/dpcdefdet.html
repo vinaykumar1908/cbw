@@ -7,6 +7,7 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
 
 
 {%block content%}
+
 <div class="center">
 <h1>Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}</h1>
 </div>
@@ -18,7 +19,17 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
     <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
     <h5>Use the Autofill to fetch the part and the deficiency from the database</h5>
     <input type="text" id="Part" name="Part" style="background-color: white; color:black" placeholder="Part" aria-label="Part"/>
+    <script>
+        $("#Part").autocomplete({
+            source: '{%url 'partAutocomplete'%}'
+                    });
+    </script>
     <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency" aria-label="Deficiency"/>
+    <script>
+        $("#Def").autocomplete({
+            source: '{%url 'defAutocomplete'%}'
+                        });
+    </script>
     <input type="submit" value="save" style="background-color: lightcoral; color:black" />
 </form>
     </div>
@@ -77,10 +88,6 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
 
 
 {%endblock content%} {% block afterbody %}
-<script>
-    $("#moduleName").autocomplete({
-        source: ''
-    });
-</script>
+
 
 {% endblock afterbody %}
