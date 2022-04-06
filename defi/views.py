@@ -197,7 +197,7 @@ def addDPCpart(request, Serial):
         newPart = DPCArea(DPCArea=request.POST.get('addDPCpart'))
         newPart.save()
         print(newPart)
-        message = messages.success(request, "DPC Part  Added ")
+        message = messages.success(request, "DPC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "DPC Part Not Added ")
     p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
@@ -227,7 +227,7 @@ def addDPCdef(request, Serial):
         newDef = DPCDef(DPCDef=request.POST.get('addDPCdef'))
         newDef.save()
         print(newDef)
-        message = messages.success(request, "DPC Deficiency  Added ")
+        message = messages.success(request, "DPC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "DPC Deficiency Not Added ")
     p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
@@ -252,7 +252,7 @@ def addDPCRemark(request, Serial):
             print(newDef.DPCName)
             print(newDef.DPCDefArea)
             print(newDef.DPCDef)
-            message = messages.success(request, "DPC Deficiency Record  Added ")
+            message = messages.success(request, "DPC Deficiency Record  Added: {} --> {} --> {}".format(newDef.DPCName, newDef.DPCDefArea, newDef.DPCDef))
         else:
             message = messages.warning(request, "DPC Deficiency Record Not Added ")
     else:
@@ -287,7 +287,7 @@ def addTCpart(request, Serial):
         newPart = TCArea(TCCArea=request.POST.get('addTCpart'))
         newPart.save()
         print(newPart)
-        message = messages.success(request, "TC Part  Added ")
+        message = messages.success(request, "TC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "TC Part Not Added ")
     p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
@@ -317,10 +317,10 @@ def addTCdef(request, Serial):
         newDef = TCDef(TCDef=request.POST.get('addTCdef'))
         newDef.save()
         print(newDef)
-        message = messages.success(request, "TC Deficiency  Added ")
+        message = messages.success(request, "TC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "TC Deficiency Not Added ")
-    p = TCRemark.objects.filter(TCName=p.id).order_by('-Date')
+    p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
     context = {
         #'messages': message,
         'object': q,
@@ -342,7 +342,7 @@ def addTCRemark(request, Serial):
             print(newDef.TCName)
             print(newDef.TCDefArea)
             print(newDef.TCDef)
-            message = messages.success(request, "TC Deficiency Record  Added ")
+            message = messages.success(request, "TC Deficiency Record  Added: {} --> {} --> {} ".format(newDef.TCName,newDef.TCDefArea,newDef.TCDef))
         else:
             message = messages.warning(request, "TC Deficiency Record Not Added ")
     else:
@@ -378,7 +378,7 @@ def addMCpart(request, Serial):
         newPart = MCArea(MCArea=request.POST.get('addMCpart'))
         newPart.save()
         print(newPart)
-        message = messages.success(request, "MC Part  Added ")
+        message = messages.success(request, "MC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "MC Part Not Added ")
     p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
@@ -408,7 +408,7 @@ def addMCdef(request, Serial):
         newDef = MCDef(MCDef=request.POST.get('addMCdef'))
         newDef.save()
         print(newDef)
-        message = messages.success(request, "MC Deficiency  Added ")
+        message = messages.success(request, "MC Deficiency '{}' Added ".format(newDef))
     else:
         message = messages.warning(request, "MC Deficiency Not Added ")
     p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
@@ -433,7 +433,7 @@ def addMCRemark(request, Serial):
             print(newDef.MCName)
             print(newDef.MCDefArea)
             print(newDef.MCDef)
-            message = messages.success(request, "MC Deficiency Record  Added ")
+            message = messages.success(request, "MC Deficiency Record  Added: {} --> {} --> {} ".format(newDef.MCName, newDef.MCDefArea,newDef.MCDef))
         else:
             message = messages.warning(request, "MC Deficiency Record Not Added ")
     else:

@@ -19,10 +19,10 @@ Home
                     href="{% url 'dpcchart'%}">DPC</a></th>
                 <th><a class="dropdown-item"
                     style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    href="{% url 'dpcchart'%}">TC</a></th>
+                    href="{% url 'tcchart'%}">TC</a></th>
                 <th><a class="dropdown-item"
                     style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    href="{% url 'dpcchart'%}">MC</a></th>
+                    href="{% url 'mcchart'%}">MC</a></th>
             </tr>
         </thead>
     </table>
@@ -36,7 +36,7 @@ Home
         data: {
             labels: [{%for x in DPC%} '{{x}}', {%endfor%}],
             datasets: [{
-                label: 'No of Cases in past month',
+                label: 'No of Cases',
                 data: [{%for x in freq %} {{x}}, {% endfor %}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
