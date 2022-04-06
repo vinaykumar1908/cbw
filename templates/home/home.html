@@ -1,0 +1,85 @@
+{%extends 'base.html'%}
+
+
+{%block title%}
+Home
+{%endblock title%}
+
+
+{%block content%}
+<h4 style="font-family:'Apple Chancery'; font-size: 32px;">Time: {{time}} </h4>
+
+
+
+<div class="container-fluid">
+    <div class="row" style="background-color: teal;" style="overflow-x:auto;">
+        <div class="">
+            <h3 class="text-dark">Stats </h3>
+            <hr>
+
+        </div>
+        <div class="overflow-auto w-100 h-10 center3" style="background-color:DodgerBlue;">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>No. of DPC in Master</th>
+                        <th>No. of TC in Master</th>
+                        <th>No. of MC in Master</th>
+                        
+                    </tr>
+                    <tr class='danger'>
+                        <td class='text-primary'>{{a}}</td>
+                        <td class='text-primary'>{{b}}</td>
+                        <td class='text-primary'>{{c}}</td>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    <tr>
+                        <th>No. of Parts of DPC in Master</th>
+                        <th>No. of Parts of TC in Master</th>
+                        <th>No. of Parts of MC in Master</th>
+                
+                    </tr>
+                    <tr class='danger'>
+                        <td class='text-primary'>{{i}}</td>
+                        <td class='text-primary'>{{j}}</td>
+                        <td class='text-primary'>{{k}}</td>
+                
+                
+                    </tr>
+                
+                
+                </tbody>
+                <tbody>
+                
+                    <tr>
+                        <th>No. of Remarks about DPC in Master</th>
+                        <th>No. of Remarks about TC in Master</th>
+                        <th>No. of Remarks about MC in Master</th>
+                       
+                    </tr>
+                    <tr class='danger'>
+                        <td class='text-primary'>{{d}}</td>
+                        <td class='text-primary'>{{e}}</td>
+                        <td class='text-primary'>{{f}}</td>
+                        
+                
+                    </tr>
+                
+                
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+                {%endblock content%}
+                {%block afterbody%}
+
+                {%endblock afterbody%}

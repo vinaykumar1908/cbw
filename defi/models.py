@@ -6,7 +6,7 @@ from django.conf import settings
 
 
 class DPC(models.Model):
-    DPCName = models.CharField(max_length=100)
+    DPCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='dpcauth')
@@ -14,7 +14,7 @@ class DPC(models.Model):
         return self.DPCName
 
 class TC(models.Model):
-    TCName = models.CharField(max_length=100)
+    TCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='tcauth')
@@ -23,7 +23,7 @@ class TC(models.Model):
         return self.TCName
 
 class MC(models.Model):
-    MCName = models.CharField(max_length=100)
+    MCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='mcauth')

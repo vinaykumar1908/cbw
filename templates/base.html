@@ -16,7 +16,15 @@
           
     
 
-           
+          
+          
+          <link rel="stylesheet" type='text/css'
+            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+          <!--Chart js-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+          
+          <!-- jQuery -->
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         
  <!--test js end -->
 
@@ -47,6 +55,19 @@
   border-width: 5px; 
   border-radius: 10px;
   border-style: inset; 
+  border-width: 5px; 
+  border-radius: 10px;
+}
+.center3 {
+  margin: auto;
+  width: 50%;
+  border: 3px solid blue;
+  padding: 10px;
+  text-align: center;
+  border-style: groove;
+  border-width: 5px; 
+  border-radius: 10px;
+   
   border-width: 5px; 
   border-radius: 10px;
 }
@@ -90,7 +111,7 @@ display: block;
                     <a class="dropdown-item" style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" href="{% url 'defi_home'%}">Add New Report</a>
                     
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"  href="{% url 'chartshome'%}">Charts Home</a>
                   </div>
                 </li>
                 
@@ -100,6 +121,7 @@ display: block;
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
+              -
               <div>
               {% if user.is_authenticated %}
               <a class="nav-item nav-link navbar-right  btn-lg"

@@ -230,7 +230,7 @@ def addDPCdef(request, Serial):
         message = messages.success(request, "DPC Deficiency  Added ")
     else:
         message = messages.warning(request, "DPC Deficiency Not Added ")
-    p = DPCRemark.objects.filter(DPCName=p.id).order_by('-Date')
+    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
     context = {
         #'messages': message,
         'object': q,
