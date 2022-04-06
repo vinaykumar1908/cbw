@@ -28,16 +28,16 @@ Home
     </table>
 </div>
 
-<canvas class='center' id="myChart" width="40" height="17"></canvas>
+<canvas class='center' id="myChart" width="40" height="16"></canvas>
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red'],
+            labels: [{%for x in DPC%} '{{x}}', {%endfor%}],
             datasets: [{
-                label: '# of Votes',
-                data: [19],
+                label: 'No of Cases in past month',
+                data: [{%for x in freq %} {{x}}, {% endfor %}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -54,7 +54,7 @@ Home
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)'
                 ],
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {

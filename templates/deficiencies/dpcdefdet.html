@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'charts/base.html'%}
 
 
 {%block title%}
@@ -87,7 +87,8 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
 </div>
 
 
-{%endblock content%} {% block afterbody %}
+{%endblock content%} 
+{% block afterbody %}
 
 
 {% endblock afterbody %}

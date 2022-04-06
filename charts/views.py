@@ -28,16 +28,22 @@ def dpcchart(request):
     qs6 = DPC.objects.all().order_by('-Date').filter(Date__lt=timezone.now(), Date__gt=f'{curryear}-{currmonth}-01')
     qs2 = DPCArea.objects.all()
     qs4 = DPCRemark.objects.all().order_by('-Date').filter(Date__lt=timezone.now(), Date__gt=f'{curryear}-{currmonth}-01')
-    
+    qs5 = DPCDef.objects.all()
+    defi = []
+    for x in qs2:
+        defi.append(str(x.DPCArea))
+    print(defi)
     list1 = []
-    for x in qs6:
-        w = qs4.filter(DPCName=x.id)
-        list1.append(w)
-        
-
-    print(list1)
+    for x in qs2:
+        q = DPCRemark.objects.all().filter(DPCDefArea=x.id).count()
+        print(q)
+        list1.append(str(q))
+        print('appended list')
+        print(list1)
+    
     context = {
-        'RakeName': qs2,
-        'time': currdate,    
+        'DPC': defi,
+        'time': currdate,
+        'freq': list1   
     }
     return render(request, 'charts/chartshome.html', context)
