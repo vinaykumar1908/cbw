@@ -92,11 +92,11 @@ Home
         </thead>
     </table>
 </div>
-<div class='center'>
+<div class='center' style="background: rgb(246, 245, 245);">
     {%if RolStock%}
 <h3>{{RolStock}}: Failure Cases Breakup from {{from}} to {{to}}</h3>
 {%endif%}
-<canvas  id="myChart" width="40" height="16"></canvas>
+<canvas  id="myChart" style="background: rgb(246, 245, 245);" width="40" height="16"></canvas>
 </div>
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');

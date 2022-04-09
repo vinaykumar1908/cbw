@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     'defi.apps.DefiConfig',
+    'letters.apps.LettersConfig',
 ]
 
 MIDDLEWARE = [

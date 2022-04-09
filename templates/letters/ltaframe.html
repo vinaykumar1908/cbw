@@ -1,0 +1,74 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+{%block title%}
+Letters - General
+{%endblock title%}
+
+{%block head%}
+
+{%endblock head%}
+{%block content%}
+
+<h1 class="center book-detail"  style="flex-grow: 2; background-color:DodgerBlue;">Letter - General</h1>
+
+
+<div class="center book-detail" style="display: flex; align-items: stretch;background-color: #f1f1f1;">
+    
+    
+    <div  style="flex-grow: 2; background-color:MediumSeaGreen;">
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add Details</h3>
+        <form method="POST" action="{%url 'LTAPrint'%}">
+            {% csrf_token %}
+<div class='input-group date' id='datetimepicker10' >
+<input type='text' class="form-control form-group " name="Date" placeholder="Date " aria-label="Date" />
+<span class="input-group-addon">
+<span class="glyphicon glyphicon-calendar"></span>
+</span>
+</div>
+<script type="text/javascript">
+$(function() {
+$('#datetimepicker10').datetimepicker({
+format: 'MMM DD YYYY'
+});
+});
+</script>
+            <h5>To</h5>
+            <input type="text" id="To" name="To"  style="background-color: white; color:black" />
+<h5>Designation</h5>
+            <input type="text" id="Designation" name="Designation"  style="background-color: white; color:black" />
+
+<h5>Address</h5>
+            <input type="text" id="Address" name="Address"  style="background-color: white; color:black" />
+<h5>subject</h5>
+            <input type="text" id="subject" name="subject"  style="background-color: white; color:black" />
+<br>
+<h5>Matter</h5>
+<textarea id="matter" name="matter" rows="12" cols="80">
+  </textarea>
+<br>
+
+
+<h5>cc1</h5>
+            <input type="text" id="cc1" name="cc1"  style="background-color: white; color:black" />
+            <h5>cc2</h5>
+            <input type="text" id="cc2" name="cc2"  style="background-color: white; color:black" />
+            <h5>cc3</h5>
+            <input type="text" id="cc3" name="cc3"  style="background-color: white; color:black" />
+            <h5>cc4</h5>
+            <input type="text" id="cc4" name="cc4"  style="background-color: white; color:black" />
+            <br>
+            <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </form>
+        
+    </div>
+</div>
+
+{% block afterbody %}
+
+{% endblock afterbody %}
+<!-- this should go after your </body> -->
+<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
+<script src="/jquery.js"></script>
+<script src="/build/jquery.datetimepicker.full.min.js"></script>
+{%endblock content%}

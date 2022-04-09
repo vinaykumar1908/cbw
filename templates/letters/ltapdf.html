@@ -1,0 +1,92 @@
+{%extends 'reportbase.html'%}
+
+{% block head %}
+<style>
+.center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+  text-align: center;
+}
+
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 30pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 70pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+    table { -pdf-keep-with-next: true; }
+    p { margin: 0; -pdf-keep-with-next: true; }
+    p.separator { -pdf-keep-with-next: false; font-size: 6pt; }
+
+</style>
+{# Include FontAwesome; required for icon display #}
+    
+
+
+ {% endblock head %}
+{%block title%}
+WCCTKD CC - 24 hr Examinations Ticket System
+{%endblock title%}
+
+
+{%block content%}
+<div id="header_content">
+<p align ="center"> Northern Railways  <br>
+ Delhi Division<br> Wagon Care Centre, Tughlakabad </p> 
+</div>
+<hr>
+Date: {{date}}<br>
+
+<p>To<br>
+{%if To != ''%}
+{{To}}<br>
+{%endif%}
+{{Designation}}<br>
+{{Address}}<br><br>
+
+<p> sub:  {{subject}}</p>
+
+<br><br>
+    
+Sir,<br>
+    <p>
+    {{matter| linebreaksbr}}</p><br>
+
+
+<br><br><br><br><br><br>
+<p align='right'>
+Vinay Kumar<br>
+ADME/Fr/TKD<br></p> 
+<br>
+{%if cc1 != '' %}
+Copy To:<br>
+{{cc1}} For kind info pl<br>
+{%endif%}
+{%if cc2 != '' %}
+{{cc2}} For kind info pl<br>
+{%endif%}
+{%if cc3 != ''%}
+{{cc3}} For kind info pl<br>
+{%endif%}
+{%if cc4 != ''%}
+{{cc4}} For info and na<br>
+{%endif%}
+<hr>
+<div id="footer_content">Page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
+{%endblock content%}
+{%block afterbody%}
+
+
+{%endblock afterbody%}
