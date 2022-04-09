@@ -73,33 +73,33 @@ Copy To:<br>
 <div>
 <table class="table table-bordered">
     
-    <thead align="center">
-        <tr class="center">
+    
+        <tr class="center4">
 
             
             
-            
-            <th>Deficiency Details </th>
+            <th>Car Number </th>
+            <th>Deficiency Details</th>
 
         </tr>
-    </thead>
-    <tbody>
+    
         {%for t in data%}
         
-        <tr class='center'>
+        <tr class='center4'>
+            {%for x, y in t.items%}
+            <td>{{x}}</td>
+            {%for r in y%}
+            <td>{{r}}</td>
+            {%endfor%}
             
-            <td>{{t}}</td>
             
-            
-            
-            
-            
+            {%endfor%}
 
         </tr>
         
        
         {%endfor%}
-    </tbody>
+    
     
 </table>
 </div>

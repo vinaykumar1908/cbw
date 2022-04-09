@@ -45,16 +45,15 @@ def LetterPrintPdf(request):
     for x in f:
         if x.startswith("DPC-"):
             d = DPC.objects.all().order_by('-POHDate').filter(DPCName=x).first()
-            e = str(DPC.objects.all().order_by('-POHDate').filter(DPCName=x).first())
+            e = f'{d} {d.POHDate} '
             print("****************")
             print(d)
             c =  DPCRemark.objects.all().order_by('-POHDate').filter(DPCName=d.id)
             list2 = []
             for x in c:
-                u = str(x.POHDate)
                 v = str(x.DPCDef)
                 w = str(x.DPCDefArea)
-                list2.append(f'DATE:{u}  PART:{w}  Detail:{v}')   
+                list2.append(f'{w} {v}')   
             print(c)
             t = {e:list2}
             list1.append(t)
@@ -65,15 +64,13 @@ def LetterPrintPdf(request):
             print("****************")
             print(d)
             c =  TCRemark.objects.all().order_by('-POHDate').filter(TCName=d.id)
-            
+            list2 = []
             for x in c:
-                u = str(x.POHDate)
                 v = str(x.TCDef)
                 w = str(x.TCDefArea)
-                list2 = {w:v}
-                list3 = {u:list2}
+                list2.append(f'{w} {v}')   
             print(c)
-            t = {e:list3}
+            t = {e:list2}
             list1.append(t)
             print(list1)
         elif x.startswith("MC-"):
@@ -83,18 +80,14 @@ def LetterPrintPdf(request):
             print(d)
             c =  MCRemark.objects.all().order_by('-POHDate').filter(MCName=d.id)
             list2 = []
-            list3 = []
             for x in c:
-                u = str(x.POHDate)
                 v = str(x.MCDef)
                 w = str(x.MCDefArea)
-                list2.append(u)
-                list2.append(w)
-                list2.append(v)
-                list3.append(list2)
+                list2.append(f'{w} {v}')   
             print(c)
-            t = {e:list3}
+            t = {e:list2}
             list1.append(t)
+            print(list1)
         else:
             print("Not a Sanctioned Car")
             print(x)
@@ -117,6 +110,7 @@ def LetterPrintPdf(request):
         'cc4' : cc4,
         'user' : user,
         'data' : list1,
+        'rolstock': request.POST.get('RolStock'),
     }
     print(date)
     # Create a Django response object, and specify content_type as pdf
