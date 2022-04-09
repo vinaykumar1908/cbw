@@ -2,13 +2,7 @@
 
 {% block head %}
 <style>
-.center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid #73AD21;
-  padding: 10px;
-  text-align: center;
-}
+
 
     @page {
         size: a4 portrait;
@@ -17,7 +11,7 @@
             left: 50pt; width: 512pt; top: 30pt; height: 40pt;
         }
         @frame content_frame {          /* Content Frame */
-            left: 50pt; width: 512pt; top: 70pt; height: 632pt;
+            left: 50pt; width: 512pt; top: 70pt; height: 632pt; font-size: 12pt;
         }
         @frame footer_frame {           /* Another static Frame */
             -pdf-frame-content: footer_content;
@@ -76,6 +70,39 @@ Copy To:<br>
 {{cc4}} For info and na<br>
 {%endif%}
 <hr>
+<div>
+<table class="table table-bordered">
+    
+    <thead align="center">
+        <tr class="center">
+
+            
+            
+            
+            <th>Deficiency Details </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {%for t in data%}
+        
+        <tr class='center'>
+            
+            <td>{{t}}</td>
+            
+            
+            
+            
+            
+
+        </tr>
+        
+       
+        {%endfor%}
+    </tbody>
+    
+</table>
+</div>
 <div id="footer_content">Page <pdf:pagenumber>
         of <pdf:pagecount>
     </div>

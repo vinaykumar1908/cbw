@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #from .forms import ModuleRecievedForm, ModuleDefectForm
 from django.db.models import Q
 #from sidingz.models import ModuleRecieved
-
+from defi.models import DPCRemark, TCRemark, MCRemark, DPC, TC, MC
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -26,7 +26,7 @@ def LetterView(request):
 
 def LetterPrintPdf(request):
     
-    print("****************")
+    
     To = request.POST.get('To')
     date = request.POST.get('datepicker1')
     Designation = request.POST.get('Designation')
@@ -37,7 +37,69 @@ def LetterPrintPdf(request):
     cc2 = request.POST.get('cc2')
     cc3 = request.POST.get('cc3')
     cc4 = request.POST.get('cc4')
-    print(cc4)
+    rolstock = request.POST.get('RolStock')
+    f = rolstock.split(',')
+    print("****************")
+    print(f)
+    list1 = []
+    for x in f:
+        if x.startswith("DPC-"):
+            d = DPC.objects.all().order_by('-POHDate').filter(DPCName=x).first()
+            e = str(DPC.objects.all().order_by('-POHDate').filter(DPCName=x).first())
+            print("****************")
+            print(d)
+            c =  DPCRemark.objects.all().order_by('-POHDate').filter(DPCName=d.id)
+            list2 = []
+            for x in c:
+                u = str(x.POHDate)
+                v = str(x.DPCDef)
+                w = str(x.DPCDefArea)
+                list2.append(f'DATE:{u}  PART:{w}  Detail:{v}')   
+            print(c)
+            t = {e:list2}
+            list1.append(t)
+            print(list1)
+        elif x.startswith("TC-"):
+            d = TC.objects.all().order_by('-POHDate').filter(TCName=x).first()
+            e = str(TC.objects.all().order_by('-POHDate').filter(TCName=x).first())
+            print("****************")
+            print(d)
+            c =  TCRemark.objects.all().order_by('-POHDate').filter(TCName=d.id)
+            
+            for x in c:
+                u = str(x.POHDate)
+                v = str(x.TCDef)
+                w = str(x.TCDefArea)
+                list2 = {w:v}
+                list3 = {u:list2}
+            print(c)
+            t = {e:list3}
+            list1.append(t)
+            print(list1)
+        elif x.startswith("MC-"):
+            d = MC.objects.all().order_by('-POHDate').filter(MCName=x).first()
+            e = str(MC.objects.all().order_by('-POHDate').filter(MCName=x).first())
+            print("****************")
+            print(d)
+            c =  MCRemark.objects.all().order_by('-POHDate').filter(MCName=d.id)
+            list2 = []
+            list3 = []
+            for x in c:
+                u = str(x.POHDate)
+                v = str(x.MCDef)
+                w = str(x.MCDefArea)
+                list2.append(u)
+                list2.append(w)
+                list2.append(v)
+                list3.append(list2)
+            print(c)
+            t = {e:list3}
+            list1.append(t)
+        else:
+            print("Not a Sanctioned Car")
+            print(x)
+    print("****************")
+    print(list1)
     if date == '':
         date = datetime. datetime. now(). date()
     template_path = 'letters/confidentialpdf.html'
@@ -54,6 +116,7 @@ def LetterPrintPdf(request):
         'cc3' : cc3,
         'cc4' : cc4,
         'user' : user,
+        'data' : list1,
     }
     print(date)
     # Create a Django response object, and specify content_type as pdf
