@@ -21,7 +21,17 @@ CBW - Deficiencies Report List
   <h3>Enter DPC Number</h3>
   <input type="text" ,class="form-control form-group " , id="DPCNum" name="DPCNum"
     style="background-color: white; color:black" placeholder="Enter DPC Number" aria-label="Enter DPC Number">
-<input type="submit" value="save" style="background-color: lightcoral; color:black" />
+    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+      id="datepicker1">
+    
+    <script>
+      $(function () {
+        $("#datepicker1").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+    <input type="submit" value="save" style="background-color: lightcoral; color:black" />
 </form>
 
 
@@ -32,7 +42,7 @@ CBW - Deficiencies Report List
     <thead>
       <tr>
         <th>S.No</th>
-        <th>Date</th>
+        <th>POH Date</th>
         <th>DPC Number</th>
         </tr>
         </thead>
@@ -40,7 +50,7 @@ CBW - Deficiencies Report List
 <tbody>
   <tr class='danger'>
     <td class='text-primary'>{{forloop.counter}}</td>
-    <td class='text-primary'>{{object.Date}}</td>
+    <td class='text-primary'>{{object.POHDate}}</td>
     <td class='text-primary'><a href="{%url 'showDPCdet' object.pk %}" >{{object.DPCName}}</a></td> 
     </tr>
     </tbody>
@@ -61,7 +71,17 @@ CBW - Deficiencies Report List
       <h3>Enter TC Number</h3>
       <input type="text" ,class="form-control form-group " , id="TCNum" name="TCNum"
         style="background-color: white; color:black" placeholder="Enter TC Number" aria-label="Enter TC Number">
-      <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+      <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+        id="datepicker">
+      
+      <script>
+        $(function () {
+          $("#datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+          });
+        });
+      </script>
+        <input type="submit" value="save" style="background-color: lightcoral; color:black" />
     </form>
   
   
@@ -73,7 +93,7 @@ CBW - Deficiencies Report List
     <thead>
       <tr>
         <th>S.No</th>
-        <th>Date</th>
+        <th>POH Date</th>
         <th>TC Number</th>
       </tr>
     </thead>
@@ -81,7 +101,7 @@ CBW - Deficiencies Report List
     <tbody>
       <tr class='danger'>
         <td class='text-primary'>{{forloop.counter}}</td>
-        <td class='text-primary'>{{object.Date}}</td>
+        <td class='text-primary'>{{object.POHDate}}</td>
         <td class='text-primary'><a href="{%url 'showTCdet' object.pk %}">{{object.TCName}}</a></td>
       </tr>
     </tbody>
@@ -100,7 +120,17 @@ CBW - Deficiencies Report List
         <h3>Enter MC Number</h3>
         <input type="text" ,class="form-control form-group " , id="MCNum" name="MCNum"
           style="background-color: white; color:black" placeholder="Enter MC Number" aria-label="Enter MC Number">
-        <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        <input type="text" name="datepicker2" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+          id="datepicker2">
+        
+        <script>
+          $(function () {
+            $("#datepicker2").datepicker({
+              dateFormat: "yy-mm-dd"
+            });
+          });
+        </script>
+          <input type="submit" value="save" style="background-color: lightcoral; color:black" />
       </form>
     
     
@@ -112,7 +142,7 @@ CBW - Deficiencies Report List
         <thead>
           <tr>
             <th>S.No</th>
-            <th>Date</th>
+            <th>POH Date</th>
             <th>MC Number</th>
           </tr>
         </thead>
@@ -120,7 +150,7 @@ CBW - Deficiencies Report List
         <tbody>
           <tr class='danger'>
             <td class='text-primary'>{{forloop.counter}}</td>
-            <td class='text-primary'>{{object.Date}}</td>
+            <td class='text-primary'>{{object.POHDate}}</td>
             <td class='text-primary'><a href="{%url 'showMCdet' object.pk %}">{{object.MCName}}</a></td>
           </tr>
         </tbody>

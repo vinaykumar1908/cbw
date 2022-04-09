@@ -2,13 +2,13 @@
 
 
 {%block title%}
-CBW - Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}
+{{ object.MCName }}. POH Date {{ object.Date}}
 {%endblock title%}
 
 
 {%block content%}
 <div class="center">
-<h1>Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}</h1>
+<h1>Deficiencies Report of {{ object.MCName }}. POH Date {{ object.Date}}</h1>
 </div>
 <div class="row center">
     <div class="col center2">
@@ -30,6 +30,16 @@ CBW - Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}
                         source: '{%url 'MCdefAutocomplete'%}'
                                         });
                 </script>
+            <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+                id="datepicker">
+            
+            <script>
+                $(function () {
+                    $("#datepicker").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
     </div>
@@ -61,7 +71,7 @@ CBW - Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}
         <thead>
             <tr>
                 <th>S.No</th>
-                <th>Date</th>
+                <th>Deficiency Reported On</th>
                 <th>MC Name</th>
 
                 <th>Part</th>
@@ -73,7 +83,7 @@ CBW - Deficiencies Report of {{ object.MCName }} on Date {{ object.Date}}
             {%for obj in q %}
             <tr class='danger'>
                 <td class='text-primary'>{{forloop.counter}}</td>
-                <td class='text-primary'>{{obj.Date}}</td>
+                <td class='text-primary'>{{obj.POHDate}}</td>
                 <td class='text-primary'>{{obj.MCName}}</td>
                 <td class='text-primary'>{{obj.MCDefArea}}</td>
                 <td class='text-primary'>{{obj.MCDef}}</td>

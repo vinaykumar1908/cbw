@@ -8,6 +8,7 @@ from django.conf import settings
 class DPC(models.Model):
     DPCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
+    POHDate = models.DateField(null=True, blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='dpcauth')
     def __str__(self):
@@ -16,6 +17,7 @@ class DPC(models.Model):
 class TC(models.Model):
     TCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
+    POHDate = models.DateField(null=True, blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='tcauth')
     
@@ -25,6 +27,7 @@ class TC(models.Model):
 class MC(models.Model):
     MCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
+    POHDate = models.DateField(null=True, blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='mcauth')
     
@@ -48,7 +51,7 @@ class DPCDef(models.Model):
 class DPCRemark(models.Model):
     DPCName = models.ForeignKey(DPC, on_delete=models.CASCADE, related_name='DPCName1')
     Date = models.DateTimeField(default=timezone.now)
-    AddDate = models.DateTimeField(null=True, blank=True)
+    POHDate = models.DateField(null=True, blank=True)
     DPCDefArea = models.ForeignKey(DPCArea, on_delete=models.CASCADE, related_name='DPCArea1')
     DPCDef = models.ForeignKey(DPCDef, on_delete=models.CASCADE, related_name='DPCDef1')
     def __str__(self):
@@ -71,7 +74,7 @@ class TCDef(models.Model):
 class TCRemark(models.Model):
     Date = models.DateTimeField(default=timezone.now)
     TCName = models.ForeignKey(TC, on_delete=models.CASCADE, related_name='TCName1')
-    AddDate = models.DateTimeField(null=True, blank=True)
+    POHDate = models.DateField(null=True, blank=True)
     TCDefArea = models.ForeignKey(TCArea, on_delete=models.CASCADE, related_name='TCArea1')
     TCDef = models.ForeignKey(TCDef, on_delete=models.CASCADE, related_name='TCDef1')
     def __str__(self):
@@ -94,7 +97,7 @@ class MCDef(models.Model):
 class MCRemark(models.Model):
     Date = models.DateTimeField(default=timezone.now)
     MCName = models.ForeignKey(MC, on_delete=models.CASCADE, related_name='MCName1')
-    AddDate = models.DateTimeField(null=True, blank=True)
+    POHDate = models.DateField(null=True, blank=True)
     MCDefArea = models.ForeignKey(MCArea, on_delete=models.CASCADE, related_name='MCArea1')
     MCDef = models.ForeignKey(MCDef, on_delete=models.CASCADE, related_name='MCDef1')
     def __str__(self):
