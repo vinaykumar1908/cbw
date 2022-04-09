@@ -2,14 +2,14 @@
 
 
 {%block title%}
-CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
+{{ object.DPCName }} POH Date {{ object.POHDate}}
 {%endblock title%}
 
 
 {%block content%}
 
 <div class="center">
-<h1>Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}</h1>
+<h1>Deficiencies Report of {{ object.DPCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 
 <div class="row center">
@@ -21,7 +21,8 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
     <input type="text" id="Part" name="Part" style="background-color: white; color:black" placeholder="Part" aria-label="Part"/>
     <script>
         $("#Part").autocomplete({
-            source: '{%url 'partAutocomplete'%}'
+            source: '{%url 'partAutocomplete'%}',
+            menudocking: { menucorner: "right top", inputcorner: "right bottom", collision: "none" },
                     });
     </script>
     <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency" aria-label="Deficiency"/>
@@ -29,6 +30,16 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
         $("#Def").autocomplete({
             source: '{%url 'defAutocomplete'%}'
                         });
+    </script>
+    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+        id="datepicker">
+    
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
     </script>
     <input type="submit" value="save" style="background-color: lightcoral; color:black" />
 </form>
@@ -61,7 +72,7 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
             <thead>
                 <tr>
                     <th>S.No</th>
-                    <th>Date</th>
+                    <th>Deficiency Reported On</th>
                     <th>DPC Name</th>
                     
                     <th>Part</th>
@@ -73,7 +84,7 @@ CBW - Deficiencies Report of {{ object.DPCName }} on Date {{ object.Date}}
                 {%for obj in q %}
                 <tr class='danger'>
                     <td class='text-primary'>{{forloop.counter}}</td>
-                    <td class='text-primary'>{{obj.Date}}</td>
+                    <td class='text-primary'>{{obj.POHDate}}</td>
                     <td class='text-primary'>{{obj.DPCName}}</td>
                     <td class='text-primary'>{{obj.DPCDefArea}}</td>
                     <td class='text-primary'>{{obj.DPCDef}}</td>

@@ -2,13 +2,13 @@
 
 
 {%block title%}
-CBW - Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}
+{{ object.TCName }}. POH Date {{ object.POHDate}}
 {%endblock title%}
 
 
 {%block content%}
 <div class="center">
-<h1>Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}</h1>
+<h1>Deficiencies Report of {{ object.TCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 <div class="row center">
     <div class="col center2">
@@ -30,6 +30,16 @@ CBW - Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}
                         source: '{%url 'TCdefAutocomplete'%}'
                                         });
                 </script>
+            <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
+                id="datepicker">
+            
+            <script>
+                $(function () {
+                    $("#datepicker").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
     </div>
@@ -60,7 +70,7 @@ CBW - Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}
         <thead>
             <tr>
                 <th>S.No</th>
-                <th>Date</th>
+                <th>Deficiency Reported On</th>
                 <th>TC Name</th>
 
                 <th>Part</th>
@@ -72,7 +82,7 @@ CBW - Deficiencies Report of {{ object.TCName }} on Date {{ object.Date}}
             {%for obj in q %}
             <tr class='danger'>
                 <td class='text-primary'>{{forloop.counter}}</td>
-                <td class='text-primary'>{{obj.Date}}</td>
+                <td class='text-primary'>{{obj.POHDate}}</td>
                 <td class='text-primary'>{{obj.TCName}}</td>
                 <td class='text-primary'>{{obj.TCDefArea}}</td>
                 <td class='text-primary'>{{obj.TCDef}}</td>

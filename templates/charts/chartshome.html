@@ -10,25 +10,94 @@ Home
 {%block content%}
 <h4 style="font-family:'Apple Chancery'; font-size: 32px;">Charts Home {{time}}</h4>
 
-<div class="overflow-auto w-100 h-10 center3" style="background-color:DodgerBlue;">
+<div class="overflow-auto w-100 h-10 center3" style="background-color:rgb(30, 144, 255);">
     <table class="table table-bordered ">
         <thead>
             <tr>
-                <th><a class="dropdown-item"
-                    style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    href="{% url 'dpcchart'%}">DPC</a></th>
-                <th><a class="dropdown-item"
-                    style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    href="{% url 'tcchart'%}">TC</a></th>
-                <th><a class="dropdown-item"
-                    style="background-color:rgb(255, 255, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    href="{% url 'mcchart'%}">MC</a></th>
+                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'dpcchart'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="From" aria-label="From" id="datepicker1">
+                    <script>
+                        $(function () {
+                            $("#datepicker1").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="To"
+                        aria-label="To" id="datepicker">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="DPC" style="background-color: lightcoral; color:black" />
+                </form>
+                    </th>
+                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'tcchart'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker3" style="background-color: white; color:black" placeholder="From"
+                        aria-label="From" id="datepicker3">
+                    <script>
+                        $(function () {
+                            $("#datepicker3").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker4" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                        id="datepicker4">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker4").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="TC" style="background-color: lightcoral; color:black" />
+                </form></th>
+                <th><form
+                    style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
+                    method="POST" action="{%url 'mcchart'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker5" style="background-color: white; color:black" placeholder="From"
+                        aria-label="From" id="datepicker5">
+                    <script>
+                        $(function () {
+                            $("#datepicker5").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker6" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                        id="datepicker6">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker6").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="MC" style="background-color: lightcoral; color:black" />
+                </form></th>
             </tr>
         </thead>
     </table>
 </div>
-
-<canvas class='center' id="myChart" width="40" height="16"></canvas>
+<div class='center'>
+    {%if RolStock%}
+<h3>{{RolStock}}: Failure Cases Breakup from {{from}} to {{to}}</h3>
+{%endif%}
+<canvas  id="myChart" width="40" height="16"></canvas>
+</div>
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {

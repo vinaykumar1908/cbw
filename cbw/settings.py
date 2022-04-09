@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-83o!sp5yrw18)%fka!de79xa!cpwn!t6alfmog1s317muvui=y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','https://cbw.ngrok.io']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok.io','https://*.127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cbw',
         'USER': 'pi',
-        'PASSWORD': 'poolpool',
+        'PASSWORD': 'pool',
         'HOST': 'localhost',
         'PORT': '',
     }

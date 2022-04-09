@@ -31,8 +31,9 @@ def DefiHome2(request):
 
 @login_required
 def AddDPC(request):
-    if request.method == 'POST' and request.POST.get('DPCNum').startswith("DPC"):
-        newDPC = DPC(DPCName=request.POST.get('DPCNum'),author=request.user)
+    if request.method == 'POST' and request.POST.get('DPCNum').startswith("DPC")==True and request.POST.get('datepicker1'):
+        print(request.POST.get('datepicker1'))
+        newDPC = DPC(DPCName=request.POST.get('DPCNum'),POHDate=request.POST.get('datepicker1'),author=request.user)
         newDPC.save()
         message = messages.success(request, "DPC Added ")
         dpc = DPC.objects.all().order_by('-Date')
@@ -69,8 +70,11 @@ def AddDPC(request):
 
 @login_required
 def AddTC(request):
-    if request.method == 'POST' and request.POST.get('TCNum').startswith("TC"):
-        newTC = TC(TCName=request.POST.get('TCNum'),author=request.user)
+    print(request.POST.get('TCNum'))
+    print(request.POST.get('datepicker'))
+    if request.method == 'POST' and request.POST.get('TCNum').startswith("TC")==True and request.POST.get('datepicker'):
+        print(request.POST.get('datepicker'))
+        newTC = TC(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user)
         newTC.save()
         message = messages.success(request, "TC Added ")
         dpc = DPC.objects.all().order_by('-Date')
@@ -106,8 +110,8 @@ def AddTC(request):
     
 @login_required
 def AddMC(request):
-    if request.method == 'POST' and request.POST.get('MCNum').startswith("MC"):
-        newMC = MC(MCName=request.POST.get('MCNum'),author=request.user)
+    if request.method == 'POST' and request.POST.get('MCNum').startswith("MC")==True and request.POST.get('datepicker2'):
+        newMC = MC(MCName=request.POST.get('MCNum'),POHDate=request.POST.get('datepicker2'),author=request.user)
         newMC.save()
         message = messages.success(request, "MC Added ")
         dpc = DPC.objects.all().order_by('-Date')
@@ -241,12 +245,13 @@ def addDPCdef(request, Serial):
 
 @login_required
 def addDPCRemark(request, Serial):
-    if request.POST.get('Part') and request.POST.get('Def'):
+    if request.POST.get('Part') and request.POST.get('Def') and request.POST.get('datepicker'):
         q = DPC.objects.filter(id=Serial).first()
+        a = request.POST.get('datepicker')
         r = DPCArea.objects.filter(DPCArea=request.POST.get('Part')).first()
         t = DPCDef.objects.filter(DPCDef=request.POST.get('Def')).first()
         if request.method == 'POST':
-            newDef = DPCRemark(DPCName=q, DPCDefArea=r, DPCDef=t)
+            newDef = DPCRemark(DPCName=q, DPCDefArea=r, DPCDef=t, POHDate=a)
             newDef.save()
             print(newDef)
             print(newDef.DPCName)
@@ -256,7 +261,7 @@ def addDPCRemark(request, Serial):
         else:
             message = messages.warning(request, "DPC Deficiency Record Not Added ")
     else:
-        message = messages.warning(request, "Please Fill Both Entries ")
+        message = messages.warning(request, "Please Fill all Entries ")
 
     
     p = DPC.objects.get(id=Serial)
@@ -331,12 +336,12 @@ def addTCdef(request, Serial):
 
 @login_required
 def addTCRemark(request, Serial):
-    if request.POST.get('Part') and request.POST.get('Def'):
+    if request.POST.get('Part') and request.POST.get('Def') and request.POST.get('datepicker'):
         q = TC.objects.filter(id=Serial).first()
         r = TCArea.objects.filter(TCCArea=request.POST.get('Part')).first()
         t = TCDef.objects.filter(TCDef=request.POST.get('Def')).first()
         if request.method == 'POST':
-            newDef = TCRemark(TCName=q, TCDefArea=r, TCDef=t)
+            newDef = TCRemark(TCName=q, TCDefArea=r, TCDef=t, POHDate=request.POST.get('datepicker'))
             newDef.save()
             print(newDef)
             print(newDef.TCName)
@@ -346,7 +351,7 @@ def addTCRemark(request, Serial):
         else:
             message = messages.warning(request, "TC Deficiency Record Not Added ")
     else:
-        message = messages.warning(request, "Please Fill Both Entries ")
+        message = messages.warning(request, "Please Fill All Entries ")
 
     
     p = TC.objects.get(id=Serial)
@@ -422,12 +427,12 @@ def addMCdef(request, Serial):
 
 @login_required
 def addMCRemark(request, Serial):
-    if request.POST.get('Part') and request.POST.get('Def'):
+    if request.POST.get('Part') and request.POST.get('Def')and request.POST.get('datepicker'):
         q = MC.objects.filter(id=Serial).first()
         r = MCArea.objects.filter(MCArea=request.POST.get('Part')).first()
         t = MCDef.objects.filter(MCDef=request.POST.get('Def')).first()
         if request.method == 'POST':
-            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t)
+            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=request.POST.get('datepicker'))
             newDef.save()
             print(newDef)
             print(newDef.MCName)
@@ -437,7 +442,7 @@ def addMCRemark(request, Serial):
         else:
             message = messages.warning(request, "MC Deficiency Record Not Added ")
     else:
-        message = messages.warning(request, "Please Fill Both Entries ")
+        message = messages.warning(request, "Please Fill All Entries ")
 
     
     p = MC.objects.get(id=Serial)
@@ -450,6 +455,8 @@ def addMCRemark(request, Serial):
     }
     return render(request, 'deficiencies/mcdefdet.html', context)
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 @login_required
 def partAutocomplete(request):
