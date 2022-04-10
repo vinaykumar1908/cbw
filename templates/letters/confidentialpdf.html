@@ -39,6 +39,8 @@ Charbagh Locomotive Workshop : Letter Generation System
 Locomotive Workshop <br> Charbagh, Lucknow-226005 </p> 
 </div>
 <hr>
+<p>{{LNo}}</p>
+<br>
 Date: {{date}}
 <p>To<br>
 {{To}}<br>
@@ -70,7 +72,9 @@ Copy To:<br>
 {{cc4}} For info and na<br>
 {%endif%}
 <hr>
+{%if data%}
 <div>
+    <h3>Car wise deficiency list</h3>
 <table class="table table-bordered">
     
     
@@ -103,6 +107,41 @@ Copy To:<br>
     
 </table>
 </div>
+{%endif%}
+<br><br>
+{%if data2%}
+<div>
+    <table class="table table-bordered">
+
+        <h3>Part wise number of cases from {{daterange}}</h3>
+        <tr class="center4">
+
+
+
+            <th>Part Name </th>
+            <th>Number of Cases</th>
+
+        </tr>
+
+        {%for t in data2%}
+
+        <tr class='center4'>
+            {%for x, y in t.items%}
+            <td>{{x}}</td>
+            <td>{{y}}</td>
+
+
+            {%endfor%}
+
+        </tr>
+
+
+        {%endfor%}
+
+
+    </table>
+</div>
+{%endif%}
 <div id="footer_content">Page <pdf:pagenumber>
         of <pdf:pagecount>
     </div>

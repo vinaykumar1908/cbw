@@ -20,6 +20,14 @@ Letter - Confidential
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add Details</h3>
         <form method="POST" action="{%url 'LetterPrint'%}">
             {% csrf_token %}
+            <div class="center">
+            <div class="row" >
+            <div class="col">
+                <h3>Details</h3>
+                <div class="center">
+                    <h5>Letter No.</h5>
+                    <input type="text" id="LNo" name="LNo" style="background-color: white; color:black" /><br>
+                    <h5>Date</h5>
 <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
     id="datepicker1">
 <script>
@@ -29,6 +37,7 @@ Letter - Confidential
         });
     });
 </script>
+            
             <h5>To</h5>
             <input type="text" id="To" name="To"  style="background-color: white; color:black" />
 <h5>Designation</h5>
@@ -53,13 +62,41 @@ Letter - Confidential
             <input type="text" id="cc3" name="cc3"  style="background-color: white; color:black" />
             <h5>cc4</h5>
             <input type="text" id="cc4" name="cc4"  style="background-color: white; color:black" />
+        </div></div><div class="col">
+            <h3>Data</h3>
+            <div class="center">
             <br>
-            <h5>List DPC/TC/MC</h5>
+            <h5>List any DPC/TC/MC if required, separated by commas </h5>
+            
             <input type="text" id="RolStock" name="RolStock" style="background-color: white; color:black" />
             <br>
+            <h5>List any part of DPC/TC/MC if required, separated by commas</h5>
+            <input type="text" name="datepicker3" style="background-color: white; color:black" placeholder="From" aria-label="From"
+                id="datepicker3">
+            <script>
+                $(function () {
+                    $("#datepicker3").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
+            <input type="text" name="datepicker4" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                id="datepicker4">
+            
+            <script>
+                $(function () {
+                    $("#datepicker4").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
+            <input type="text" id="part" name="part" style="background-color: white; color:black" />
+            <br><br>
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </div>
+        </div>
         </form>
-        
+        </div>
     </div>
 </div>
 
