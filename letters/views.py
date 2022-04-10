@@ -43,6 +43,8 @@ def LetterPrintPdf(request):
     
     
     list1 = []
+    listq = []
+    daterange = ()
     if request.POST.get('RolStock'):
         f = rolstock.split(',')
         for x in f:
