@@ -8,7 +8,7 @@ CBW - Deficiencies Report List
 
 {%block content%}
 
-<h1>Deficiencies Report List</h1>
+<h1>Add Deficiencies Report</h1>
 
 <div class="center">
 <div class="row" >
@@ -19,6 +19,7 @@ CBW - Deficiencies Report List
 <form method="POST" action="{%url 'addDPC'%}">
   {% csrf_token %}
   <h3>Enter DPC Number</h3>
+  <h3>DPC-xxxxx</h3>
   <input type="text" ,class="form-control form-group " , id="DPCNum" name="DPCNum"
     style="background-color: white; color:black" placeholder="Enter DPC Number" aria-label="Enter DPC Number">
     <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
@@ -69,6 +70,7 @@ CBW - Deficiencies Report List
     <form method="POST" action="{%url 'addTC'%}">
       {% csrf_token %}
       <h3>Enter TC Number</h3>
+      <h3>TC-xxxxx</h3>
       <input type="text" ,class="form-control form-group " , id="TCNum" name="TCNum"
         style="background-color: white; color:black" placeholder="Enter TC Number" aria-label="Enter TC Number">
       <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
@@ -118,6 +120,7 @@ CBW - Deficiencies Report List
       <form method="POST" action="{%url 'addMC'%}">
         {% csrf_token %}
         <h3>Enter MC Number</h3>
+        <h3>MC-xxxxx</h3>
         <input type="text" ,class="form-control form-group " , id="MCNum" name="MCNum"
           style="background-color: white; color:black" placeholder="Enter MC Number" aria-label="Enter MC Number">
         <input type="text" name="datepicker2" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"

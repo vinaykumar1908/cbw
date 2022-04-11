@@ -48,12 +48,20 @@ class DPCDef(models.Model):
     def __str__(self):
         return self.DPCDef
 
+class DPCSection(models.Model):
+    Section = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    Date = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.Section
+
 class DPCRemark(models.Model):
-    DPCName = models.ForeignKey(DPC, on_delete=models.CASCADE, related_name='DPCName1')
+    DPCName = models.ForeignKey(DPC, on_delete=models.DO_NOTHING, related_name='DPCName1')
     Date = models.DateTimeField(default=timezone.now)
     POHDate = models.DateField(null=True, blank=True)
-    DPCDefArea = models.ForeignKey(DPCArea, on_delete=models.CASCADE, related_name='DPCArea1')
-    DPCDef = models.ForeignKey(DPCDef, on_delete=models.CASCADE, related_name='DPCDef1')
+    Section = models.ForeignKey(DPCSection, on_delete=models.DO_NOTHING, related_name='DPCSection1',default="2")
+    DPCDefArea = models.ForeignKey(DPCArea, on_delete=models.DO_NOTHING, related_name='DPCArea1')
+    DPCDef = models.ForeignKey(DPCDef, on_delete=models.DO_NOTHING, related_name='DPCDef1')
     def __str__(self):
         return self.DPCName.DPCName
 
@@ -71,12 +79,20 @@ class TCDef(models.Model):
     def __str__(self):
         return self.TCDef
 
+class TCSection(models.Model):
+    Section = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    Date = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.Section
+
 class TCRemark(models.Model):
     Date = models.DateTimeField(default=timezone.now)
-    TCName = models.ForeignKey(TC, on_delete=models.CASCADE, related_name='TCName1')
+    TCName = models.ForeignKey(TC, on_delete=models.DO_NOTHING, related_name='TCName1')
     POHDate = models.DateField(null=True, blank=True)
-    TCDefArea = models.ForeignKey(TCArea, on_delete=models.CASCADE, related_name='TCArea1')
-    TCDef = models.ForeignKey(TCDef, on_delete=models.CASCADE, related_name='TCDef1')
+    Section = models.ForeignKey(TCSection, on_delete=models.DO_NOTHING, related_name='TCSection1',default="1")
+    TCDefArea = models.ForeignKey(TCArea, on_delete=models.DO_NOTHING, related_name='TCArea1')
+    TCDef = models.ForeignKey(TCDef, on_delete=models.DO_NOTHING, related_name='TCDef1')
     def __str__(self):
         return self.TCName.TCName
 
@@ -94,12 +110,20 @@ class MCDef(models.Model):
     def __str__(self):
         return self.MCDef
 
+class MCSection(models.Model):
+    Section = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    Date = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        return self.Section
+
 class MCRemark(models.Model):
     Date = models.DateTimeField(default=timezone.now)
-    MCName = models.ForeignKey(MC, on_delete=models.CASCADE, related_name='MCName1')
+    MCName = models.ForeignKey(MC, on_delete=models.DO_NOTHING, related_name='MCName1')
     POHDate = models.DateField(null=True, blank=True)
-    MCDefArea = models.ForeignKey(MCArea, on_delete=models.CASCADE, related_name='MCArea1')
-    MCDef = models.ForeignKey(MCDef, on_delete=models.CASCADE, related_name='MCDef1')
+    Section = models.ForeignKey(MCSection, on_delete=models.DO_NOTHING, related_name='MCSection1',default="1")
+    MCDefArea = models.ForeignKey(MCArea, on_delete=models.DO_NOTHING, related_name='MCArea1')
+    MCDef = models.ForeignKey(MCDef, on_delete=models.DO_NOTHING, related_name='MCDef1')
     def __str__(self):
         return self.MCName.MCName
 

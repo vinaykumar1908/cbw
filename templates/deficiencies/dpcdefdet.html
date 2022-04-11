@@ -41,6 +41,13 @@
             });
         });
     </script>
+    <input type="text" id="Section" name="Section" style="background-color: white; color:black" placeholder="Section"
+        aria-label="Section" />
+    <script>
+        $("#Section").autocomplete({
+            source: '{%url 'secAutocomplete'%}'
+                            });
+    </script>
     <input type="submit" value="save" style="background-color: lightcoral; color:black" />
 </form>
     </div>
@@ -77,6 +84,7 @@
                     
                     <th>Part</th>
                     <th>Deficiency</th>
+                    <th>Section</th>
                 </tr>
             </thead>
     
@@ -88,6 +96,7 @@
                     <td class='text-primary'>{{obj.DPCName}}</td>
                     <td class='text-primary'>{{obj.DPCDefArea}}</td>
                     <td class='text-primary'>{{obj.DPCDef}}</td>
+                    <td class='text-primary'>{{obj.Section}}</td>
                 </tr>
                 {%endfor%}
             </tbody>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DPC, TC,MC, DPCArea, DPCDef, DPCRemark,TCArea, TCDef, TCRemark, MCArea, MCDef, MCRemark
+from .models import DPC, TC,MC, DPCArea, DPCDef, DPCRemark,TCArea, TCDef, TCRemark, MCArea, MCDef, MCRemark, DPCSection,TCSection,MCSection
 # Register your models here.
 
 admin.site.register(DPC)
@@ -14,3 +14,6 @@ admin.site.register(TCRemark)
 admin.site.register(MCArea)
 admin.site.register(MCDef)
 admin.site.register(MCRemark)
+admin.site.register(DPCSection)
+admin.site.register(TCSection)
+admin.site.register(MCSection)

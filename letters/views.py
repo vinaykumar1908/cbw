@@ -111,7 +111,7 @@ def LetterPrintPdf(request):
                 for s in w:
                     a.append(str(s.DPCName))
                 newline = '\n'
-                listq.append({q:(f'DPC part {q} has {w.count()} cases in cars{newline}{newline.join(a)}')})
+                listq.append({q:(f'DPC part {q} has {w.count()} case/s in car/s{newline}{newline.join(a)}.')})
             if TCArea.objects.all().filter(TCCArea=x).first():
                 e = TCArea.objects.all().get(TCCArea=x)
                 r = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=e.id).filter(POHDate__lt=request.POST.get('datepicker4'), POHDate__gt=request.POST.get('datepicker3'))
@@ -119,7 +119,7 @@ def LetterPrintPdf(request):
                 for s in r:
                     a.append(str(s.TCName))
                 newline = '\n'
-                listq.append({q:(f'TC part {e} has {r.count()} cases in cars{newline}{newline.join(a)}')})
+                listq.append({q:(f'TC part {e} has {r.count()} case/s in car/s{newline}{newline.join(a)}.')})
             if MCArea.objects.all().filter(MCArea=x).first():
                 t = MCArea.objects.all().filter(MCArea=x).first()
                 y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=t.id).filter(POHDate__lt=request.POST.get('datepicker4'), POHDate__gt=request.POST.get('datepicker3'))
@@ -127,7 +127,7 @@ def LetterPrintPdf(request):
                 for s in y:
                     a.append(str(s.MCName))
                 newline = '\n'
-                listq.append({q:(f'DPC part {q} has {w.count()} cases in cars{newline}{newline.join(a)}')})
+                listq.append({t:(f'MC part {t} has {y.count()} case/s in car/s{newline}{newline.join(a)}.')})
         print(listq)
         f = request.POST.get('datepicker3')
         g = request.POST.get('datepicker4')

@@ -1,0 +1,137 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - Show Deficiencies Report List
+{%endblock title%}
+
+
+{%block content%}
+
+<h1>Show Deficiencies Report</h1>
+<style>
+  .ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="center">
+  <form method="POST" action="">
+    {% csrf_token %}
+    <h3 style="color:black; font-family:sans-serif; font-style:italic"> Search Control</h3>
+    <div class="center4 ">
+    <h5>Search for a 'Specified Period' by using the autofill to fetch the 'Part' and/or 'Deficiency' and/or 'Section' from the database</h5>
+    <input type="text" id="search" name="Part" style="background-color: white; color:black" placeholder="Part"
+      aria-label="Part" />
+    <script>
+      $("#Part").autocomplete({
+        source: '{%url 'MCpartAutocomplete'%}'
+                                      });
+    </script>
+    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="From Date" aria-label="From Date"
+      id="datepicker">
+  
+    <script>
+      $(function () {
+        $("#datepicker").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="To Date" aria-label="To Date"
+      id="datepicker1">
+    
+    <script>
+      $(function () {
+        $("#datepicker1").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+    <input type="text" id="search2" name="Section" style="background-color: white; color:black" placeholder="Section"
+      aria-label="Section" />
+    <script>
+      $("#Section").autocomplete({
+        source: '{%url 'TCsecAutocomplete'%}'
+                                          });
+    </script>
+    <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+  </form>
+  </div>
+
+
+<script>
+  $(function () {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+      _create: function () {
+        this._super();
+        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+      },
+      _renderMenu: function (ul, items) {
+        var that = this,
+          currentCategory = "";
+        $.each(items, function (index, item) {
+          var li;
+          if (item.category != currentCategory) {
+            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            currentCategory = item.category;
+          }
+          li = that._renderItemData(ul, item);
+          if (item.category) {
+            li.attr("aria-label", item.category + " : " + item.label);
+          }
+        });
+      }
+    });
+
+    $("#search").catcomplete({
+      delay: 0,
+      source: '{%url 'DTMpartAutocomplete'%}',
+    });
+  });
+</script>
+
+<script>
+  $(function () {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+      _create: function () {
+        this._super();
+        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+      },
+      _renderMenu: function (ul, items) {
+        var that = this,
+          currentCategory = "";
+        $.each(items, function (index, item) {
+          var li;
+          if (item.category != currentCategory) {
+            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            currentCategory = item.category;
+          }
+          li = that._renderItemData(ul, item);
+          if (item.category) {
+            li.attr("aria-label", item.category + " : " + item.label);
+          }
+        });
+      }
+    });
+
+    $("#search2").catcomplete({
+      delay: 0,
+      source: '{%url 'DTMsectionAutocomplete'%}',
+    });
+  });
+</script>
+
+</div>
+
+<div class="center table-wrapper-scroll-y my-custom-scrollbar">
+
+</div>
+
+    {%endblock content%} {% block afterbody %} 
+    
+
+    {% endblock afterbody %}

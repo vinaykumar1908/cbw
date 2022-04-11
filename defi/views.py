@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
-from .models import DPC, TC, MC, DPCArea, DPCDef, DPCRemark, TCArea, TCDef, TCRemark, MCArea, MCDef, MCRemark
+from .models import DPC, TC, MC, DPCArea, DPCDef, DPCRemark, TCArea, TCDef, TCRemark, MCArea, MCDef, MCRemark, DPCSection, TCSection, MCSection
 from django.contrib import messages
 from django.http import JsonResponse
 # Create your views here.
@@ -250,12 +250,14 @@ def addDPCRemark(request, Serial):
         a = request.POST.get('datepicker')
         r = DPCArea.objects.filter(DPCArea=request.POST.get('Part')).first()
         t = DPCDef.objects.filter(DPCDef=request.POST.get('Def')).first()
+        y = DPCSection.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = DPCRemark(DPCName=q, DPCDefArea=r, DPCDef=t, POHDate=a)
+            newDef = DPCRemark(DPCName=q, DPCDefArea=r, DPCDef=t, POHDate=a, Section=y)
             newDef.save()
             print(newDef)
             print(newDef.DPCName)
             print(newDef.DPCDefArea)
+            print(newDef.DPCDef)
             print(newDef.DPCDef)
             message = messages.success(request, "DPC Deficiency Record  Added: {} --> {} --> {}".format(newDef.DPCName, newDef.DPCDefArea, newDef.DPCDef))
         else:
@@ -340,8 +342,9 @@ def addTCRemark(request, Serial):
         q = TC.objects.filter(id=Serial).first()
         r = TCArea.objects.filter(TCCArea=request.POST.get('Part')).first()
         t = TCDef.objects.filter(TCDef=request.POST.get('Def')).first()
+        y = TCSection.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = TCRemark(TCName=q, TCDefArea=r, TCDef=t, POHDate=request.POST.get('datepicker'))
+            newDef = TCRemark(TCName=q, TCDefArea=r, TCDef=t, POHDate=request.POST.get('datepicker'), Section=y)
             newDef.save()
             print(newDef)
             print(newDef.TCName)
@@ -431,8 +434,9 @@ def addMCRemark(request, Serial):
         q = MC.objects.filter(id=Serial).first()
         r = MCArea.objects.filter(MCArea=request.POST.get('Part')).first()
         t = MCDef.objects.filter(MCDef=request.POST.get('Def')).first()
+        y = MCSection.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=request.POST.get('datepicker'))
+            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=request.POST.get('datepicker'), Section=y)
             newDef.save()
             print(newDef)
             print(newDef.MCName)
@@ -514,7 +518,33 @@ def defAutocomplete(request):
 
             return render(request, 'deficiencies/dpcdefdet.html')
 
+@login_required
+def SecAutocomplete(request):
+    if request.is_ajax():
+        print("request.GET")
+        print(request.GET)
+        if 'term' in request.GET:
+            #print(term)
+            qs = DPCSection.objects.all()
+            print("qs")
+            print(qs)
+            itemTerm = request.GET.get('term')
+            print("itemTerm")
+            print(itemTerm)
+            res = qs.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            print("res")
+            print(res)
+            Item = list()
+            for product in res:
+                place_json = {}
+                place_json = product.Section
+                Item.append(place_json)
+                print("*------JsonResponse Start-----*")
+                print(Item)
+                print("*------JsonResponse End-----*")
+            return JsonResponse(Item, safe=False)
 
+            return render(request, 'deficiencies/dpcdefdet.html')
 
 
 @login_required
@@ -565,6 +595,34 @@ def TCdefAutocomplete(request):
             for product in res:
                 place_json = {}
                 place_json = product.TCDef
+                Item.append(place_json)
+                print("*------JsonResponse Start-----*")
+                print(Item)
+                print("*------JsonResponse End-----*")
+            return JsonResponse(Item, safe=False)
+
+            return render(request, 'deficiencies/tcdefdet.html')
+
+@login_required
+def TCSecAutocomplete(request):
+    if request.is_ajax():
+        print("request.GET")
+        print(request.GET)
+        if 'term' in request.GET:
+            #print(term)
+            qs = TCSection.objects.all()
+            print("qs")
+            print(qs)
+            itemTerm = request.GET.get('term')
+            print("itemTerm")
+            print(itemTerm)
+            res = qs.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            print("res")
+            print(res)
+            Item = list()
+            for product in res:
+                place_json = {}
+                place_json = product.Section
                 Item.append(place_json)
                 print("*------JsonResponse Start-----*")
                 print(Item)
@@ -629,3 +687,128 @@ def MCdefAutocomplete(request):
             return JsonResponse(Item, safe=False)
 
             return render(request, 'deficiencies/mcdefdet.html')
+
+@login_required
+def MCSecAutocomplete(request):
+    if request.is_ajax():
+        print("request.GET")
+        print(request.GET)
+        if 'term' in request.GET:
+            #print(term)
+            qs = MCSection.objects.all()
+            print("qs")
+            print(qs)
+            itemTerm = request.GET.get('term')
+            print("itemTerm")
+            print(itemTerm)
+            res = qs.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            print("res")
+            print(res)
+            Item = list()
+            for product in res:
+                place_json = {}
+                place_json = product.Section
+                Item.append(place_json)
+                print("*------JsonResponse Start-----*")
+                print(Item)
+                print("*------JsonResponse End-----*")
+            return JsonResponse(Item, safe=False)
+
+            return render(request, 'deficiencies/mcdefdet.html')
+
+
+@login_required
+def DefiListHome2(request):
+    dpc = DPC.objects.all().order_by('-Date')
+    tc = TC.objects.all().order_by('-Date')
+    mc = MC.objects.all().order_by('-Date')
+        
+        
+    context = {
+            'dpc': dpc,
+            'tc' : tc,
+            'mc' : mc,
+    }
+    print('successful')
+    return render(request, 'deficiencies/deflisthome.html', context)
+
+
+@login_required
+def DTMpartAutocomplete(request):
+    if request.is_ajax():
+        print("request.GET")
+        print(request.GET)
+        if 'term' in request.GET:
+            #print(term)
+            qs = DPCArea.objects.all()
+            qs2 = TCArea.objects.all()
+            qs3 = MCArea.objects.all()
+            itemTerm = request.GET.get('term')
+            list2 = {"label":[], "category":[]}
+            list3 = {"label":[], "category":[]}
+            list4 = list()
+            res = qs.filter(DPCArea__icontains=itemTerm)
+            print(res)
+            if res:
+                for q in res:
+                    list1 = {"label":[], "category":'DPC'}
+                    list1["label"].append(f'DPC-{q.DPCArea}')
+                    list4.append(list1)
+            res2 = qs2.filter(TCCArea__icontains=itemTerm)
+            if res2:
+                for q in res2:
+                    list2 = {"label":[], "category":'TC'}
+                    list2["label"].append(f'TC-{q.TCCArea}')
+                    list4.append(list2)
+            res3 = qs3.filter(MCArea__icontains=itemTerm)
+            if res3:
+                for q in res3:
+                    list3 = {"label":[], "category":'MC'}
+                    list3["label"].append(f'MC-{q.MCArea}')
+                    list4.append(list3)
+            print("list4")
+            print(list4)
+            return JsonResponse(list4, safe=False)
+
+            return render(request, 'deficiencies/dpclisthome.html')
+
+
+@login_required
+def DTMsectionAutocomplete(request):
+    if request.is_ajax():
+        print("request.GET")
+        print(request.GET)
+        if 'term' in request.GET:
+            #print(term)
+            qs = DPCSection.objects.all()
+            qs2 = TCSection.objects.all()
+            qs3 = MCSection.objects.all()
+            itemTerm = request.GET.get('term')
+            list2 = {"label":[], "category":[]}
+            list3 = {"label":[], "category":[]}
+            list4 = list()
+            res = qs.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            print(res)
+            if res:
+                for q in res:
+                    list1 = {"label":[], "category":'DPC'}
+                    list1["label"].append(f'DPC-{q.Section}')
+                    list4.append(list1)
+            res2 = qs2.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            if res2:
+                for q in res2:
+                    list2 = {"label":[], "category":'TC'}
+                    list2["label"].append(f'TC-{q.Section}')
+                    list4.append(list2)
+            res3 = qs3.filter(Section__icontains=itemTerm).exclude(Section="Default")
+            if res3:
+                for q in res3:
+                    list3 = {"label":[], "category":'MC'}
+                    list3["label"].append(f'MC-{q.Section}')
+                    list4.append(list3)
+            print("list4")
+            print(list4)
+            return JsonResponse(list4, safe=False)
+
+            return render(request, 'deficiencies/dpclisthome.html')
+
