@@ -79,7 +79,7 @@ Copy To:<br>
             <th>S.No </th>
             <th>Car Number </th>
             <th>Deficiency Details</th>
-
+            
         </tr>
     
         {%for t in data%}
@@ -89,7 +89,7 @@ Copy To:<br>
             {%for x, y in t.items%}
             <td style="text-align:center">{{x}}</td>
             {%for r in y%}
-            <td style="text-align:center">{{r}}</td>
+            <td style="text-align:center">{{forloop.counter}}. {{r}}</td>
             {%endfor%}
             
             
@@ -124,8 +124,8 @@ Copy To:<br>
         <tr class='center4'>
             <td style="text-align:center">{{forloop.counter}}</td>
             {%for x, y in t.items%}
-            <td style="text-align:center">{{x}}</td>
-            <td style="text-align:center">{{y}}</td>
+            <td style="text-align:center">{{forloop.counter}}. {{x}}</td>
+            <td style="text-align:center">{{forloop.counter}}. {{y}}</td>
             {%endfor%}
         </tr>
         {%endfor%}
