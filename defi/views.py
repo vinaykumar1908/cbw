@@ -770,7 +770,7 @@ def DTMpartAutocomplete(request):
             print(list4)
             return JsonResponse(list4, safe=False)
 
-            return render(request, 'deficiencies/dpclisthome.html')
+            return render(request, 'deficiencies/deflisthome.html')
 
 
 @login_required
@@ -810,5 +810,215 @@ def DTMsectionAutocomplete(request):
             print(list4)
             return JsonResponse(list4, safe=False)
 
-            return render(request, 'deficiencies/dpclisthome.html')
+            return render(request, 'deficiencies/deflisthome.html')
 
+
+@login_required
+def DTMsearch(request):
+    list1 = []
+    list2 = []
+    if request.POST:
+        if request.POST.get('datepicker') and request.POST.get('datepicker1'):
+            if request.POST.get('Part') and not request.POST.get('Section'):
+                q = request.POST.get('Part')
+                if q.startswith("DPC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = DPCArea.objects.all().filter(DPCArea__icontains=r[0])
+                    w = DPCRemark.objects.all().filter(DPCDefArea=t[0].id)
+                    for x in w:
+                        list1.append(x)
+                    message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
+                elif q.startswith("TC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = TCArea.objects.all().filter(TCCArea__icontains=r[0])
+                    w = TCRemark.objects.all().filter(TCDefArea=t[0].id)
+                    for x in w:
+                        list1.append(x)
+                        print(list1)
+                    message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
+                elif q.startswith("MC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = MCArea.objects.all().filter(MCArea__icontains=r[0])
+                    w = MCRemark.objects.all().filter(MCDefArea=t[0].id)
+                    for x in w:
+                        list1.append(x)
+                    message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
+                else:
+                    message = messages.warning(request, "Not a valid search")
+            elif request.POST.get('Section') and not request.POST.get('Part'):
+                q = request.POST.get('Section')
+                if q.startswith("DPC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
+                    w = DPCRemark.objects.all().filter(Section=t[0].id)
+                    for x in w:
+                        list2.append(x)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
+                elif q.startswith("TC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = TCSection.objects.all().filter(Section__icontains=r[0])
+                    w = TCRemark.objects.all().filter(Section=t[0].id)
+                    for x in w:
+                        list2.append(x)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
+                elif q.startswith("MC-"):
+                    r = q.split("-")
+                    r.pop(0)
+                    t = MCSection.objects.all().filter(Section__icontains=r[0])
+                    w = MCRemark.objects.all().filter(Section=t[0].id)
+                    for x in w:
+                        list2.append(x)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
+                else:
+                    message = messages.warning(request, "Not a valid search")
+            elif request.POST.get('Section') and request.POST.get('Part'):
+                q = request.POST.get('Section')
+                d = request.POST.get('Part')
+                if q.startswith("DPC-") and d.startswith("DPC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    w = DPCRemark.objects.all().filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("TC-") and d.startswith("TC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = TCSection.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    w = TCRemark.objects.all().filter(Section=t[0].id)
+                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("MC-") and d.startswith("MC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = MCSection.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    w = MCRemark.objects.all().filter(Section=t[0].id)
+                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("DPC-") and d.startswith("TC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    w = DPCRemark.objects.all().filter(Section=t[0].id)
+                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("TC-") and d.startswith("MC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = TCSection.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    w = TCRemark.objects.all().filter(Section=t[0].id)
+                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("MC-") and d.startswith("DPC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = MCSection.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    w = MCRemark.objects.all().filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("DPC-") and d.startswith("MC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    w = DPCRemark.objects.all().filter(Section=t[0].id)
+                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("TC-") and d.startswith("DPC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = TCSection.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    w = TCRemark.objects.all().filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                elif q.startswith("MC-") and d.startswith("TC-"):
+                    r = q.split("-")
+                    u = d.split("-")
+                    r.pop(0)
+                    u.pop(0)
+                    t = MCSection.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    w = MCRemark.objects.all().filter(Section=t[0].id)
+                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    for x in w:
+                        list2.append(x)
+                    for xm in y:
+                        list1.append(xm)
+                    message = messages.success(request, f"Search for {request.POST.get('Section')} & {request.POST.get('Part')} complete.")
+                else:
+                    message = messages.warning(request, "Not a valid search")
+            else:
+                message = messages.warning(request, "Please select a part and/or section")
+        else:
+            message = messages.warning(request, "Please Enter Dates")
+
+    print("*******************")
+    print(list1)
+    print(list2)
+    context = {
+        'part': list1,
+        'section': list2,
+        }
+
+
+    return render(request, 'deficiencies/deflisthome.html', context)

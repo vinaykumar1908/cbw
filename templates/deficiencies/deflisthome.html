@@ -19,7 +19,7 @@ CBW - Show Deficiencies Report List
 </style>
 
 <div class="center">
-  <form method="POST" action="">
+  <form method="POST" action="{%url 'DTMsearch'%} ">
     {% csrf_token %}
     <h3 style="color:black; font-family:sans-serif; font-style:italic"> Search Control</h3>
     <div class="center4 ">
@@ -128,7 +128,116 @@ CBW - Show Deficiencies Report List
 </div>
 
 <div class="center table-wrapper-scroll-y my-custom-scrollbar">
+  {%if part %}
+  <div class="center">
+    <h3 class="center4">Part</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Deficiency Reported On</th>
+      <th>Car Name</th>
 
+      <th>Part</th>
+      <th>Deficiency</th>
+      <th>Section</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    {%for obj in part %}
+    {%if obj.DPCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.DPCName}}</td>
+      <td class='text-primary'>{{obj.DPCDefArea}}</td>
+      <td class='text-primary'>{{obj.DPCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%if obj.TCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.TCName}}</td>
+      <td class='text-primary'>{{obj.TCDefArea}}</td>
+      <td class='text-primary'>{{obj.TCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%if obj.MCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.MCName}}</td>
+      <td class='text-primary'>{{obj.MCDefArea}}</td>
+      <td class='text-primary'>{{obj.MCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%endfor%}
+    
+  </tbody>
+
+</table>
+</div>
+{%endif%}
+{%if section%}
+<div class="center">
+<h3 class="center4">Section</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Deficiency Reported On</th>
+        <th>Car Name</th>
+  
+        <th>Part</th>
+        <th>Deficiency</th>
+        <th>Section</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      {%for obj in section %}
+      {%if obj.DPCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.DPCName}}</td>
+        <td class='text-primary'>{{obj.DPCDefArea}}</td>
+        <td class='text-primary'>{{obj.DPCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%if obj.TCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.TCName}}</td>
+        <td class='text-primary'>{{obj.TCDefArea}}</td>
+        <td class='text-primary'>{{obj.TCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%if obj.MCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.MCName}}</td>
+        <td class='text-primary'>{{obj.MCDefArea}}</td>
+        <td class='text-primary'>{{obj.MCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%endfor%}
+    </tbody>
+  
+  </table>
+</div>
+{%endif%}
 </div>
 
     {%endblock content%} {% block afterbody %} 

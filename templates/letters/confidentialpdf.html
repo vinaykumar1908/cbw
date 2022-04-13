@@ -2,8 +2,6 @@
 
 {% block head %}
 <style>
-
-
     @page {
         size: a4 portrait;
         @frame header_frame {           /* Static Frame */
@@ -21,12 +19,9 @@
     table { -pdf-keep-with-next: true; }
     p { margin: 0; -pdf-keep-with-next: true; }
     p.separator { -pdf-keep-with-next: false; font-size: 6pt; }
-
 </style>
 {# Include FontAwesome; required for icon display #}
     
-
-
  {% endblock head %}
 {%block title%}
 Charbagh Locomotive Workshop : Letter Generation System
@@ -131,13 +126,8 @@ Copy To:<br>
             {%for x, y in t.items%}
             <td style="text-align:center">{{x}}</td>
             <td style="text-align:center">{{y}}</td>
-
-
             {%endfor%}
-
         </tr>
-
-
         {%endfor%}
 
 
