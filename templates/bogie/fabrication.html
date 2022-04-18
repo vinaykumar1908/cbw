@@ -1,0 +1,77 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - Fabrication Shop
+{%endblock title%}
+
+
+{%block content%}
+
+<h1>Fabrication Shop Daily Output</h1>
+
+<div class="center" >
+    <div class="col center2" style="background: #9baaae;">
+        <form method="POST" action="{%url 'addFabBogie'%}">
+            {% csrf_token %}
+            <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Entry</h3>
+            <h5>Use the Autofill to fetch the Bogie Type from the database</h5>
+            <input type="text" id="Bogie" name="Bogie" style="background-color: white; color:black" placeholder="Bogie Type"
+                aria-label="Bogie Type" />
+            <script>
+                $("#Bogie").autocomplete({
+                    source: '{%url 'BogieAutocomplete'%}',
+                    
+                });
+            </script>
+            <input type="text" id="Quantity" name="Quantity" style="background-color: white; color:black" placeholder="Quantity"
+                aria-label="Quantity" />
+    
+            <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date"
+                aria-label="Date" id="datepicker">
+            
+            <script>
+                $(function () {
+                    $("#datepicker").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
+            <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+        </form>
+    </div>
+
+    <div class="col center2" style="background: #6aae66;">
+    <div style="flex-grow: 8; background-color:rgb(90, 158, 226);">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>Bogie Type</th>
+                    <th>Quantity</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {%for obj in object %}
+                <tr class='danger'>
+                    <td class='text-primary'>{{forloop.counter}}</td>
+                    <td class='text-primary'>{{obj.RepDate}}</td>
+                    <td class='text-primary'>{{obj.BogieType}}</td>
+                    <td class='text-primary'>{{obj.Quantity}}</td>
+                    <td class='text-primary'>{{obj.author}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+    
+        </table>
+    </div>
+    
+    </div>
+</div>
+
+{%endblock content%} {% block afterbody %}
+
+{% endblock afterbody %}

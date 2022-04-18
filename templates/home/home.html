@@ -78,6 +78,19 @@ Home
     </div>
 </div>
 
+<div class="container-fluid row center">
+    <h3>Current Pool</h3>
+    {%for x in object%}
+    <div class="col center4" style="background:rgba(111, 200, 69, 0.612)">
+        <h4>{{x.BogieType}}</h4>
+        <br>
+        <h3>{{x.Quantity}}</h3>
+        <br>
+        <h6>updated on {{x.Date}}</h6>
+    </div>
+    {%endfor%}
+</div>
+
 
 
                 {%endblock content%}

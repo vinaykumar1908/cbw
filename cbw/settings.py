@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'defi.apps.DefiConfig',
     'letters.apps.LettersConfig',
     'defi2.apps.Defi2Config',
+    'bogie.apps.BogieConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,168 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - Bogie Receive / Dispatch
+{%endblock title%}
+
+
+{%block content%}
+
+<h1>Bogie Receive / Dispatch</h1>
+
+<div class="row center">
+    <h3>Current Pool</h3>
+{%for x in object%}
+<div class="col center4" style="background:rgba(111, 200, 69, 0.612)">
+    <h4>{{x.BogieType}}</h4>
+    <br>
+    <h3>{{x.Quantity}}</h3>
+    <br>
+    <h6>updated on {{x.Date}}</h6>
+</div>
+{%endfor%}
+</div>
+<div class="row center2">
+<div class="col center2">
+<h4>Receipt</h4>
+<div class="col center2">
+    <form method="POST" action="{%url 'receiptBogie'%} ">
+        {% csrf_token %}
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> </h3>
+            
+            <input type="text" id="Bogie" name="Bogie" style="background-color: white; color:black" placeholder="Bogie Type"
+                aria-label="Bogie Type" />
+            <script>
+                $("#Bogie").autocomplete({
+                    source: '{%url 'BogieAutocomplete'%}'
+                                          });
+            </script>
+            <input type="text" id="Source" name="Source" style="background-color: white; color:black" placeholder="Source"
+                aria-label="Source" />
+            <script>
+                $("#Source").autocomplete({
+                    source: '{%url 'SourceAutocomplete'%}'
+                                                      });
+            </script>
+            <input type="number" id="Quantity" name="Quantity" style="background-color: white; color:black" placeholder="Quantity"
+                aria-label="Quantity" />
+            <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date"
+                aria-label="Date" id="datepicker">
+    
+            <script>
+                $(function () {
+                    $("#datepicker").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
+            
+            <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+    </form>
+</div>
+<div class="col table-wrapper-scroll-y my-custom-scrollbar2 center2">
+    <div style="flex-grow: 8; background-color:rgb(90, 158, 226);">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>Bogie Type</th>
+                    <th>Quantity</th>
+                    <th>Source</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {%for obj in object1 %}
+                <tr class='danger'>
+                    <td class='text-primary'>{{forloop.counter}}</td>
+                    <td class='text-primary'>{{obj.RecDate}}</td>
+                    <td class='text-primary'>{{obj.BogieType}}</td>
+                    <td class='text-primary'>{{obj.Quantity}}</td>
+                    <td class='text-primary'>{{obj.PlaceName}}</td>
+                    <td class='text-primary'>{{obj.author}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+    
+        </table>
+    </div>
+</div>
+</div>
+<div class="col center2">
+<h4>Dispatch</h4>
+<div class="col center2">
+    <form method="POST" action="{%url 'dispatchBogie'%} ">
+        {% csrf_token %}
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> </h3>
+            
+            <input type="text" id="Bogie2" name="Bogie2" style="background-color: white; color:black" placeholder="Bogie Type"
+                aria-label="Bogie Type" />
+            <script>
+                $("#Bogie2").autocomplete({
+                    source: '{%url 'BogieAutocomplete'%}'
+                                          });
+            </script>
+            <input type="text" id="Source2" name="Source2" style="background-color: white; color:black" placeholder="Source"
+                aria-label="Source" />
+            <script>
+                $("#Source2").autocomplete({
+                    source: '{%url 'SourceAutocomplete'%}'
+                                                                  });
+            </script>
+            <input type="number" id="Quantity" name="Quantity" style="background-color: white; color:black" placeholder="Quantity"
+                aria-label="Quantity" />
+            <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="Date"
+                aria-label="Date" id="datepicker1">
+    
+            <script>
+                $(function () {
+                    $("#datepicker1").datepicker({
+                        dateFormat: "yy-mm-dd"
+                    });
+                });
+            </script>
+            
+            <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+    </form>
+</div>
+<div class="col table-wrapper-scroll-y my-custom-scrollbar2 center2">
+
+    <div style="flex-grow: 8; background-color:rgb(90, 158, 226);">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>Bogie Type</th>
+                    <th>Quantity</th>
+                    <th>Destination</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {%for obj in object2 %}
+                <tr class='danger'>
+                    <td class='text-primary'>{{forloop.counter}}</td>
+                    <td class='text-primary'>{{obj.DispDate}}</td>
+                    <td class='text-primary'>{{obj.BogieType}}</td>
+                    <td class='text-primary'>{{obj.Quantity}}</td>
+                    <td class='text-primary'>{{obj.PlaceName}}</td>
+                    <td class='text-primary'>{{obj.author}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+    
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+
+{%endblock content%} {% block afterbody %}
+
+{% endblock afterbody %}
