@@ -1,0 +1,206 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - IC0 Deficiencies Report List
+{%endblock title%}
+
+
+{%block content%}
+
+<h1>Add IC0 Deficiencies Report</h1>
+
+<div class="center">
+<div class="row" >
+  <div class="col">
+    <h1>DPC</h1>
+<div class="center2">
+
+<form method="POST" action="{%url 'addDPC0'%}">
+  {% csrf_token %}
+  <h3>Enter DPC Number</h3>
+  <h3>DPC-xxxxx</h3>
+  <div class="center">
+  <input type="text" ,class="form-control form-group " , id="DPCNum" name="DPCNum"
+    style="background-color: white; color:black" placeholder="Enter DPC Number" aria-label="Enter DPC Number">
+    
+    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
+      id="datepicker1">
+    
+    <script>
+      $(function () {
+        $("#datepicker1").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+
+    </div>
+    <br>
+    <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+    <br>
+    <br>
+</form>
+
+
+</div>
+<div class="center2 table-wrapper-scroll-y my-custom-scrollbar">
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>POH Date</th>
+        <th>DPC Number</th>
+        </tr>
+        </thead>
+{%for object in dpc%}
+<tbody>
+  <tr class='danger'>
+    <td class='text-primary'>{{forloop.counter}}</td>
+    <td class='text-primary'>{{object.POHDate}}</td>
+    <td class='text-primary'><a href="{%url 'showDPCdet0' object.pk %}" >{{object.DPCName}}</a></td> 
+    </tr>
+    </tbody>
+{%endfor%}
+</table>
+
+
+
+</div>
+
+  </div>
+  <div class="col">
+    <h1>TC</h1>
+    <div class="center2">
+  
+    <form method="POST" action="{%url 'addTC0'%}">
+      {% csrf_token %}
+      <h3>Enter TC Number</h3>
+      <h3>TC-xxxxx</h3>
+      <div class="center">
+      <input type="text" ,class="form-control form-group " , id="TCNum" name="TCNum"
+        style="background-color: white; color:black" placeholder="Enter TC Number" aria-label="Enter TC Number">
+      
+        <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
+        id="datepicker">
+      
+      <script>
+        $(function () {
+          $("#datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+          });
+        });
+      </script>
+     <br>
+      <label><input type=checkbox  name="Memu" id="Memu" > MEMU TC?</label>
+      
+      </div>
+      <br>
+        <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+    </form>
+  
+  
+  
+  </div>
+<div class="center2 table-wrapper-scroll-y my-custom-scrollbar">
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>POH Date</th>
+        <th>MEMU or DEMU</th>
+        <th>TC Number</th>
+      </tr>
+    </thead>
+    {%for object in tc%}
+    <tbody>
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{object.POHDate}}</td>
+        {%if object.Memu == False%}
+        <td class='text-primary'>DEMU</td>
+        {%else%}
+        <td class='text-primary'>MEMU</td>
+        {%endif%}
+        <td class='text-primary'><a href="{%url 'showTCdet0' object.pk %}">{{object.TCName}}</a></td>
+      </tr>
+    </tbody>
+    {%endfor%}
+  </table>
+
+
+
+</div></div>
+  <div class="col">
+    <h1>MC</h1>
+    <div class="center2">
+    
+      <form method="POST" action="{%url 'addMC0'%}">
+        {% csrf_token %}
+        <h3>Enter MC Number</h3>
+        <h3>MC-xxxxx</h3>
+        <div class="center">
+        <input type="text" ,class="form-control form-group " , id="MCNum" name="MCNum"
+          style="background-color: white; color:black" placeholder="Enter MC Number" aria-label="Enter MC Number">
+        <input type="text" name="datepicker2" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
+          id="datepicker2">
+        
+        <script>
+          $(function () {
+            $("#datepicker2").datepicker({
+              dateFormat: "yy-mm-dd"
+            });
+          });
+        </script>
+        </div>
+        <br>
+          <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+
+          <br>
+          <br>
+          
+      </form>
+    
+    
+    
+    </div>
+    <div class="center2 table-wrapper-scroll-y my-custom-scrollbar">
+    
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>POH Date</th>
+            <th>MC Number</th>
+          </tr>
+        </thead>
+        {%for object in mc%}
+        <tbody>
+          <tr class='danger'>
+            <td class='text-primary'>{{forloop.counter}}</td>
+            <td class='text-primary'>{{object.POHDate}}</td>
+            <td class='text-primary'><a href="{%url 'showMCdet0' object.pk %}">{{object.MCName}}</a></td>
+          </tr>
+        </tbody>
+        {%endfor%}
+      </table>
+
+    
+    
+    
+    </div>
+  </div>
+  
+</div>
+</div>
+
+    {%endblock content%} {% block afterbody %} 
+    <script>
+      $("#moduleName").autocomplete({
+        source: ''
+    });
+    </script>
+
+    {% endblock afterbody %}

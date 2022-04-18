@@ -1,0 +1,142 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+Home
+
+{%endblock title%}
+
+
+{%block content%}
+<h4 style="font-family: serif; font-size: 32px;">IC0 Charts Home {{time}}</h4>
+
+<div class="overflow-auto w-100 h-10 center3" style="background-color:rgb(30, 144, 255);">
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'dpcchart0'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="From" aria-label="From" id="datepicker1">
+                    <script>
+                        $(function () {
+                            $("#datepicker1").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="To"
+                        aria-label="To" id="datepicker">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="DPC Failed Parts" style="background-color: lightcoral; color:black" />
+                </form>
+                    </th>
+                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'tcchart0'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker3" style="background-color: white; color:black" placeholder="From"
+                        aria-label="From" id="datepicker3">
+                    <script>
+                        $(function () {
+                            $("#datepicker3").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker4" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                        id="datepicker4">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker4").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="TC Failed Parts" style="background-color: lightcoral; color:black" />
+                </form></th>
+                <th><form
+                    style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
+                    method="POST" action="{%url 'mcchart20'%}">
+                    
+                    {% csrf_token %}
+                    <input type="text" name="datepicker5" style="background-color: white; color:black" placeholder="From"
+                        aria-label="From" id="datepicker5">
+                    <script>
+                        $(function () {
+                            $("#datepicker5").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="text" name="datepicker6" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                        id="datepicker6">
+                
+                    <script>
+                        $(function () {
+                            $("#datepicker6").datepicker({
+                                dateFormat: "yy-mm-dd"
+                            });
+                        });
+                    </script>
+                    <input type="submit" value="MC Failed Parts" style="background-color: lightcoral; color:black" />
+                </form></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class='center' style="background: rgb(246, 245, 245);">
+    {%if RolStock%}
+<h3>{{RolStock}}: Failure Cases Breakup from {{from}} to {{to}}</h3>
+{%endif%}
+<canvas  id="myChart" style="background: rgb(246, 245, 245);" width="40" height="16"></canvas>
+</div>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{%for x in data%} {%for key, value in x.items%} '{{key}}', {%endfor%} {%endfor%}],
+            datasets: [{
+                label: 'No of Cases',
+                data: [{%for x in data%} {%for key, value in x.items%} {{value}}, {%endfor%} {%endfor%}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{%endblock content%}
+{%block afterbody%}
+
+{%endblock afterbody%}

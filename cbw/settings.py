@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'defi.apps.DefiConfig',
     'letters.apps.LettersConfig',
+    'defi2.apps.Defi2Config',
 ]
 
 MIDDLEWARE = [

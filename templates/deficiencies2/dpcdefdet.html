@@ -9,26 +9,26 @@
 {%block content%}
 
 <div class="center">
-<h1>Deficiencies Report of {{ object.DPCName }}. POH Date {{ object.POHDate}}</h1>
+<h1>IC0 Deficiencies Report of {{ object.DPCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 
 <div class="row center">
     <div class="col center2">
-<form method="POST" action="{%url 'addDPCremark' object.pk %}">
+<form method="POST" action="{%url 'addDPCremark0' object.pk %}">
     {% csrf_token %}
     <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
     <h5>Use the Autofill to fetch the part and the deficiency from the database</h5>
     <input type="text" id="Part" name="Part" style="background-color: white; color:black" placeholder="Part" aria-label="Part"/>
     <script>
         $("#Part").autocomplete({
-            source: '{%url 'partAutocomplete'%}',
+            source: '{%url 'partAutocomplete0'%}',
             menudocking: { menucorner: "right top", inputcorner: "right bottom", collision: "none" },
                     });
     </script>
     <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency" aria-label="Deficiency"/>
     <script>
         $("#Def").autocomplete({
-            source: '{%url 'defAutocomplete'%}'
+            source: '{%url 'defAutocomplete0'%}'
                         });
     </script>
     
@@ -36,7 +36,7 @@
         aria-label="Section" />
     <script>
         $("#Section").autocomplete({
-            source: '{%url 'secAutocomplete'%}'
+            source: '{%url 'secAutocomplete0'%}'
                             });
     </script>
     <input type="submit" value="save" style="background-color: lightcoral; color:black" />
@@ -44,7 +44,7 @@
     </div>
     <div style="flex-grow: 0.1; background-color:MediumSeaGreen;">
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Part</h3>
-        <form method="POST" action="{%url 'addDPCpart' object.pk %}">
+        <form method="POST" action="{%url 'addDPCpart0' object.pk %}">
             {% csrf_token %}
             <h5>*Part(Add new part if not available in database)</h5>
             <input type="text" id="addDPCpart" name="addDPCpart" style="background-color: white; color:black" />
@@ -52,7 +52,7 @@
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
-        <form method="POST" action="{%url 'addDPCdef' object.pk %}">
+        <form method="POST" action="{%url 'addDPCdef0' object.pk %}">
             {% csrf_token %}
             <h5>*Deficiency(Enter new deficiency if not available in database)</h5>
             <input type="text" id="addDPCdef" name="addDPCdef" style="background-color: white; color:black" />

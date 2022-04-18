@@ -1,0 +1,93 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+Charts-CC Material Replacement Graph
+{%endblock title%}
+
+
+{%block content%}
+<div style='center2'>
+    <h4 style="font-family:'Apple Chancery'; font-size: 32px;">Time: {{time}} </h4> <a class="btn-lg danger"
+        href="{%url 'home'%}">View HomePage</a><br>
+    <div>
+        <canvas style='center' id="myChart" width="500" height="200"></canvas><br>
+        <h4 align='center'> </h4>
+    </div>
+
+
+</div>
+{%endblock content%}
+{%block afterbody%}
+<script>
+
+
+    const ctx = document.getElementById('myChart');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ RakeName| safe}},
+    datasets: [{
+        borderWidth: 1,
+        borderColor: ['red'],
+        label: 'E M Pad',
+        backgroundColor: ['red'],
+        data: {{ Empad| safe}},
+            
+           
+        }, {
+        label: 'Brake Block',
+        backgroundColor: ['blue'],
+        data: {{ BrakeBlock| safe}},
+        borderColor: ['blue'],
+        borderWidth: 1,
+            
+        }, {
+        backgroundColor: ['green'],
+        label: 'AdopterChanged',
+        data: {{ AdopterChanged| safe}},
+        borderColor: ['green'],
+        borderWidth: 1,
+            
+        }, {
+        backgroundColor: ['orange'],
+        label: 'AdopterCantt',
+        data: {{ AdopterCantt| safe}},
+        borderColor: ['orange'],
+        borderWidth: 1,
+            
+        }, {
+        backgroundColor: ['magenta'],
+        label: 'SideBearerSpring',
+        data: {{ SideBearerSpring| safe}},
+        borderColor: ['yellow'],
+        borderWidth: 1,
+            
+        }, {
+        backgroundColor: ['brown'],
+        label: 'ATLRepair',
+        data: {{ ATLRepair| safe}},
+        borderColor: ['brown'],
+        borderWidth: 1,
+            
+        }, {
+        backgroundColor: ['violet'],
+        label: 'JawLinerWeld',
+        data: {{ JawLinerWeld| safe}},
+        borderColor: ['violet'],
+        borderWidth: 1,
+           
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                    responsive: false
+            }
+        }
+    }
+});
+
+</script>
+{%endblock afterbody%}

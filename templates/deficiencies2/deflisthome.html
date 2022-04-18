@@ -1,0 +1,247 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - Show IC0 Deficiencies Report List
+{%endblock title%}
+
+
+{%block content%}
+
+<h1>Show IC0 Deficiencies Report</h1>
+<style>
+  .ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="center">
+  <form method="POST" action="{%url 'DTMsearch0'%} ">
+    {% csrf_token %}
+    <h3 style="color:black; font-family:sans-serif; font-style:italic"> Search Control</h3>
+    <div class="center4 ">
+    <h5>Search for a 'Specified Period' by using the autofill to fetch the 'Part' and/or 'Section' from the database</h5>
+    <input type="text" id="search" name="Part" style="background-color: white; color:black" placeholder="Part"
+      aria-label="Part" />
+    <script>
+      $("#Part").autocomplete({
+        source: '{%url 'MCpartAutocomplete0'%}'
+                                      });
+    </script>
+    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="From Date" aria-label="From Date"
+      id="datepicker">
+  
+    <script>
+      $(function () {
+        $("#datepicker").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="To Date" aria-label="To Date"
+      id="datepicker1">
+    
+    <script>
+      $(function () {
+        $("#datepicker1").datepicker({
+          dateFormat: "yy-mm-dd"
+        });
+      });
+    </script>
+    <input type="text" id="search2" name="Section" style="background-color: white; color:black" placeholder="Section"
+      aria-label="Section" />
+    <script>
+      $("#Section").autocomplete({
+        source: '{%url 'TCsecAutocomplete0'%}'
+                                          });
+    </script>
+    <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+  </form>
+  </div>
+
+
+<script>
+  $(function () {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+      _create: function () {
+        this._super();
+        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+      },
+      _renderMenu: function (ul, items) {
+        var that = this,
+          currentCategory = "";
+        $.each(items, function (index, item) {
+          var li;
+          if (item.category != currentCategory) {
+            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            currentCategory = item.category;
+          }
+          li = that._renderItemData(ul, item);
+          if (item.category) {
+            li.attr("aria-label", item.category + " : " + item.label);
+          }
+        });
+      }
+    });
+
+    $("#search").catcomplete({
+      delay: 0,
+      source: '{%url 'DTMpartAutocomplete0'%}',
+    });
+  });
+</script>
+
+<script>
+  $(function () {
+    $.widget("custom.catcomplete", $.ui.autocomplete, {
+      _create: function () {
+        this._super();
+        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+      },
+      _renderMenu: function (ul, items) {
+        var that = this,
+          currentCategory = "";
+        $.each(items, function (index, item) {
+          var li;
+          if (item.category != currentCategory) {
+            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+            currentCategory = item.category;
+          }
+          li = that._renderItemData(ul, item);
+          if (item.category) {
+            li.attr("aria-label", item.category + " : " + item.label);
+          }
+        });
+      }
+    });
+
+    $("#search2").catcomplete({
+      delay: 0,
+      source: '{%url 'DTMsectionAutocomplete0'%}',
+    });
+  });
+</script>
+
+</div>
+{%if part or section%}
+<div class="center ">
+  {%if part %}
+  <div class="center table-wrapper-scroll-y my-custom-scrollbar2">
+    <h3 class="center4">Part {{partname}}</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Deficiency Reported On</th>
+      <th>Car Name</th>
+
+      <th>Part</th>
+      <th>Deficiency</th>
+      <th>Section</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    {%for obj in part %}
+    {%if obj.DPCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.DPCName}}</td>
+      <td class='text-primary'>{{obj.DPCDefArea}}</td>
+      <td class='text-primary'>{{obj.DPCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%if obj.TCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.TCName}}</td>
+      <td class='text-primary'>{{obj.TCDefArea}}</td>
+      <td class='text-primary'>{{obj.TCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%if obj.MCName%}
+    <tr class='danger'>
+      <td class='text-primary'>{{forloop.counter}}</td>
+      <td class='text-primary'>{{obj.POHDate}}</td>
+      <td class='text-primary'>{{obj.MCName}}</td>
+      <td class='text-primary'>{{obj.MCDefArea}}</td>
+      <td class='text-primary'>{{obj.MCDef}}</td>
+      <td class='text-primary'>{{obj.Section}}</td>
+    </tr>
+    {%endif%}
+    {%endfor%}
+    
+  </tbody>
+
+</table>
+</div>
+{%endif%}
+{%if section%}
+<div class="center table-wrapper-scroll-y my-custom-scrollbar2">
+<h3 class="center4">Section {{sectionname}}</h3>
+  <table class="table table-bordered ">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Deficiency Reported On</th>
+        <th>Car Name</th>
+  
+        <th>Part</th>
+        <th>Deficiency</th>
+        <th>Section</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      {%for obj in section %}
+      {%if obj.DPCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.DPCName}}</td>
+        <td class='text-primary'>{{obj.DPCDefArea}}</td>
+        <td class='text-primary'>{{obj.DPCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%if obj.TCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.TCName}}</td>
+        <td class='text-primary'>{{obj.TCDefArea}}</td>
+        <td class='text-primary'>{{obj.TCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%if obj.MCName%}
+      <tr class='danger'>
+        <td class='text-primary'>{{forloop.counter}}</td>
+        <td class='text-primary'>{{obj.POHDate}}</td>
+        <td class='text-primary'>{{obj.MCName}}</td>
+        <td class='text-primary'>{{obj.MCDefArea}}</td>
+        <td class='text-primary'>{{obj.MCDef}}</td>
+        <td class='text-primary'>{{obj.Section}}</td>
+      </tr>
+      {%endif%}
+      {%endfor%}
+    </tbody>
+  
+  </table>
+</div>
+{%endif%}
+</div>
+{%endif%}
+
+    {%endblock content%} {% block afterbody %} 
+    
+
+    {% endblock afterbody %}

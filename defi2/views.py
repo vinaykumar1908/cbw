@@ -2,23 +2,23 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
-from .models import DPC, TC, MC, DPCArea, DPCDef, DPCRemark, TCArea, TCDef, TCRemark, MCArea, MCDef, MCRemark, DPCSection, TCSection, MCSection
+from .models import DPC0, TC0, MC0, DPCArea0, DPCDef0, DPCRemark0, TCArea0, TCDef0, TCRemark0, MCArea0, MCDef0, MCRemark0, DPCSection0, TCSection0, MCSection0
 from django.contrib import messages
 from django.http import JsonResponse
 # Create your views here.
 
 
 
-class DefiHome(LoginRequiredMixin, TemplateView):
-    template_name = 'deficiencies/defhome.html'
+class DefiHome0(LoginRequiredMixin, TemplateView):
+    template_name = 'deficiencies2/defhome.html'
 
 
 
 @login_required
-def DefiHome2(request):
-    dpc = DPC.objects.all().order_by('-POHDate')
-    tc = TC.objects.all().order_by('-POHDate')
-    mc = MC.objects.all().order_by('-POHDate')
+def DefiHome20(request):
+    dpc = DPC0.objects.all().order_by('-POHDate')
+    tc = TC0.objects.all().order_by('-POHDate')
+    mc = MC0.objects.all().order_by('-POHDate')
         
         
     context = {
@@ -27,18 +27,18 @@ def DefiHome2(request):
             'mc' : mc,
     }
     print('successful')
-    return render(request, 'deficiencies/defhome.html', context)
+    return render(request, 'deficiencies2/defhome.html', context)
 
 @login_required
-def AddDPC(request):
+def AddDPC0(request):
     if request.method == 'POST' and request.POST.get('DPCNum').startswith("DPC")==True and request.POST.get('datepicker1'):
         print(request.POST.get('datepicker1'))
-        newDPC = DPC(DPCName=request.POST.get('DPCNum'),POHDate=request.POST.get('datepicker1'),author=request.user)
+        newDPC = DPC0(DPCName=request.POST.get('DPCNum'),POHDate=request.POST.get('datepicker1'),author=request.user)
         newDPC.save()
         message = messages.success(request, "DPC Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        tc = TC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        tc = TC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -49,13 +49,13 @@ def AddDPC(request):
                 'message' : message,
             }
         print('successful')
-        return render(request, 'deficiencies/defhome.html', context)
+        return render(request, 'deficiencies2/defhome.html', context)
 
     else:
         message = messages.warning(request, "DPC Not Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        tc = TC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        tc = TC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -65,11 +65,11 @@ def AddDPC(request):
                 
                 'message' : message,
             }
-    return render(request, 'deficiencies/defhome.html', context)
+    return render(request, 'deficiencies2/defhome.html', context)
     
 
 @login_required
-def AddTC(request):
+def AddTC0(request):
     print(request.POST.get('TCNum'))
     print(request.POST.get('datepicker'))
     print(request.POST.get('Memu'))
@@ -81,12 +81,12 @@ def AddTC(request):
     print(g)
     if request.method == 'POST' and request.POST.get('TCNum').startswith("TC")==True and request.POST.get('datepicker'):
         print(request.POST.get('datepicker'))
-        newTC = TC(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user, Memu=g)
+        newTC = TC0(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user, Memu=g)
         newTC.save()
         message = messages.success(request, "TC Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        tc = TC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        tc = TC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         print(newTC.Memu)
         
         
@@ -98,13 +98,13 @@ def AddTC(request):
                 'message' : message,
             }
         print('successful')
-        return render(request, 'deficiencies/defhome.html', context)
+        return render(request, 'deficiencies2/defhome.html', context)
 
     else:
         message = messages.warning(request, "TC Not Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        tc = TC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        tc = TC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -114,17 +114,17 @@ def AddTC(request):
                 
                 'message' : message,
             }
-    return render(request, 'deficiencies/defhome.html', context)
+    return render(request, 'deficiencies2/defhome.html', context)
     
 @login_required
-def AddMC(request):
+def AddMC0(request):
     if request.method == 'POST' and request.POST.get('MCNum').startswith("MC")==True and request.POST.get('datepicker2'):
-        newMC = MC(MCName=request.POST.get('MCNum'),POHDate=request.POST.get('datepicker2'),author=request.user)
+        newMC = MC0(MCName=request.POST.get('MCNum'),POHDate=request.POST.get('datepicker2'),author=request.user)
         newMC.save()
         message = messages.success(request, "MC Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        tc = TC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        tc = TC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -134,12 +134,12 @@ def AddMC(request):
                 'message' : message,
             }
         print('successful')
-        return render(request, 'deficiencies/defhome.html', context)
+        return render(request, 'deficiencies2/defhome.html', context)
 
     else:
         message = messages.warning(request, "TC Not Added ")
-        dpc = DPC.objects.all().order_by('-POHDate')
-        mc = MC.objects.all().order_by('-POHDate')
+        dpc = DPC0.objects.all().order_by('-POHDate')
+        mc = MC0.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -149,118 +149,117 @@ def AddMC(request):
                 
                 'message' : message,
             }
-    return render(request, 'deficiencies/defhome.html', context)
+    return render(request, 'deficiencies2/defhome.html', context)
     
 
 @login_required
-def showDPCdet(request, Serial):
-    q = DPC.objects.get(id=Serial)
+def showDPCdet0(request, Serial):
+    q = DPC0.objects.get(id=Serial)
     print("--------------------**------------------")
     print(q)
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
+    p = DPCRemark0.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
     }
-    return render(request, 'deficiencies/dpcdefdet.html', context)
+    return render(request, 'deficiencies2/dpcdefdet.html', context)
 
 @login_required
-def showTCdet(request, Serial):
+def showTCdet0(request, Serial):
     print("--------------------**------------------")
-    p = TC.objects.get(id=Serial)
-    q = TCRemark.objects.filter(TCName=p.id).order_by('-POHDate')
+    p = TC0.objects.get(id=Serial)
+    q = TCRemark0.objects.filter(TCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
         'object': p,
         'q' : q,
     }
-    return render(request, 'deficiencies/tcdefdet.html', context)
+    return render(request, 'deficiencies2/tcdefdet.html', context)
 
 @login_required
-def showMCdet(request, Serial):
-    p = MC.objects.get(id=Serial)
-    q = MCRemark.objects.filter(MCName=p.id).order_by('-POHDate')
+def showMCdet0(request, Serial):
+    p = MC0.objects.get(id=Serial)
+    q = MCRemark0.objects.filter(MCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
         'object': p,
         'q' : q,
     }
-    return render(request, 'deficiencies/mcdefdet.html', context)
+    return render(request, 'deficiencies2/mcdefdet.html', context)
 
 
 @login_required
-def addDPCpart(request, Serial):
-    q = DPC.objects.get(id=Serial)
-    if DPCArea.objects.filter(DPCArea=request.POST.get('addDPCpart')).exists():
+def addDPCpart0(request, Serial):
+    q = DPC0.objects.get(id=Serial)
+    if DPCArea0.objects.filter(DPCArea=request.POST.get('addDPCpart')).exists():
         message = messages.warning(request, "DPC Part already exists ")
-        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
+        p = DPCRemark0.objects.filter(DPCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/dpcdefdet.html', context)
+        return render(request, 'deficiencies2/dpcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newPart = DPCArea(DPCArea=request.POST.get('addDPCpart'))
+        newPart = DPCArea0(DPCArea=request.POST.get('addDPCpart'))
         newPart.save()
         print(newPart)
         message = messages.success(request, "DPC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "DPC Part Not Added ")
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
+    p = DPCRemark0.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
     }
-    return render(request, 'deficiencies/dpcdefdet.html', context)
+    return render(request, 'deficiencies2/dpcdefdet.html', context)
 
 @login_required
-def addDPCdef(request, Serial):
-    q = DPC.objects.get(id=Serial)
-    if DPCDef.objects.filter(DPCDef=request.POST.get('addDPCdef')).exists():
+def addDPCdef0(request, Serial):
+    q = DPC0.objects.get(id=Serial)
+    if DPCDef0.objects.filter(DPCDef=request.POST.get('addDPCdef')).exists():
         message = messages.warning(request, "DPC Deficiency already exists ")
-        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
+        p = DPCRemark0.objects.filter(DPCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/dpcdefdet.html', context)
+        return render(request, 'deficiencies2/dpcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newDef = DPCDef(DPCDef=request.POST.get('addDPCdef'))
+        newDef = DPCDef0(DPCDef=request.POST.get('addDPCdef'))
         newDef.save()
         print(newDef)
         message = messages.success(request, "DPC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "DPC Deficiency Not Added ")
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
+    p = DPCRemark0.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
     }
-    return render(request, 'deficiencies/dpcdefdet.html', context)
+    return render(request, 'deficiencies2/dpcdefdet.html', context)
 
 
 @login_required
-def addDPCRemark(request, Serial):
+def addDPCRemark0(request, Serial):
     if request.POST.get('Part') and request.POST.get('Def') and request.POST.get('Section'):
-        q = DPC.objects.filter(id=Serial).first()
-        
-        r = DPCArea.objects.filter(DPCArea=request.POST.get('Part')).first()
-        t = DPCDef.objects.filter(DPCDef=request.POST.get('Def')).first()
-        y = DPCSection.objects.filter(Section=request.POST.get('Section')).first()
+        q = DPC0.objects.filter(id=Serial).first()
+        r = DPCArea0.objects.filter(DPCArea=request.POST.get('Part')).first()
+        t = DPCDef0.objects.filter(DPCDef=request.POST.get('Def')).first()
+        y = DPCSection0.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = DPCRemark(DPCName=q, DPCDefArea=r, DPCDef=t, POHDate=q.POHDate, Section=y)
+            newDef = DPCRemark0(DPCName=q, DPCDefArea=r, DPCDef=t, POHDate=q.POHDate, Section=y)
             newDef.save()
             print(newDef)
             print(newDef.DPCName)
@@ -274,85 +273,85 @@ def addDPCRemark(request, Serial):
         message = messages.warning(request, "Please Fill all Entries ")
 
     
-    p = DPC.objects.get(id=Serial)
-    q = DPCRemark.objects.filter(DPCName=p.id).order_by('-POHDate')
+    p = DPC0.objects.get(id=Serial)
+    q = DPCRemark0.objects.filter(DPCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
         'object': p,
         'q' : q,
     }
-    return render(request, 'deficiencies/dpcdefdet.html', context)
+    return render(request, 'deficiencies2/dpcdefdet.html', context)
 
 @login_required
-def addTCpart(request, Serial):
-    q = TC.objects.get(id=Serial)
-    if TCArea.objects.filter(TCCArea=request.POST.get('addTCpart')).exists():
+def addTCpart0(request, Serial):
+    q = TC0.objects.get(id=Serial)
+    if TCArea0.objects.filter(TCCArea=request.POST.get('addTCpart')).exists():
         message = messages.warning(request, "TC Part already exists ")
-        p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
+        p = TCRemark0.objects.filter(TCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/tcdefdet.html', context)
+        return render(request, 'deficiencies2/tcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newPart = TCArea(TCCArea=request.POST.get('addTCpart'))
+        newPart = TCArea0(TCCArea=request.POST.get('addTCpart'))
         newPart.save()
         print(newPart)
         message = messages.success(request, "TC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "TC Part Not Added ")
-    p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
+    p = TCRemark0.objects.filter(TCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
     }
-    return render(request, 'deficiencies/tcdefdet.html', context)
+    return render(request, 'deficiencies2/tcdefdet.html', context)
 
 @login_required
-def addTCdef(request, Serial):
-    q = TC.objects.get(id=Serial)
-    if TCDef.objects.filter(TCDef=request.POST.get('addTCdef')).exists():
+def addTCdef0(request, Serial):
+    q = TC0.objects.get(id=Serial)
+    if TCDef0.objects.filter(TCDef=request.POST.get('addTCdef')).exists():
         message = messages.warning(request, "TC Deficiency already exists ")
-        p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
+        p = TCRemark0.objects.filter(TCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/tcdefdet.html', context)
+        return render(request, 'deficiencies2/tcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newDef = TCDef(TCDef=request.POST.get('addTCdef'))
+        newDef = TCDef0(TCDef=request.POST.get('addTCdef'))
         newDef.save()
         print(newDef)
         message = messages.success(request, "TC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "TC Deficiency Not Added ")
-    p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
+    p = TCRemark0.objects.filter(TCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
     }
-    return render(request, 'deficiencies/tcdefdet.html', context)
+    return render(request, 'deficiencies2/tcdefdet.html', context)
 
 
 @login_required
-def addTCRemark(request, Serial):
+def addTCRemark0(request, Serial):
     if request.POST.get('Part') and request.POST.get('Def') and request.POST.get('Section'):
-        q = TC.objects.filter(id=Serial).first()
-        r = TCArea.objects.filter(TCCArea=request.POST.get('Part')).first()
-        t = TCDef.objects.filter(TCDef=request.POST.get('Def')).first()
-        y = TCSection.objects.filter(Section=request.POST.get('Section')).first()
+        q = TC0.objects.filter(id=Serial).first()
+        r = TCArea0.objects.filter(TCCArea=request.POST.get('Part')).first()
+        t = TCDef0.objects.filter(TCDef=request.POST.get('Def')).first()
+        y = TCSection0.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = TCRemark(TCName=q, TCDefArea=r, TCDef=t, POHDate=q.POHDate, Section=y)
+            newDef = TCRemark0(TCName=q, TCDefArea=r, TCDef=t, POHDate=q.POHDate, Section=y)
             newDef.save()
             print(newDef)
             print(newDef.TCName)
@@ -365,86 +364,86 @@ def addTCRemark(request, Serial):
         message = messages.warning(request, "Please Fill All Entries ")
 
     
-    p = TC.objects.get(id=Serial)
-    q = TCRemark.objects.filter(TCName=p.id).order_by('-POHDate')
+    p = TC0.objects.get(id=Serial)
+    q = TCRemark0.objects.filter(TCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
         'object': p,
         'q' : q,
     }
-    return render(request, 'deficiencies/tcdefdet.html', context)
+    return render(request, 'deficiencies2/tcdefdet.html', context)
 
 
 @login_required
-def addMCpart(request, Serial):
-    q = MC.objects.get(id=Serial)
-    if MCArea.objects.filter(MCArea=request.POST.get('addMCpart')).exists():
+def addMCpart0(request, Serial):
+    q = MC0.objects.get(id=Serial)
+    if MCArea0.objects.filter(MCArea=request.POST.get('addMCpart')).exists():
         message = messages.warning(request, "MC Part already exists ")
-        p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
+        p = MCRemark0.objects.filter(MCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/mcdefdet.html', context)
+        return render(request, 'deficiencies2/mcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newPart = MCArea(MCArea=request.POST.get('addMCpart'))
+        newPart = MCArea0(MCArea=request.POST.get('addMCpart'))
         newPart.save()
         print(newPart)
         message = messages.success(request, "MC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "MC Part Not Added ")
-    p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
+    p = MCRemark0.objects.filter(MCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
     }
-    return render(request, 'deficiencies/mcdefdet.html', context)
+    return render(request, 'deficiencies2/mcdefdet.html', context)
 
 @login_required
-def addMCdef(request, Serial):
-    q = MC.objects.get(id=Serial)
-    if MCDef.objects.filter(MCDef=request.POST.get('addMCdef')).exists():
+def addMCdef0(request, Serial):
+    q = MC0.objects.get(id=Serial)
+    if MCDef0.objects.filter(MCDef=request.POST.get('addMCdef')).exists():
         message = messages.warning(request, "MC Deficiency already exists ")
-        p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
+        p = MCRemark0.objects.filter(MCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
         'q' : p,
         'message' : message,
             }
-        return render(request, 'deficiencies/mcdefdet.html', context)
+        return render(request, 'deficiencies2/mcdefdet.html', context)
         pass
     if request.method == 'POST':
-        newDef = MCDef(MCDef=request.POST.get('addMCdef'))
+        newDef = MCDef0(MCDef=request.POST.get('addMCdef'))
         newDef.save()
         print(newDef)
         message = messages.success(request, "MC Deficiency '{}' Added ".format(newDef))
     else:
         message = messages.warning(request, "MC Deficiency Not Added ")
-    p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
+    p = MCRemark0.objects.filter(MCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
         'q' : p,
     }
-    return render(request, 'deficiencies/mcdefdet.html', context)
+    return render(request, 'deficiencies2/mcdefdet.html', context)
 
 
 @login_required
-def addMCRemark(request, Serial):
+def addMCRemark0(request, Serial):
     if request.POST.get('Part') and request.POST.get('Def') and request.POST.get('Section'):
-        q = MC.objects.filter(id=Serial).first()
-        r = MCArea.objects.filter(MCArea=request.POST.get('Part')).first()
-        t = MCDef.objects.filter(MCDef=request.POST.get('Def')).first()
-        y = MCSection.objects.filter(Section=request.POST.get('Section')).first()
+        q = MC0.objects.filter(id=Serial).first()
+        r = MCArea0.objects.filter(MCArea=request.POST.get('Part')).first()
+        t = MCDef0.objects.filter(MCDef=request.POST.get('Def')).first()
+        y = MCSection0.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=q.POHDate, Section=y)
+            newDef = MCRemark0(MCName=q, MCDefArea=r, MCDef=t, POHDate=q.POHDate, Section=y)
             newDef.save()
             print(newDef)
             print(newDef.MCName)
@@ -457,27 +456,27 @@ def addMCRemark(request, Serial):
         message = messages.warning(request, "Please Fill All Entries ")
 
     
-    p = MC.objects.get(id=Serial)
-    q = MCRemark.objects.filter(MCName=p.id).order_by('-POHDate')
+    p = MC0.objects.get(id=Serial)
+    q = MCRemark0.objects.filter(MCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
         'object': p,
         'q' : q,
     }
-    return render(request, 'deficiencies/mcdefdet.html', context)
+    return render(request, 'deficiencies2/mcdefdet.html', context)
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 @login_required
-def partAutocomplete(request):
+def partAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = DPCArea.objects.all()
+            qs = DPCArea0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -496,16 +495,16 @@ def partAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/dpcdefdet.html')
+            return render(request, 'deficiencies2/dpcdefdet.html')
 
 @login_required
-def defAutocomplete(request):
+def defAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = DPCDef.objects.all()
+            qs = DPCDef0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -524,16 +523,16 @@ def defAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/dpcdefdet.html')
+            return render(request, 'deficiencies2/dpcdefdet.html')
 
 @login_required
-def SecAutocomplete(request):
+def SecAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = DPCSection.objects.all()
+            qs = DPCSection0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -552,17 +551,17 @@ def SecAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/dpcdefdet.html')
+            return render(request, 'deficiencies2/dpcdefdet.html')
 
 
 @login_required
-def TCpartAutocomplete(request):
+def TCpartAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = TCArea.objects.all()
+            qs = TCArea0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -581,16 +580,16 @@ def TCpartAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/tcdefdet.html')
+            return render(request, 'deficiencies2/tcdefdet.html')
 
 @login_required
-def TCdefAutocomplete(request):
+def TCdefAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = TCDef.objects.all()
+            qs = TCDef0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -609,16 +608,16 @@ def TCdefAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/tcdefdet.html')
+            return render(request, 'deficiencies2/tcdefdet.html')
 
 @login_required
-def TCSecAutocomplete(request):
+def TCSecAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = TCSection.objects.all()
+            qs = TCSection0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -637,17 +636,17 @@ def TCSecAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/tcdefdet.html')
+            return render(request, 'deficiencies2/tcdefdet.html')
 
 
 @login_required
-def MCpartAutocomplete(request):
+def MCpartAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = MCArea.objects.all()
+            qs = MCArea0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -666,16 +665,16 @@ def MCpartAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/mcdefdet.html')
+            return render(request, 'deficiencies2/mcdefdet.html')
 
 @login_required
-def MCdefAutocomplete(request):
+def MCdefAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = MCDef.objects.all()
+            qs = MCDef0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -694,16 +693,16 @@ def MCdefAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/mcdefdet.html')
+            return render(request, 'deficiencies2/mcdefdet.html')
 
 @login_required
-def MCSecAutocomplete(request):
+def MCSecAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = MCSection.objects.all()
+            qs = MCSection0.objects.all()
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')
@@ -722,14 +721,14 @@ def MCSecAutocomplete(request):
                 print("*------JsonResponse End-----*")
             return JsonResponse(Item, safe=False)
 
-            return render(request, 'deficiencies/mcdefdet.html')
+            return render(request, 'deficiencies2/mcdefdet.html')
 
 
 @login_required
-def DefiListHome2(request):
-    dpc = DPC.objects.all().order_by('-POHDate')
-    tc = TC.objects.all().order_by('-POHDate')
-    mc = MC.objects.all().order_by('-POHDate')
+def DefiListHome20(request):
+    dpc = DPC0.objects.all().order_by('-POHDate')
+    tc = TC0.objects.all().order_by('-POHDate')
+    mc = MC0.objects.all().order_by('-POHDate')
         
         
     context = {
@@ -738,19 +737,19 @@ def DefiListHome2(request):
             'mc' : mc,
     }
     print('successful')
-    return render(request, 'deficiencies/deflisthome.html', context)
+    return render(request, 'deficiencies2/deflisthome.html', context)
 
 
 @login_required
-def DTMpartAutocomplete(request):
+def DTMpartAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = DPCArea.objects.all()
-            qs2 = TCArea.objects.all()
-            qs3 = MCArea.objects.all()
+            qs = DPCArea0.objects.all()
+            qs2 = TCArea0.objects.all()
+            qs3 = MCArea0.objects.all()
             itemTerm = request.GET.get('term')
             list2 = {"label":[], "category":[]}
             list3 = {"label":[], "category":[]}
@@ -778,19 +777,19 @@ def DTMpartAutocomplete(request):
             print(list4)
             return JsonResponse(list4, safe=False)
 
-            return render(request, 'deficiencies/deflisthome.html')
+            return render(request, 'deficiencies2/deflisthome.html')
 
 
 @login_required
-def DTMsectionAutocomplete(request):
+def DTMsectionAutocomplete0(request):
     if request.is_ajax():
         print("request.GET")
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = DPCSection.objects.all()
-            qs2 = TCSection.objects.all()
-            qs3 = MCSection.objects.all()
+            qs = DPCSection0.objects.all()
+            qs2 = TCSection0.objects.all()
+            qs3 = MCSection0.objects.all()
             itemTerm = request.GET.get('term')
             list2 = {"label":[], "category":[]}
             list3 = {"label":[], "category":[]}
@@ -818,11 +817,11 @@ def DTMsectionAutocomplete(request):
             print(list4)
             return JsonResponse(list4, safe=False)
 
-            return render(request, 'deficiencies/deflisthome.html')
+            return render(request, 'deficiencies2/deflisthome.html')
 
 
 @login_required
-def DTMsearch(request):
+def DTMsearch0(request):
     list1 = []
     list2 = []
     if request.POST:
@@ -832,16 +831,16 @@ def DTMsearch(request):
                 if q.startswith("DPC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = DPCArea.objects.all().filter(DPCArea__icontains=r[0])
-                    w = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=t[0].id)
+                    t = DPCArea0.objects.all().filter(DPCArea__icontains=r[0])
+                    w = DPCRemark0.objects.all().order_by("-POHDate").filter(DPCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
                 elif q.startswith("TC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = TCArea.objects.all().filter(TCCArea__icontains=r[0])
-                    w = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=t[0].id)
+                    t = TCArea0.objects.all().filter(TCCArea__icontains=r[0])
+                    w = TCRemark0.objects.all().order_by("-POHDate").filter(TCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                         print(list1)
@@ -849,8 +848,8 @@ def DTMsearch(request):
                 elif q.startswith("MC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = MCArea.objects.all().filter(MCArea__icontains=r[0])
-                    w = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=t[0].id)
+                    t = MCArea0.objects.all().filter(MCArea__icontains=r[0])
+                    w = MCRemark0.objects.all().order_by("-POHDate").filter(MCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
@@ -861,24 +860,24 @@ def DTMsearch(request):
                 if q.startswith("DPC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    t = DPCSection0.objects.all().filter(Section__icontains=r[0])
+                    w = DPCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
                 elif q.startswith("TC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    t = TCSection0.objects.all().filter(Section__icontains=r[0])
+                    w = TCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
                 elif q.startswith("MC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    t = MCSection0.objects.all().filter(Section__icontains=r[0])
+                    w = MCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
@@ -892,10 +891,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
+                    t = DPCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea0.objects.all().filter(DPCArea__icontains=u[0])
+                    w = DPCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark0.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -906,10 +905,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
+                    t = TCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea0.objects.all().filter(TCCArea__icontains=u[0])
+                    w = TCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark0.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -920,10 +919,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
+                    t = MCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea0.objects.all().filter(MCArea__icontains=u[0])
+                    w = MCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark0.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -934,10 +933,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
+                    t = DPCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea0.objects.all().filter(TCCArea__icontains=u[0])
+                    w = DPCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark0.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -948,10 +947,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
+                    t = TCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea0.objects.all().filter(MCArea__icontains=u[0])
+                    w = TCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark0.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -962,10 +961,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
+                    t = MCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea0.objects.all().filter(DPCArea__icontains=u[0])
+                    w = MCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark0.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -976,10 +975,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
+                    t = DPCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = MCArea0.objects.all().filter(MCArea__icontains=u[0])
+                    w = DPCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark0.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -990,10 +989,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
+                    t = TCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = DPCArea0.objects.all().filter(DPCArea__icontains=u[0])
+                    w = TCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark0.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -1004,10 +1003,10 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
-                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
+                    t = MCSection0.objects.all().filter(Section__icontains=r[0])
+                    g = TCArea0.objects.all().filter(TCCArea__icontains=u[0])
+                    w = MCRemark0.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark0.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -1031,4 +1030,4 @@ def DTMsearch(request):
         }
 
 
-    return render(request, 'deficiencies/deflisthome.html', context)
+    return render(request, 'deficiencies2/deflisthome.html', context)

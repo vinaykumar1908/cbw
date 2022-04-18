@@ -2,17 +2,17 @@
 
 
 {%block title%}
-{{ object.TCName }}. POH Date {{ object.POHDate}}
+ICO {{ object.MCName }}. POH Date {{ object.POHDate}}
 {%endblock title%}
 
 
 {%block content%}
 <div class="center">
-<h1>Deficiencies Report of {%if object.Memu == True%} MEMU {%elif object.Memu == False %} DEMU {%endif%} {{ object.TCName }}. POH Date {{ object.POHDate}}</h1>
+<h1>IC0 Deficiencies Report of {{ object.MCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 <div class="row center">
     <div class="col center2">
-        <form method="POST" action="{%url 'addTCremark' object.pk %}">
+        <form method="POST" action="{%url 'addMCremark0' object.pk %}">
             {% csrf_token %}
             <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
             <h5>Use the Autofill to fetch the part and the deficiency from the database</h5>
@@ -20,14 +20,14 @@
                 aria-label="Part" />
                 <script>
                     $("#Part").autocomplete({
-                        source: '{%url 'TCpartAutocomplete'%}'
+                        source: '{%url 'MCpartAutocomplete0'%}'
                                     });
                 </script>
             <input type="text" id="Def" name="Def" style="background-color: white; color:black" placeholder="Defeciency"
                 aria-label="Deficiency" />
                 <script>
                     $("#Def").autocomplete({
-                        source: '{%url 'TCdefAutocomplete'%}'
+                        source: '{%url 'MCdefAutocomplete0'%}'
                                         });
                 </script>
             
@@ -35,26 +35,26 @@
                 aria-label="Section" />
             <script>
                 $("#Section").autocomplete({
-                    source: '{%url 'TCsecAutocomplete'%}'
-                                                    });
+                    source: '{%url 'MCsecAutocomplete0'%}'
+                                        });
             </script>
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
     </div>
     <div style="flex-grow: 0.1; background-color:MediumSeaGreen;">
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Part</h3>
-        <form method="POST" action="{%url 'addTCpart' object.pk %}">
+        <form method="POST" action="{%url 'addMCpart0' object.pk %}">
             {% csrf_token %}
             <h5>*Part(Add new part if not available in database)</h5>
-            <input type="text" id="addTCpart" name="addTCpart" style="background-color: white; color:black" />
+            <input type="text" id="addMCpart" name="addMCpart" style="background-color: white; color:black" />
 
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New Deficiency</h3>
-        <form method="POST" action="{%url 'addTCdef' object.pk %}">
+        <form method="POST" action="{%url 'addMCdef0' object.pk %}">
             {% csrf_token %}
             <h5>*Deficiency(Enter new deficiency if not available in database)</h5>
-            <input type="text" id="addTCdef" name="addTCdef" style="background-color: white; color:black" />
+            <input type="text" id="addMCdef" name="addMCdef" style="background-color: white; color:black" />
 
             <input type="submit" value="save" style="background-color: lightcoral; color:black" />
         </form>
@@ -63,13 +63,14 @@
 
 </div>
 <div class="center">
+
 <div style="flex-grow: 8; background-color:DodgerBlue;">
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>S.No</th>
                 <th>Deficiency Reported On</th>
-                <th>TC Name</th>
+                <th>MC Name</th>
 
                 <th>Part</th>
                 <th>Deficiency</th>
@@ -82,9 +83,9 @@
             <tr class='danger'>
                 <td class='text-primary'>{{forloop.counter}}</td>
                 <td class='text-primary'>{{obj.POHDate}}</td>
-                <td class='text-primary'>{{obj.TCName}}</td>
-                <td class='text-primary'>{{obj.TCDefArea}}</td>
-                <td class='text-primary'>{{obj.TCDef}}</td>
+                <td class='text-primary'>{{obj.MCName}}</td>
+                <td class='text-primary'>{{obj.MCDefArea}}</td>
+                <td class='text-primary'>{{obj.MCDef}}</td>
                 <td class='text-primary'>{{obj.Section}}</td>
             </tr>
             {%endfor%}
@@ -93,7 +94,7 @@
     </table>
 </div>
 
-    
+
 </div>
 
 {%endblock content%} {% block afterbody %}
