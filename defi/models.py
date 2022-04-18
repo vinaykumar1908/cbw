@@ -18,6 +18,7 @@ class TC(models.Model):
     TCName = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     POHDate = models.DateField(null=True, blank=True)
+    Memu = models.BooleanField(default='False', blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='tcauth')
     

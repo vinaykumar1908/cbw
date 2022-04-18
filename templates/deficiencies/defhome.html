@@ -83,6 +83,7 @@ CBW - Deficiencies Report List
           });
         });
       </script>
+      <label><input type=radio  name="Memu" id="Memu" > MEMU TC?</label>
         <input type="submit" value="save" style="background-color: lightcoral; color:black" />
     </form>
   
@@ -96,6 +97,7 @@ CBW - Deficiencies Report List
       <tr>
         <th>S.No</th>
         <th>POH Date</th>
+        <th>MEMU or DEMU</th>
         <th>TC Number</th>
       </tr>
     </thead>
@@ -104,6 +106,11 @@ CBW - Deficiencies Report List
       <tr class='danger'>
         <td class='text-primary'>{{forloop.counter}}</td>
         <td class='text-primary'>{{object.POHDate}}</td>
+        {%if object.Memu == False%}
+        <td class='text-primary'>DEMU</td>
+        {%else%}
+        <td class='text-primary'>MEMU</td>
+        {%endif%}
         <td class='text-primary'><a href="{%url 'showTCdet' object.pk %}">{{object.TCName}}</a></td>
       </tr>
     </tbody>

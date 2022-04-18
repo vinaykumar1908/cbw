@@ -72,14 +72,22 @@ def AddDPC(request):
 def AddTC(request):
     print(request.POST.get('TCNum'))
     print(request.POST.get('datepicker'))
+    print(request.POST.get('Memu'))
+    g = True
+    if request.POST.get('Memu') == 'on':
+        g = True
+    else:
+        g = False
+    print(g)
     if request.method == 'POST' and request.POST.get('TCNum').startswith("TC")==True and request.POST.get('datepicker'):
         print(request.POST.get('datepicker'))
-        newTC = TC(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user)
+        newTC = TC(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user, Memu=g)
         newTC.save()
         message = messages.success(request, "TC Added ")
         dpc = DPC.objects.all().order_by('-POHDate')
         tc = TC.objects.all().order_by('-POHDate')
         mc = MC.objects.all().order_by('-POHDate')
+        print(newTC.Memu)
         
         
         context = {
