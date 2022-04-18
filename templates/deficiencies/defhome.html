@@ -20,8 +20,10 @@ CBW - Deficiencies Report List
   {% csrf_token %}
   <h3>Enter DPC Number</h3>
   <h3>DPC-xxxxx</h3>
+  <div class="center">
   <input type="text" ,class="form-control form-group " , id="DPCNum" name="DPCNum"
     style="background-color: white; color:black" placeholder="Enter DPC Number" aria-label="Enter DPC Number">
+    
     <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
       id="datepicker1">
     
@@ -32,7 +34,12 @@ CBW - Deficiencies Report List
         });
       });
     </script>
+
+    </div>
+    <br>
     <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+    <br>
+    <br>
 </form>
 
 
@@ -71,9 +78,11 @@ CBW - Deficiencies Report List
       {% csrf_token %}
       <h3>Enter TC Number</h3>
       <h3>TC-xxxxx</h3>
+      <div class="center">
       <input type="text" ,class="form-control form-group " , id="TCNum" name="TCNum"
         style="background-color: white; color:black" placeholder="Enter TC Number" aria-label="Enter TC Number">
-      <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
+      
+        <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
         id="datepicker">
       
       <script>
@@ -83,7 +92,11 @@ CBW - Deficiencies Report List
           });
         });
       </script>
-      <label><input type=radio  name="Memu" id="Memu" > MEMU TC?</label>
+     <br>
+      <label><input type=checkbox  name="Memu" id="Memu" > MEMU TC?</label>
+      
+      </div>
+      <br>
         <input type="submit" value="save" style="background-color: lightcoral; color:black" />
     </form>
   
@@ -128,6 +141,7 @@ CBW - Deficiencies Report List
         {% csrf_token %}
         <h3>Enter MC Number</h3>
         <h3>MC-xxxxx</h3>
+        <div class="center">
         <input type="text" ,class="form-control form-group " , id="MCNum" name="MCNum"
           style="background-color: white; color:black" placeholder="Enter MC Number" aria-label="Enter MC Number">
         <input type="text" name="datepicker2" style="background-color: white; color:black" placeholder="POH Date" aria-label="POH Date"
@@ -140,7 +154,13 @@ CBW - Deficiencies Report List
             });
           });
         </script>
+        </div>
+        <br>
           <input type="submit" value="save" style="background-color: lightcoral; color:black" />
+
+          <br>
+          <br>
+          
       </form>
     
     
