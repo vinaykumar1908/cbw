@@ -58,7 +58,7 @@ def LetterPrintPdf(request):
                 for x in c:
                     v = str(x.DPCDef)
                     w = str(x.DPCDefArea)
-                    list2.append(f'{w} {v}')   
+                    list2.append(f'{w}. {v}')   
                 print(c)
                 t = {e:list2}
                 list1.append(t)
@@ -73,7 +73,7 @@ def LetterPrintPdf(request):
                 for x in c:
                     v = str(x.TCDef)
                     w = str(x.TCDefArea)
-                    list2.append(f'{w} {v}')   
+                    list2.append(f'{w}. {v}')   
                 print(c)
                 t = {e:list2}
                 list1.append(t)
@@ -88,7 +88,7 @@ def LetterPrintPdf(request):
                 for x in c:
                     v = str(x.MCDef)
                     w = str(x.MCDefArea)
-                    list2.append(f'{w} {v}')   
+                    list2.append(f'{w}. {v}')   
                 print(c)
                 t = {e:list2}
                 list1.append(t)

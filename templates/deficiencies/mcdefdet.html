@@ -2,13 +2,13 @@
 
 
 {%block title%}
-{{ object.MCName }}. POH Date {{ object.Date}}
+{{ object.MCName }}. POH Date {{ object.POHDate}}
 {%endblock title%}
 
 
 {%block content%}
 <div class="center">
-<h1>Deficiencies Report of {{ object.MCName }}. POH Date {{ object.Date}}</h1>
+<h1>Deficiencies Report of {{ object.MCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 <div class="row center">
     <div class="col center2">
@@ -30,16 +30,7 @@
                         source: '{%url 'MCdefAutocomplete'%}'
                                         });
                 </script>
-            <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="Date" aria-label="Date"
-                id="datepicker">
             
-            <script>
-                $(function () {
-                    $("#datepicker").datepicker({
-                        dateFormat: "yy-mm-dd"
-                    });
-                });
-            </script>
             <input type="text" id="Section" name="Section" style="background-color: white; color:black" placeholder="Section"
                 aria-label="Section" />
             <script>

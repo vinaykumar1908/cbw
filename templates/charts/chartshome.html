@@ -64,7 +64,7 @@ Home
                 </form></th>
                 <th><form
                     style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    method="POST" action="{%url 'mcchart'%}">
+                    method="POST" action="{%url 'mcchart2'%}">
                     
                     {% csrf_token %}
                     <input type="text" name="datepicker5" style="background-color: white; color:black" placeholder="From"
@@ -103,10 +103,10 @@ Home
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [{%for x in DPC%} '{{x}}', {%endfor%}],
+            labels: [{%for x in data%} {%for key, value in x.items%} '{{key}}', {%endfor%} {%endfor%}],
             datasets: [{
                 label: 'No of Cases',
-                data: [{%for x in freq %} {{x}}, {% endfor %}],
+                data: [{%for x in data%} {%for key, value in x.items%} {{value}}, {%endfor%} {%endfor%}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',

@@ -16,9 +16,9 @@ class DefiHome(LoginRequiredMixin, TemplateView):
 
 @login_required
 def DefiHome2(request):
-    dpc = DPC.objects.all().order_by('-Date')
-    tc = TC.objects.all().order_by('-Date')
-    mc = MC.objects.all().order_by('-Date')
+    dpc = DPC.objects.all().order_by('-POHDate')
+    tc = TC.objects.all().order_by('-POHDate')
+    mc = MC.objects.all().order_by('-POHDate')
         
         
     context = {
@@ -36,9 +36,9 @@ def AddDPC(request):
         newDPC = DPC(DPCName=request.POST.get('DPCNum'),POHDate=request.POST.get('datepicker1'),author=request.user)
         newDPC.save()
         message = messages.success(request, "DPC Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        tc = TC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        tc = TC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -53,9 +53,9 @@ def AddDPC(request):
 
     else:
         message = messages.warning(request, "DPC Not Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        tc = TC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        tc = TC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -77,9 +77,9 @@ def AddTC(request):
         newTC = TC(TCName=request.POST.get('TCNum'),POHDate=request.POST.get('datepicker'),author=request.user)
         newTC.save()
         message = messages.success(request, "TC Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        tc = TC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        tc = TC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -94,9 +94,9 @@ def AddTC(request):
 
     else:
         message = messages.warning(request, "TC Not Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        tc = TC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        tc = TC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -114,9 +114,9 @@ def AddMC(request):
         newMC = MC(MCName=request.POST.get('MCNum'),POHDate=request.POST.get('datepicker2'),author=request.user)
         newMC.save()
         message = messages.success(request, "MC Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        tc = TC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        tc = TC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -130,8 +130,8 @@ def AddMC(request):
 
     else:
         message = messages.warning(request, "TC Not Added ")
-        dpc = DPC.objects.all().order_by('-Date')
-        mc = MC.objects.all().order_by('-Date')
+        dpc = DPC.objects.all().order_by('-POHDate')
+        mc = MC.objects.all().order_by('-POHDate')
         
         
         context = {
@@ -149,7 +149,7 @@ def showDPCdet(request, Serial):
     q = DPC.objects.get(id=Serial)
     print("--------------------**------------------")
     print(q)
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
+    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -161,7 +161,7 @@ def showDPCdet(request, Serial):
 def showTCdet(request, Serial):
     print("--------------------**------------------")
     p = TC.objects.get(id=Serial)
-    q = TCRemark.objects.filter(TCName=p.id).order_by('-Date')
+    q = TCRemark.objects.filter(TCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
@@ -173,7 +173,7 @@ def showTCdet(request, Serial):
 @login_required
 def showMCdet(request, Serial):
     p = MC.objects.get(id=Serial)
-    q = MCRemark.objects.filter(MCName=p.id).order_by('-Date')
+    q = MCRemark.objects.filter(MCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
@@ -188,7 +188,7 @@ def addDPCpart(request, Serial):
     q = DPC.objects.get(id=Serial)
     if DPCArea.objects.filter(DPCArea=request.POST.get('addDPCpart')).exists():
         message = messages.warning(request, "DPC Part already exists ")
-        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
+        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -204,7 +204,7 @@ def addDPCpart(request, Serial):
         message = messages.success(request, "DPC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "DPC Part Not Added ")
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
+    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -218,7 +218,7 @@ def addDPCdef(request, Serial):
     q = DPC.objects.get(id=Serial)
     if DPCDef.objects.filter(DPCDef=request.POST.get('addDPCdef')).exists():
         message = messages.warning(request, "DPC Deficiency already exists ")
-        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
+        p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -234,7 +234,7 @@ def addDPCdef(request, Serial):
         message = messages.success(request, "DPC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "DPC Deficiency Not Added ")
-    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-Date')
+    p = DPCRemark.objects.filter(DPCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -267,7 +267,7 @@ def addDPCRemark(request, Serial):
 
     
     p = DPC.objects.get(id=Serial)
-    q = DPCRemark.objects.filter(DPCName=p.id).order_by('-Date')
+    q = DPCRemark.objects.filter(DPCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
@@ -281,7 +281,7 @@ def addTCpart(request, Serial):
     q = TC.objects.get(id=Serial)
     if TCArea.objects.filter(TCCArea=request.POST.get('addTCpart')).exists():
         message = messages.warning(request, "TC Part already exists ")
-        p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
+        p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -297,7 +297,7 @@ def addTCpart(request, Serial):
         message = messages.success(request, "TC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "TC Part Not Added ")
-    p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
+    p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -311,7 +311,7 @@ def addTCdef(request, Serial):
     q = TC.objects.get(id=Serial)
     if TCDef.objects.filter(TCDef=request.POST.get('addTCdef')).exists():
         message = messages.warning(request, "TC Deficiency already exists ")
-        p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
+        p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -327,7 +327,7 @@ def addTCdef(request, Serial):
         message = messages.success(request, "TC Deficiency '{}'  Added ".format(newDef))
     else:
         message = messages.warning(request, "TC Deficiency Not Added ")
-    p = TCRemark.objects.filter(TCName=q.id).order_by('-Date')
+    p = TCRemark.objects.filter(TCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -358,7 +358,7 @@ def addTCRemark(request, Serial):
 
     
     p = TC.objects.get(id=Serial)
-    q = TCRemark.objects.filter(TCName=p.id).order_by('-Date')
+    q = TCRemark.objects.filter(TCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
@@ -373,7 +373,7 @@ def addMCpart(request, Serial):
     q = MC.objects.get(id=Serial)
     if MCArea.objects.filter(MCArea=request.POST.get('addMCpart')).exists():
         message = messages.warning(request, "MC Part already exists ")
-        p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
+        p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -389,7 +389,7 @@ def addMCpart(request, Serial):
         message = messages.success(request, "MC Part '{}' Added ".format(newPart))
     else:
         message = messages.warning(request, "MC Part Not Added ")
-    p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
+    p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -403,7 +403,7 @@ def addMCdef(request, Serial):
     q = MC.objects.get(id=Serial)
     if MCDef.objects.filter(MCDef=request.POST.get('addMCdef')).exists():
         message = messages.warning(request, "MC Deficiency already exists ")
-        p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
+        p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
         context = {
         #'messages': message,
         'object': q,
@@ -419,7 +419,7 @@ def addMCdef(request, Serial):
         message = messages.success(request, "MC Deficiency '{}' Added ".format(newDef))
     else:
         message = messages.warning(request, "MC Deficiency Not Added ")
-    p = MCRemark.objects.filter(MCName=q.id).order_by('-Date')
+    p = MCRemark.objects.filter(MCName=q.id).order_by('-POHDate')
     context = {
         #'messages': message,
         'object': q,
@@ -430,13 +430,13 @@ def addMCdef(request, Serial):
 
 @login_required
 def addMCRemark(request, Serial):
-    if request.POST.get('Part') and request.POST.get('Def')and request.POST.get('datepicker'):
+    if request.POST.get('Part') and request.POST.get('Def')and request.POST.get('Section'):
         q = MC.objects.filter(id=Serial).first()
         r = MCArea.objects.filter(MCArea=request.POST.get('Part')).first()
         t = MCDef.objects.filter(MCDef=request.POST.get('Def')).first()
         y = MCSection.objects.filter(Section=request.POST.get('Section')).first()
         if request.method == 'POST':
-            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=request.POST.get('datepicker'), Section=y)
+            newDef = MCRemark(MCName=q, MCDefArea=r, MCDef=t, POHDate=q.POHDate, Section=y)
             newDef.save()
             print(newDef)
             print(newDef.MCName)
@@ -450,7 +450,7 @@ def addMCRemark(request, Serial):
 
     
     p = MC.objects.get(id=Serial)
-    q = MCRemark.objects.filter(MCName=p.id).order_by('-Date')
+    q = MCRemark.objects.filter(MCName=p.id).order_by('-POHDate')
     print(q)
     context = {
         #'messages': message,
@@ -719,9 +719,9 @@ def MCSecAutocomplete(request):
 
 @login_required
 def DefiListHome2(request):
-    dpc = DPC.objects.all().order_by('-Date')
-    tc = TC.objects.all().order_by('-Date')
-    mc = MC.objects.all().order_by('-Date')
+    dpc = DPC.objects.all().order_by('-POHDate')
+    tc = TC.objects.all().order_by('-POHDate')
+    mc = MC.objects.all().order_by('-POHDate')
         
         
     context = {
@@ -825,7 +825,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = DPCArea.objects.all().filter(DPCArea__icontains=r[0])
-                    w = DPCRemark.objects.all().filter(DPCDefArea=t[0].id)
+                    w = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
@@ -833,7 +833,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = TCArea.objects.all().filter(TCCArea__icontains=r[0])
-                    w = TCRemark.objects.all().filter(TCDefArea=t[0].id)
+                    w = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                         print(list1)
@@ -842,7 +842,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = MCArea.objects.all().filter(MCArea__icontains=r[0])
-                    w = MCRemark.objects.all().filter(MCDefArea=t[0].id)
+                    w = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Part')} complete.")
@@ -854,7 +854,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    w = DPCRemark.objects.all().filter(Section=t[0].id)
+                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
@@ -862,7 +862,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    w = TCRemark.objects.all().filter(Section=t[0].id)
+                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
@@ -870,7 +870,7 @@ def DTMsearch(request):
                     r = q.split("-")
                     r.pop(0)
                     t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    w = MCRemark.objects.all().filter(Section=t[0].id)
+                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
                     message = messages.success(request, f"Search for {request.POST.get('Section')} complete.")
@@ -886,8 +886,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = DPCSection.objects.all().filter(Section__icontains=r[0])
                     g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -900,8 +900,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = TCSection.objects.all().filter(Section__icontains=r[0])
                     g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = TCRemark.objects.all().filter(Section=t[0].id)
-                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -914,8 +914,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = MCSection.objects.all().filter(Section__icontains=r[0])
                     g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = MCRemark.objects.all().filter(Section=t[0].id)
-                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -928,8 +928,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = DPCSection.objects.all().filter(Section__icontains=r[0])
                     g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().filter(Section=t[0].id)
-                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -942,8 +942,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = TCSection.objects.all().filter(Section__icontains=r[0])
                     g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = TCRemark.objects.all().filter(Section=t[0].id)
-                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -956,8 +956,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = MCSection.objects.all().filter(Section__icontains=r[0])
                     g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = MCRemark.objects.all().filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -970,8 +970,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = DPCSection.objects.all().filter(Section__icontains=r[0])
                     g = MCArea.objects.all().filter(MCArea__icontains=u[0])
-                    w = DPCRemark.objects.all().filter(Section=t[0].id)
-                    y = MCRemark.objects.all().filter(MCDefArea=g[0].id)
+                    w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -984,8 +984,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = TCSection.objects.all().filter(Section__icontains=r[0])
                     g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
-                    w = TCRemark.objects.all().filter(Section=t[0].id)
-                    y = DPCRemark.objects.all().filter(DPCDefArea=g[0].id)
+                    w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -998,8 +998,8 @@ def DTMsearch(request):
                     u.pop(0)
                     t = MCSection.objects.all().filter(Section__icontains=r[0])
                     g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
-                    w = MCRemark.objects.all().filter(Section=t[0].id)
-                    y = TCRemark.objects.all().filter(TCDefArea=g[0].id)
+                    w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
+                    y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
                         list2.append(x)
                     for xm in y:
@@ -1018,6 +1018,8 @@ def DTMsearch(request):
     context = {
         'part': list1,
         'section': list2,
+        'partname': request.POST.get('Part'),
+        'sectionname': request.POST.get('Section'),
         }
 
 

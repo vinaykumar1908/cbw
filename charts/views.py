@@ -33,15 +33,15 @@ def dpcchart(request):
         qs5 = DPCDef.objects.all()
         defi = []
         for x in qs2:
-            defi.append(str(x.DPCArea))
-        print(defi)
-        list1 = []
-        for x in qs2:
             q = DPCRemark.objects.all().order_by('-POHDate').filter(POHDate__lt=request.POST.get('datepicker'), POHDate__gt=request.POST.get('datepicker1')).filter(DPCDefArea=x.id).count()
-            print(q)
-            list1.append(str(q))
-            print('appended list')
-            print(list1)
+            defi.append({str(x.DPCArea):q})
+        print(defi)
+        list2 = []
+        for x in defi:
+	        for key , value in list(x.items()):
+		        if (value != 0):
+			        list2.append(x)
+        print(list2)
         message = messages.success(request, "Showing Chart !")
     else:
         message = messages.warning(request, "Please set dates first !")
@@ -51,12 +51,11 @@ def dpcchart(request):
     
     
     context = {
-        'DPC': defi,
         'time': currdate,
-        'freq': list1 ,
         'RolStock' : 'DPC',
         'from' : request.POST.get('datepicker1'),
         'to' : request.POST.get('datepicker'),
+        'data' : list2,
         
     }
     return render(request, 'charts/chartshome.html', context)
@@ -64,8 +63,6 @@ def dpcchart(request):
 @login_required
 def tcchart(request):
     if request.POST.get('datepicker4') and request.POST.get('datepicker3'):
-        RakeName = []
-        BrakeBlock = []
         currdate = date.today()
         currmonth = currdate.month
         currmonth = currdate.month
@@ -77,15 +74,15 @@ def tcchart(request):
         qs5 = TCDef.objects.all()
         defi = []
         for x in qs2:
-            defi.append(str(x.TCCArea))
-        print(defi)
-        list1 = []
-        for x in qs2:
             q = TCRemark.objects.all().order_by('-POHDate').filter(POHDate__lt=request.POST.get('datepicker4'), POHDate__gt=request.POST.get('datepicker3')).filter(TCDefArea=x.id).count()
-            print(q)
-            list1.append(str(q))
-            print('appended list')
-            print(list1)
+            defi.append({str(x.TCCArea):q})
+        print(defi)
+        list2 = []
+        for x in defi:
+	        for key , value in list(x.items()):
+		        if (value != 0):
+			        list2.append(x)
+        print(list2)
         message = messages.success(request, "Showing Chart !")
     else:
         message = messages.warning(request, "Please set dates first !")
@@ -94,22 +91,19 @@ def tcchart(request):
         currdate = date.today()
     
     context = {
-        'DPC': defi,
         'time': currdate,
-        'freq': list1,
         'RolStock' : 'TC',
         'from' : request.POST.get('datepicker3'),
         'to' : request.POST.get('datepicker4'),
+        'data' : list2,
         
     }
     return render(request, 'charts/chartshome.html', context)
 
 
 @login_required
-def mcchart(request):
+def mcchart2(request):
     if request.POST.get('datepicker6') and request.POST.get('datepicker5'):
-        RakeName = []
-        BrakeBlock = []
         currdate = date.today()
         currmonth = currdate.month
         currmonth = currdate.month
@@ -121,15 +115,16 @@ def mcchart(request):
         qs5 = MCDef.objects.all()
         defi = []
         for x in qs2:
-            defi.append(str(x.MCArea))
-        print(defi)
-        list1 = []
-        for x in qs2:
             q = MCRemark.objects.all().order_by('-POHDate').filter(POHDate__lt=request.POST.get('datepicker6'), POHDate__gt=request.POST.get('datepicker5')).filter(MCDefArea=x.id).count()
-            print(q)
-            list1.append(str(q))
-            print('appended list')
-            print(list1)
+            defi.append({str(x.MCArea):q})
+        print(defi)
+        print("************************************")
+        list2 = []
+        for x in defi:
+	        for key , value in list(x.items()):
+		        if (value != 0):
+			        list2.append(x)
+        print(list2)
         message = messages.success(request, "Showing Chart !")
     else:
         message = messages.warning(request, "Please set dates first !")
@@ -138,9 +133,8 @@ def mcchart(request):
         currdate = date.today()
     
     context = {
-        'DPC': defi,
         'time': currdate,
-        'freq': list1,
+        'data' : list2,
         'RolStock' : 'MC',
         'from' : request.POST.get('datepicker5'),
         'to' : request.POST.get('datepicker6'),

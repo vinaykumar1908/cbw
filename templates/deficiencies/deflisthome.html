@@ -23,7 +23,7 @@ CBW - Show Deficiencies Report List
     {% csrf_token %}
     <h3 style="color:black; font-family:sans-serif; font-style:italic"> Search Control</h3>
     <div class="center4 ">
-    <h5>Search for a 'Specified Period' by using the autofill to fetch the 'Part' and/or 'Deficiency' and/or 'Section' from the database</h5>
+    <h5>Search for a 'Specified Period' by using the autofill to fetch the 'Part' and/or 'Section' from the database</h5>
     <input type="text" id="search" name="Part" style="background-color: white; color:black" placeholder="Part"
       aria-label="Part" />
     <script>
@@ -126,11 +126,11 @@ CBW - Show Deficiencies Report List
 </script>
 
 </div>
-
-<div class="center table-wrapper-scroll-y my-custom-scrollbar">
+{%if part or section%}
+<div class="center ">
   {%if part %}
-  <div class="center">
-    <h3 class="center4">Part</h3>
+  <div class="center table-wrapper-scroll-y my-custom-scrollbar2">
+    <h3 class="center4">Part {{partname}}</h3>
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -185,9 +185,9 @@ CBW - Show Deficiencies Report List
 </div>
 {%endif%}
 {%if section%}
-<div class="center">
-<h3 class="center4">Section</h3>
-  <table class="table table-bordered">
+<div class="center table-wrapper-scroll-y my-custom-scrollbar2">
+<h3 class="center4">Section {{sectionname}}</h3>
+  <table class="table table-bordered ">
     <thead>
       <tr>
         <th>S.No</th>
@@ -239,6 +239,7 @@ CBW - Show Deficiencies Report List
 </div>
 {%endif%}
 </div>
+{%endif%}
 
     {%endblock content%} {% block afterbody %} 
     
