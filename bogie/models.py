@@ -9,6 +9,7 @@ class Bogie(models.Model):
     BogieType = models.CharField(max_length=100, unique=True)
     Date = models.DateTimeField(default=timezone.now)
     Quantity = models.IntegerField(blank=True,null=True)
+    SickQuantity = models.IntegerField(blank=True,null=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='bogieuser')
     def __str__(self):

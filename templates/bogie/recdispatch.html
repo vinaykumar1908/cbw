@@ -16,7 +16,9 @@ CBW - Bogie Receive / Dispatch
 <div class="col center4" style="background:rgba(111, 200, 69, 0.612)">
     <h4>{{x.BogieType}}</h4>
     <br>
-    <h3>{{x.Quantity}}</h3>
+    <h3>{{x.SickQuantity}} Unfit</h3>
+    <br>
+    <h3>{{x.Quantity}} Fit</h3>
     <br>
     <h6>updated on {{x.Date}}</h6>
 </div>
@@ -105,8 +107,8 @@ CBW - Bogie Receive / Dispatch
                     source: '{%url 'BogieAutocomplete'%}'
                                           });
             </script>
-            <input type="text" id="Source2" name="Source2" style="background-color: white; color:black" placeholder="Source"
-                aria-label="Source" />
+            <input type="text" id="Source2" name="Source2" style="background-color: white; color:black" placeholder="Destination"
+                aria-label="Destination" />
             <script>
                 $("#Source2").autocomplete({
                     source: '{%url 'SourceAutocomplete'%}'

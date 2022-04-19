@@ -100,6 +100,7 @@ def addFabBogie(request):
         y = request.POST.get('datepicker')
         newDef = FabBogieRegister(BogieType=r, Quantity=t, RepDate=y, author=request.user)
         newDef.save()
+        r.SickQuantity = r.SickQuantity - int(request.POST.get('Quantity'))
         r.Quantity = r.Quantity + int(request.POST.get('Quantity'))
         r.Date = datetime.datetime.now() 
         r.save()
@@ -113,7 +114,7 @@ def addFabBogie(request):
     p = FabBogieRegister.objects.all().order_by("-RepDate")
     print(p)
     context = {
-        #'messages': message,
+        #'messages': message,p
         'object': p,
     }
     return render(request, 'bogie/fabrication.html', context)
@@ -129,7 +130,7 @@ def receiptBogie(request):
         y = request.POST.get('datepicker')
         newDef = BogieReceiveRegister(BogieType=r, Quantity=t, PlaceName=c, RecDate=y, author=request.user)
         newDef.save()
-        r.Quantity = r.Quantity + int(request.POST.get('Quantity'))
+        r.SickQuantity = r.SickQuantity + int(request.POST.get('Quantity'))
         r.Date = datetime.datetime.now() 
         r.save()
         print(r.Quantity)

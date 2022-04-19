@@ -20,6 +20,7 @@ Home
         </div>
         <div class="overflow-auto w-100 h-10 center3" style="background-color:DodgerBlue;">
             <table class="table table-bordered ">
+                <h5>Deficiency Module</h5>
                 <thead>
                     <tr>
                         <th>No. of DPC in Master</th>
@@ -73,18 +74,20 @@ Home
                 </tbody>
                 
             </table>
-            <div align="center"><h4>Control Center</h4></div>
+            
         </div>
     </div>
 </div>
 
 <div class="container-fluid row center">
-    <h3>Current Pool</h3>
+    <h3>Current Bogie Pool</h3>
     {%for x in object%}
     <div class="col center4" style="background:rgba(111, 200, 69, 0.612)">
         <h4>{{x.BogieType}}</h4>
         <br>
-        <h3>{{x.Quantity}}</h3>
+        <h3>{{x.SickQuantity}} Unfit</h3>
+        <br>
+        <h3>{{x.Quantity}} Fit</h3>
         <br>
         <h6>updated on {{x.Date}}</h6>
     </div>

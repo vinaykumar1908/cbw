@@ -2,13 +2,13 @@
 
 
 {%block title%}
-IC0 {{ object.TCName }}. POH Date {{ object.POHDate}}
+{{ object.TCName }}. POH Date {{ object.POHDate}}
 {%endblock title%}
 
 
 {%block content%}
 <div class="center">
-<h1>IC0 Deficiencies Report of {%if object.Memu == True%} MEMU {%elif object.Memu == False %} DEMU {%endif%} {{ object.TCName }}. POH Date {{ object.POHDate}}</h1>
+<h1>Deficiencies Report of {%if object.Memu == True%} MEMU {%elif object.Memu == False %} DEMU {%endif%} {{ object.TCName }}. POH Date {{ object.POHDate}}</h1>
 </div>
 <div class="row center">
     <div class="col center2">
