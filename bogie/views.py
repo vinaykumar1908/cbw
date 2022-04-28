@@ -114,7 +114,7 @@ def addFabBogie(request):
     p = FabBogieRegister.objects.all().order_by("-RepDate")
     print(p)
     context = {
-        #'messages': message,p
+        #'messages': message
         'object': p,
     }
     return render(request, 'bogie/fabrication.html', context)

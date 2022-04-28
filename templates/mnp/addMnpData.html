@@ -1,0 +1,74 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - MnP Section
+{%endblock title%}
+
+
+{%block content%}
+<h1>MnP List</h1>
+
+<style>
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+    }
+</style>
+
+<div class="center">
+    <form method="POST" action="{%url 'AddMnp'%} ">
+        {% csrf_token %}
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New MnP</h3>
+        <div class="center4 ">
+            <input type="text" id="Shop" name="Shop" style="background-color: white; color:black" placeholder="Shop"
+                aria-label="Shop" />
+
+            <script>
+                $("#Shop").autocomplete({
+                    source: '{%url 'Shop'%}'
+                                      });
+                                      
+            </script>
+            <input type="text" name="Section" style="background-color: white; color:black" placeholder="Section"
+                aria-label="Section" id="Section">
+
+            <script>
+                $(function () {
+                    $("#Section").autocomplete({
+                        source: '{%url 'Section'%}'
+                                      });
+                                      });
+            </script>
+            <input type="text" name="MachineName" style="background-color: white; color:black" placeholder="Machine Name"
+                aria-label="Machine Name" id="MachineName">
+
+            <input type="text" id="Type" name="Type" style="background-color: white; color:black"
+                placeholder="Type" aria-label="Type" />
+            <script>
+                $("#Type").autocomplete({
+                    source: '{%url 'Type'%}'
+                                          });
+            </script>
+            <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+    </form>
+</div>
+
+</div>
+    <div class="center table-wrapper-scroll-y my-custom-scrollbar2">
+        <h3 class="center4">Test</h3>
+        <table class="table table-bordered ">
+            
+
+        </table>
+    </div>
+    
+
+
+
+{%endblock content%} {% block afterbody %}
+
+
+{% endblock afterbody %}
