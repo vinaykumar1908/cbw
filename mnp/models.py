@@ -36,7 +36,7 @@ class MnP(models.Model):
     Shop = models.ForeignKey(MNPShop, on_delete=models.DO_NOTHING, related_name='MNPShop')
     Section = models.ForeignKey(MNPSection, on_delete=models.DO_NOTHING, related_name='MNPSection')
     Type = models.ForeignKey(MNPType, on_delete=models.DO_NOTHING, related_name='MNPType')
-    pic = models.FileField(upload_to='uploadsMNPpics/%Y/%m/%d/', blank=True, null=True)
+    pic = models.FileField(upload_to='uploadsMNPpics/%Y/%m/%d/', blank=True, null=True, default='default.jpg')
     MnPStatus = models.BooleanField(default='False', blank=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='mnpauth')
@@ -47,9 +47,9 @@ class MnPRemark(models.Model):
     MachineName = models.ForeignKey(MnP, on_delete=models.DO_NOTHING, related_name='mnpmachrem')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=True, related_name='mnpremauth')
-    text = models.TextField()
+    text = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
     commentfile = models.FileField(upload_to='uploadsMNPRemark/%Y/%m/%d/', blank=True, null=True)
     def __str__(self):
-        return f"{self.MachineName}: Date:{self.created_date}: Text:{self.approved_comment}"
+        return f"{self.MachineName}: Date:{self.created_date}: Text:{self.text}"

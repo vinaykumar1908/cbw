@@ -1,0 +1,103 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+CBW - MnP Section - {{p.Section}} {{p.MachineName}}
+{%endblock title%}
+
+
+{%block content%}
+<h1 style="color:black; font-family:sans-serif; font-style:italic">{{p.MachineName}}</h1>
+
+<style>
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+    }
+    #inp {
+  text-align: center;
+  margin: auto;
+}
+</style>
+
+<div class="container-fluid">
+    <div class="row center">
+    <div class="col-5"><img class="img-fluid" src="{{p.pic.url}}"></div>
+    <div class="col-7">
+        <h3>Name: {{p.MachineName}}</h3>
+        <br>
+        <h3>Shop: {{p.Shop}}</h3>
+        <br>
+        <h3>Section: {{p.Section}}</h3>
+        <br>
+        <h3>Type: {{p.Type}}</h3>
+        <br>
+            <form method="POST" action="{%url 'togglestatus' p.pk%} ">
+                {% csrf_token %}
+                <input type="submit" value="Toggle Status" style="background-color: lightcoral; color:black" />
+            </form>
+        <h3>Status: 
+            {%if p.MnPStatus == True%}
+            Live
+            {%else%}
+            Dead
+            {%endif%}</h3>
+    </div>
+    </div>
+</div>
+
+
+</div>
+<div class="center4 container-fluid">
+    <form method="POST" action="{%url 'AddMnpRemark' p.pk %}  " enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add a Remark</h3>
+        <div class="center3 ">
+            <div class="" >
+                <textarea id="matter" name="matter" rows="4" cols="80"></textarea>
+                <input type="file" id="inp" name="myfile" />
+                
+                <input type="submit" value="Go" style="background-color: lightcoral; color:black" />
+            </div>
+            
+        </div>
+    </form>
+
+
+</div>
+
+<div style="flex-grow: 8; background-color:DodgerBlue;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Machine Name</th>
+                <th>Date</th>
+                <th>Remark</th>
+                <th>File</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%for obj in q %}
+            <tr class='danger'>
+                <td class='text-primary'>{{forloop.counter}}</td>
+                <td class='text-primary'>{{obj.MachineName}}</td>
+                <td class='text-primary'>{{obj.created_date}}</td>
+                <td class='text-primary'>{{obj.text}}</td>
+                <td class='text-primary'>{%if obj.commentfile%}<a class="btn btn-danger btn-lg " href="{{obj.commentfile.url}}"> View Uploaded File</a>{%endif%}{%if obj.commentfile.url == False%} {%endif%}</td>
+                <td class='text-primary'>{{obj.author}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
+
+{%endblock content%} {% block afterbody %}
+
+
+{% endblock afterbody %}

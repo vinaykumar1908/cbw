@@ -72,7 +72,7 @@ CBW - MnP Section
                     <div class="container-fluid center4 col" style="background:rgba(194, 198, 67, 0.612)">
                     <h3><u>{{t}}</u></h3>
                     {%for i in y%}
-                    <h4>{{i}}</h4>
+                    <h4><a href="{%url 'showmnpdet' i.pk %}">{{i}}</a></h4>
                     
                     {%endfor%}
                     </div>

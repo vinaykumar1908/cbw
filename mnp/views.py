@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from mnp.models import MNPShop, MNPSection, MNPType, MnP, MnPRemark
 from django.contrib import messages
 from django.http import JsonResponse
+from django.utils import timezone
 # Create your views here.
 
 
@@ -114,6 +115,78 @@ def AddMnp(request):
     }
     print('successful')
     return render(request, 'mnp/addMnpData.html', context)
+
+@login_required
+def showmnpdet(request, Serial):
+    print("--------------------**------------------")
+    p = MnP.objects.get(id=Serial)
+    q = MnPRemark.objects.filter(MachineName=p.id).order_by('-created_date')
+    print(p)
+    print(q)
+    context = {
+        'p' : p,
+        'q': q,
+            # 'tc' : tc,
+            # 'mc' : mc,
+    }
+    print('successful')
+    return render(request, 'mnp/mnpdetail.html', context)
+
+@login_required
+def AddMnpRemark(request, Serial):
+    print("--------------------**------------------")
+    p = MnP.objects.get(id=Serial)
+    print(request.POST)
+    print(request.FILES)
+    print(p)
+    filepath = request.FILES.get('myfile', False)
+    if request.method == 'POST' and filepath != False:
+        print("1--------------------**------------------")
+        newRemark = MnPRemark(MachineName=p,author=request.user, text=request.POST.get('matter'), commentfile=filepath)
+        newRemark.save()
+    else:
+        newRemark = MnPRemark(MachineName=p,author=request.user, text=request.POST.get('matter'))
+        newRemark.save()
+    q = MnPRemark.objects.filter(MachineName=p.id).order_by('-created_date')
+    print(p)
+    print(q)
+    context = {
+        'p' : p,
+        'q': q,
+            # 'tc' : tc,
+            # 'mc' : mc,
+    }
+    print('successful')
+    return render(request, 'mnp/mnpdetail.html', context)
+
+
+
+@login_required
+def togglestatus(request,Serial):
+    p = MnP.objects.get(id=Serial)
+    if p.MnPStatus == True:
+        p.MnPStatus = False
+        print("*****MnPTrueStatus****")
+        print(p.MnPStatus)
+        p.save()
+    elif p.MnPStatus == False:
+        p.MnPStatus = True
+        print("*****MnPFalseStatus****")
+        print(p.MnPStatus)
+        p.save()
+    print(p)
+    q = MnPRemark.objects.filter(MachineName=p.id).order_by('-created_date')
+    print(p)
+    print(q)
+    context = {
+        'p' : p,
+        'q': q,
+            # 'tc' : tc,
+            # 'mc' : mc,
+    }
+    print('successful')
+    return render(request, 'mnp/mnpdetail.html', context)
+
 
 @login_required
 def ShopAutocomplete(request):
