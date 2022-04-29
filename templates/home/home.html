@@ -155,6 +155,17 @@ Home
     </div>
     {%endfor%}
 </div>
+<div class="container-fluid row center">
+    <h3>Dead MnP</h3>
+    {%for x in object2%}
+    <div class="col center4" style="background:rgba(111, 200, 69, 0.612)">
+        <h4><a href="{%url 'showmnpdet' x.pk %}">{{x.MachineName}}</a></h4>
+        <br>
+        <h6>updated on {{x.UpdateDate}}</h6>
+        
+    </div>
+    {%endfor%}
+</div>
 
 
 

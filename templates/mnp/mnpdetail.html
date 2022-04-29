@@ -25,7 +25,7 @@ CBW - MnP Section - {{p.Section}} {{p.MachineName}}
 <div class="container-fluid">
     <div class="row center">
     <div class="col-5"><img class="img-fluid" src="{{p.pic.url}}"></div>
-    <div class="col-7">
+    <div class="col-3">
         <h3>Name: {{p.MachineName}}</h3>
         <br>
         <h3>Shop: {{p.Shop}}</h3>
@@ -44,6 +44,16 @@ CBW - MnP Section - {{p.Section}} {{p.MachineName}}
             {%else%}
             Dead
             {%endif%}</h3>
+    
+    </div>
+    <div class="col-3">
+        <h3>Manufacture Date: {{p.ManufacDate}}</h3>
+        <br>
+        <h3>Estt Date: {{p.EsttDate}}</h3>
+        <br>
+        <h3>Last Overhaul Date: {{p.LastOverhaulDate}}</h3>
+        <br>
+        <h3>Last Caliberation Date: {{p.LastCalibDate}}</h3>
     </div>
     </div>
 </div>

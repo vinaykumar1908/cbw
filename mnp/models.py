@@ -28,7 +28,7 @@ class MNPType(models.Model):
 
 class MnP(models.Model):
     MachineName = models.CharField(max_length=100)
-    UpdateDate = models.DateField(null=True, blank=True)
+    UpdateDate = models.DateTimeField(null=True, blank=True)
     ManufacDate = models.DateField(null=True, blank=True)
     EsttDate = models.DateField(null=True, blank=True)
     LastOverhaulDate = models.DateField(null=True, blank=True)

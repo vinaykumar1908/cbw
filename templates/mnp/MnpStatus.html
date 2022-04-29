@@ -9,7 +9,66 @@ CBW - MnP Status
 {%block content%}
 <h1>MnP Status</h1>
 
+<h2>Dead MnP</h2>
+<div style="flex-grow: 8; background-color:DodgerBlue;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Section</th>
+                <th>Machine Name</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
 
+        <tbody>
+            {%for obj in p %}
+            <tr class='danger'>
+                <td class='text-primary'>{{forloop.counter}}</td>
+                <td class='text-primary'>{{obj.Section}}</td>
+                <td class='text-primary'><a href="{%url 'showmnpdet' obj.pk %}">{{obj.MachineName}}</a></td>
+                <td class='text-primary'>{%if obj.MnPStatus == True%}
+                Live
+                {%else%}
+                Dead
+                {%endif%}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
+
+<h2>Live MnP</h2>
+<div style="flex-grow: 8; background-color:DodgerBlue;">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Section</th>
+                <th>Machine Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%for obj in q %}
+            <tr class='danger'>
+                <td class='text-primary'>{{forloop.counter}}</td>
+                <td class='text-primary'>{{obj.Section}}</td>
+                <td class='text-primary'><a href="{%url 'showmnpdet' obj.pk %}">{{obj.MachineName}}</a></td>
+                <td class='text-primary'>{%if obj.MnPStatus == True%}
+                Live
+                {%else%}
+                Dead
+                {%endif%}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
 {%endblock content%} {% block afterbody %}
 
 

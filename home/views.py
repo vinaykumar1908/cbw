@@ -13,7 +13,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from mnp.models import MNPShop, MNPSection, MNPType, MnP, MnPRemark
 #from sidingz import models as ZM
 from django.urls import reverse_lazy
 from django.db import models
@@ -52,6 +52,7 @@ def homeView(request):
     qs81 = TCArea0.objects.all().count()
     qs91 = MCArea0.objects.all().count()
     object1 = Bogie.objects.all().order_by('id')
+    object2 = MnP.objects.all().order_by('-UpdateDate').filter(MnPStatus="False")
 
     #qs1 = RM.Rake.objects.all()
 
@@ -96,6 +97,7 @@ def homeView(request):
         'j1' : qs81,
         'k1' : qs91,
         'object' : object1,
+        'object2' : object2,
         'time' : timerightnow,
         
         

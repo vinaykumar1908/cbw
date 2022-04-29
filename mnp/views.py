@@ -45,14 +45,14 @@ def addData(request):
 
 @login_required
 def status(request):
-    # dpc = DPC0.objects.all().order_by('-POHDate')
-    # tc = TC0.objects.all().order_by('-POHDate')
+    p = MnP.objects.all().order_by('-UpdateDate').filter(MnPStatus="False")
+    q = MnP.objects.all().order_by('-UpdateDate').filter(MnPStatus="True")
     # mc = MC0.objects.all().order_by('-POHDate')
         
         
     context = {
-            # 'dpc': dpc,
-            # 'tc' : tc,
+            'p': p,
+            'q': q,
             # 'mc' : mc,
     }
     print('successful')
@@ -148,6 +148,8 @@ def AddMnpRemark(request, Serial):
         newRemark = MnPRemark(MachineName=p,author=request.user, text=request.POST.get('matter'))
         newRemark.save()
     q = MnPRemark.objects.filter(MachineName=p.id).order_by('-created_date')
+    p.UpdateDate = timezone.datetime.now()
+    p.save()
     print(p)
     print(q)
     context = {
@@ -158,6 +160,7 @@ def AddMnpRemark(request, Serial):
     }
     print('successful')
     return render(request, 'mnp/mnpdetail.html', context)
+
 
 
 
@@ -176,6 +179,8 @@ def togglestatus(request,Serial):
         p.save()
     print(p)
     q = MnPRemark.objects.filter(MachineName=p.id).order_by('-created_date')
+    p.UpdateDate = timezone.datetime.now()
+    p.save()
     print(p)
     print(q)
     context = {
