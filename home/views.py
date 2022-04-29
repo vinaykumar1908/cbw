@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.db.models import Avg, Sum
 from defi.models import DPC, TC, MC, DPCArea, DPCDef, DPCRemark, MCArea, MCDef, MCRemark, TCArea, TCDef, TCRemark
+from defi2.models import DPC0, TC0, MC0, DPCArea0, DPCDef0, DPCRemark0, MCArea0, MCDef0, MCRemark0, TCArea0, TCDef0, TCRemark0
 from bogie.models import Bogie, RailPoint, FabBogieRegister, BogieDispatchRegister, BogieReceiveRegister
 
 @login_required
@@ -41,6 +42,15 @@ def homeView(request):
     qs7 = DPCArea.objects.all().count()
     qs8 = TCArea.objects.all().count()
     qs9 = MCArea.objects.all().count()
+    qs1 = DPC0.objects.all().count()
+    qs21 = TC0.objects.all().count()
+    qs31 = MC0.objects.all().count()
+    qs41 = DPCRemark0.objects.all().count()
+    qs51 = TCRemark0.objects.all().count()
+    qs61 = MCRemark0.objects.all().count()
+    qs71 = DPCArea0.objects.all().count()
+    qs81 = TCArea0.objects.all().count()
+    qs91 = MCArea0.objects.all().count()
     object1 = Bogie.objects.all().order_by('id')
 
     #qs1 = RM.Rake.objects.all()
@@ -76,6 +86,15 @@ def homeView(request):
         'i' : qs7,
         'j' : qs8,
         'k' : qs9,
+        'a1' : qs1,
+        'b1' : qs21,
+        'c1' : qs31,
+        'd1' : qs41,
+        'e1' : qs51,
+        'f1' : qs61,
+        'i1' : qs71,
+        'j1' : qs81,
+        'k1' : qs91,
         'object' : object1,
         'time' : timerightnow,
         

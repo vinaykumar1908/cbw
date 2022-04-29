@@ -10,13 +10,31 @@ from django.http import JsonResponse
 
 @login_required
 def addData(request):
-    # dpc = DPC0.objects.all().order_by('-POHDate')
-    # tc = TC0.objects.all().order_by('-POHDate')
-    # mc = MC0.objects.all().order_by('-POHDate')
+    mnp = []
+    list1 = []
+    
+    mnp = MnP.objects.all().order_by('-UpdateDate')
+    mnpShop = MNPShop.objects.all().order_by('Date').exclude(Shop='Default')
+    mnpSection = MNPSection.objects.all().order_by('-Date')
+    for x in mnpShop:
+        r = mnpSection.filter(Shop=x)
+        print(x)
+        print(r)
+        list2 = []
+        for c in r:
+            t = mnp.filter(Section=c)
+            list2.append({c.Section:t})
+            print(c)
+            print(list2)
+        list1.append({x.Shop:list2})
+    print('list1')
+    print(list1)
+
+    
         
         
     context = {
-            # 'dpc': dpc,
+             'mnp': list1,
             # 'tc' : tc,
             # 'mc' : mc,
     }
@@ -42,12 +60,54 @@ def status(request):
 
 @login_required
 def AddMnp(request):
+    data = []
     if request.method == 'POST':
         print(request.POST)
+        if request.POST.get("Shop") and request.POST.get("Section") and request.POST.get("MachineName") and request.POST.get("Type"):
+            if MNPShop.objects.all().filter(Shop=request.POST.get("Shop")).exists():
+                data.append(f'all details filled Shop {request.POST.get("Shop")} !')
+                if MNPSection.objects.all().filter(Section=request.POST.get("Section")).exists():
+                    data.append(f'all details filled Section {request.POST.get("Section")} !')
+                    if MNPType.objects.all().filter(Type=request.POST.get("Type")).exists():
+                        data.append(f'all details filled Type {request.POST.get("Type")}!')
+                        q = MNPShop.objects.get(Shop=request.POST.get("Shop"))
+                        w = MNPSection.objects.get(Section=request.POST.get("Section"))
+                        e = MNPType.objects.get(Type=request.POST.get("Type"))
+                        newMNP = MnP(MachineName=request.POST.get("MachineName"),Shop=q,Section=w,Type=e,author=request.user)
+                        print(newMNP)
+                        newMNP.save()
+                    else:
+                        data.append(f'No such Type')
+                else:
+                    data.append(f'No such Section')
+            else:
+                data.append(f'No such Shop')
+        else:
+            data = f'All details not added'
 
+    mnp = []
+    list1 = []
+    
+    mnp = MnP.objects.all().order_by('-UpdateDate')
+    mnpShop = MNPShop.objects.all().order_by('Date').exclude(Shop='Default')
+    mnpSection = MNPSection.objects.all().order_by('-Date')
+    for x in mnpShop:
+        r = mnpSection.filter(Shop=x)
+        print(x)
+        print(r)
+        list2 = []
+        for c in r:
+            t = mnp.filter(Section=c)
+            list2.append({c.Section:t})
+            print(c)
+            print(list2)
+        list1.append({x.Shop:list2})
+    print('list1')
+    print(list1)
 
 
     context = {
+        'mnp' : list1,
             # 'dpc': dpc,
             # 'tc' : tc,
             # 'mc' : mc,
@@ -62,7 +122,7 @@ def ShopAutocomplete(request):
         print(request.GET)
         if 'term' in request.GET:
             #print(term)
-            qs = MNPShop.objects.all()
+            qs = MNPShop.objects.all().exclude(Shop='Default')
             print("qs")
             print(qs)
             itemTerm = request.GET.get('term')

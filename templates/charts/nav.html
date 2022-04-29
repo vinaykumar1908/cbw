@@ -6,6 +6,7 @@
   <a class="navbar-brand"
     style="color:rgb(255, 255, 255); font-weight: 500; font-size: 32px; margin-right:0px; margin-top:0px;"
     href="https://cbw.ngrok.io">CBW</a>
+    {%if user.is_authenticated%}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -50,7 +51,7 @@
         <a class="nav-link dropdown-toggle"
           style="color:rgb(255, 255, 255); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:0px;" href="#"
           id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Deficiency Reports
+          Incoming Deficiency Reports
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <div class="dropdown-divider"></div>
@@ -116,7 +117,7 @@
     </form>
     -
     <div>
-      {% if user.is_authenticated %}
+      
       <a class="nav-item nav-link navbar-right  btn-lg"
         style="background-color:Grey; color:White; font-weight: 500; font-size: 15px; margin-right:0px; margin-top:5px;"
         href="{%url 'profile'%}">{{user.username}}'s Profile</a>

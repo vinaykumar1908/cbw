@@ -57,9 +57,33 @@ CBW - MnP Section
 </div>
 
 </div>
-    <div class="center table-wrapper-scroll-y my-custom-scrollbar2">
-        <h3 class="center4">Test</h3>
+    <div class="center ">
+        
         <table class="table table-bordered ">
+            {%if mnp%}
+            <div class="container-fluid col center">
+                {%for x in mnp%}
+                {%for key, value in x.items%}
+                <div class="col center4 row" style="background:rgba(111, 200, 69, 0.612)">
+                    <h1>{{key}}</h1>
+                    {%for m in value%}
+                    
+                    {%for t, y in m.items%}
+                    <div class="container-fluid center4 col" style="background:rgba(194, 198, 67, 0.612)">
+                    <h3><u>{{t}}</u></h3>
+                    {%for i in y%}
+                    <h4>{{i}}</h4>
+                    
+                    {%endfor%}
+                    </div>
+                    {%endfor%}
+                    {%endfor%}
+                    
+                </div>
+                {%endfor%}
+                {%endfor%}
+            </div>
+            {%endif%}
             
 
         </table>

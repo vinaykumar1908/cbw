@@ -27,7 +27,7 @@ class MNPType(models.Model):
         return self.Type
 
 class MnP(models.Model):
-    MachineName = models.CharField(max_length=100, unique=True)
+    MachineName = models.CharField(max_length=100)
     UpdateDate = models.DateField(null=True, blank=True)
     ManufacDate = models.DateField(null=True, blank=True)
     EsttDate = models.DateField(null=True, blank=True)
@@ -41,7 +41,7 @@ class MnP(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, related_name='mnpauth')
     def __str__(self):
-        return f"{self.Shop}'s {self.MachineName}"
+        return f"{self.MachineName}"
 
 class MnPRemark(models.Model):
     MachineName = models.ForeignKey(MnP, on_delete=models.DO_NOTHING, related_name='mnpmachrem')
