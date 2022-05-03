@@ -90,7 +90,7 @@ Home
 <h3>{%for x in RolStock%} {{x}}, {%endfor%}: Part wise Failure Cases Breakup from {{from}} to {{to}}.</h3>
     {%endif%}
     {%if RolStock2%}
-    <h3>{%for x in RolStock%} {{x}}, {%endfor%}: Section Wise Failure Cases Breakup from {{from}} to {{to}}.
+    <h3>{%for x in RolStock2%} {{x}}, {%endfor%}: Section Wise Failure Cases Breakup from {{from}} to {{to}}.
     </h3>
     {%endif%}
 <canvas  id="myChart" style="background: rgb(246, 245, 245);" width="40" height="16"></canvas>
@@ -100,36 +100,40 @@ Home
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [{%for x in data%} {%for key, value in x.items%} '{{key}}', {%endfor%} {%endfor%}],
-            datasets: [{
-                label: 'No of Cases',
-                data: [{%for x in data%} {%for key, value in x.items%} {{value}}, {%endfor%} {%endfor%}],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 2
+            labels: [{%for x in data %} {%for key, value in x.items %} '{{key}}', {% endfor %} {% endfor %}],
+    datasets: [{
+        label: 'No of Cases',
+        data: [{%for x in data %} {%for key, value in x.items %} {{ value }}, {% endfor %} {% endfor %}],
+    backgroundColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+    ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+            borderWidth: 2
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
-        }
+        }, plugins: {
+            labels: {
+                render: 'value'
+            }
+        },
+    }
     });
 </script>
 
