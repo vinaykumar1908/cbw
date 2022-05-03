@@ -8,7 +8,7 @@ urlpatterns = [
     path('showmnpdet/<int:Serial>/', views.showmnpdet, name='showmnpdet'),
     path('togglestatus/<int:Serial>/', views.togglestatus, name='togglestatus'),
     path('AddMnpRemark/<int:Serial>/', views.AddMnpRemark, name='AddMnpRemark'),
-    path('ShopAutocomplete/', views.ShopAutocomplete, name='Shop'),
+    #path('ShopAutocomplete/', views.ShopAutocomplete, name='Shop'),
     path('SectionAutocomplete/', views.SectionAutocomplete, name='Section'),
     path('TypeAutocomplete/', views.TypeAutocomplete, name='Type'),
 ]

@@ -13,7 +13,7 @@ class MNPShop(models.Model):
 
 class MNPSection(models.Model):
     Shop = models.ForeignKey(MNPShop, on_delete=models.DO_NOTHING, related_name='MNPSecShop')
-    Section = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    Section = models.CharField(max_length=100, blank=True, null=True)
     Date = models.DateTimeField(default=timezone.now)
     
     def __str__(self):

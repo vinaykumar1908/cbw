@@ -5,6 +5,12 @@ from django.contrib.auth.decorators import login_required
 from .models import DPC0, TC0, MC0, DPCArea0, DPCDef0, DPCRemark0, TCArea0, TCDef0, TCRemark0, MCArea0, MCDef0, MCRemark0, DPCSection0, TCSection0, MCSection0
 from django.contrib import messages
 from django.http import JsonResponse
+from io import BytesIO
+import pandas as pd
+from openpyxl import Workbook
+import dateutil.parser
+from datetime import timedelta, date
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -28,6 +34,76 @@ def DefiHome20(request):
     }
     print('successful')
     return render(request, 'deficiencies2/defhome.html', context)
+
+@login_required
+def Exporthome0(request):
+    context = {
+            
+    }
+    print('successful')
+    return render(request, 'deficiencies2/export.html', context)
+
+@login_required
+def ExportExcel0(request):
+    if request.method == 'POST':
+        threshold = request.POST.get('threshold')
+        date1 = request.POST.get('datepicker3')
+        date2 = request.POST.get('datepicker4')
+        if threshold == '':
+            threshold = 0
+        print(f"{date1}****{date2}*****{threshold}******{request.POST.get('DPC',None)}{request.POST.get('TC',None)}{request.POST.get('MC',None)}{request.POST.get('DemuTC',None)}{request.POST.get('MemuTC',None)}")
+        RolStock = []
+        list1 = []
+        defi = []
+        list2 = []
+        currdate = date.today()
+        with BytesIO() as b:
+            writer = pd.ExcelWriter(b, engine='xlsxwriter', options={'remove_timezone': True})
+            if request.POST.get('DPC',None) == 'DPC':
+                data1 = pd.DataFrame(list(DPCRemark0.objects.order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1).values('Date','POHDate','DPCName__DPCName','DPCDefArea__DPCArea','DPCDef__DPCDef', 'Section__Section')))
+                print(data1)
+                if data1['Date']:
+                    data1['Date'] = data1['Date'].dt.tz_localize(None)
+                print(data1.dtypes)
+                data1.to_excel(writer, sheet_name=f'DPC {date1}-{date2}')
+            if request.POST.get('DemuTC',None) == 'DemuTC':
+                a = TC0.objects.all().order_by('-Date').filter(Memu='False')
+                q = TCRemark0.objects.all()
+                w = q.order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1)
+                list1 = []
+                for x in a:
+                    p = q.filter(TCName=x.id)
+                    for r in p:
+                        list1.append({"Date":r.Date,"Type":'Demu TC',"TCName":r.TCName,"POHDate":r.POHDate,"Section":r.Section,"TCDefArea":r.TCDefArea,"TCDef":r.TCDef})
+                data2 = pd.DataFrame(list1 , columns = ['Date','POHDate','TCName','Type','TCDefArea','TCDef', 'Section'])
+                data2['Date'] = data2['Date'].dt.tz_localize(None)
+                data2.to_excel(writer, sheet_name=f'DemuTC {date1}-{date2}')
+            if request.POST.get('MemuTC',None) == 'MemuTC':
+                a = TC0.objects.all().order_by('-Date').filter(Memu='True')
+                q = TCRemark0.objects.all()
+                w = q.order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1)
+                list1 = []
+                for x in a:
+                    p = q.filter(TCName=x.id)
+                    for r in p:
+                        list1.append({"Date":r.Date,"Type":'Memu TC',"TCName":r.TCName,"POHDate":r.POHDate,"Section":r.Section,"TCDefArea":r.TCDefArea,"TCDef":r.TCDef})
+                data3 = pd.DataFrame(list1 , columns = ['Date','POHDate','TCName','Type','TCDefArea','TCDef', 'Section'])
+                data3['Date'] = data3['Date'].dt.tz_localize(None)
+                data3.to_excel(writer, sheet_name=f'MemuTC {date1}-{date2}')
+            if request.POST.get('MC',None) == 'MC':
+                data4 = pd.DataFrame(list(MCRemark0.objects.order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1).values('Date','POHDate','MCName__MCName','MCDefArea__MCArea','MCDef__MCDef', 'Section__Section')))
+                print(data4)
+                data4['Date'] = data4['Date'].dt.tz_localize(None)
+                #data2['POHDate'] = data2['POHDate'].dt.tz_localize(None)
+                print(data4.dtypes)
+                data4.to_excel(writer, sheet_name=f'MC {date1}-{date2}')
+            writer.save()
+            filename = f'Incoming Deficiencies from {date1} to {date2}'
+            content_type = 'application/vnd.ms-excel'
+            response = HttpResponse(b.getvalue(), content_type=content_type)
+            response['Content-Disposition'] = 'attachment; filename="' + filename + '.xlsx"'
+            return response
+
 
 @login_required
 def AddDPC0(request):

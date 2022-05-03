@@ -4,7 +4,6 @@ from charts import views
 
 urlpatterns = [
     path('', views.chartshome, name='chartshome'),
-    path('dpcchart/', views.dpcchart, name='dpcchart'),
-    path('tcchart/', views.tcchart, name='tcchart'),
-    path('mcchart/', views.mcchart2, name='mcchart2'),
+    path('partschart/', views.partschart, name='partschart'),
+    path('sectionchart/', views.sectionchart, name='sectionchart'),
     ]

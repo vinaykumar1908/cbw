@@ -1,0 +1,64 @@
+{%extends 'charts/base.html'%}
+
+
+{%block title%}
+Home
+
+{%endblock title%}
+
+
+{%block content%}
+<h4 style="font-family: Apple Chancery; font-size: 32px;">Incoming Deficiencies Excel Exporter</h4>
+
+<div class="overflow-auto w-100 h-10 center3" style="background-color:rgb(30, 144, 255);">
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th>
+                    <form
+                        style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
+                        method="POST" action="{%url 'exportexcel0'%}">
+
+                        {% csrf_token %}
+                        <input type="text" name="datepicker3" style="background-color: white; color:black"
+                            placeholder="From" aria-label="From" id="datepicker3">
+                        <script>
+                            $(function () {
+                                $("#datepicker3").datepicker({
+                                    dateFormat: "yy-mm-dd"
+                                });
+                            });
+                        </script>
+                        <input type="text" name="datepicker4" style="background-color: white; color:black"
+                            placeholder="To" aria-label="To" id="datepicker4">
+
+                        <script>
+                            $(function () {
+                                $("#datepicker4").datepicker({
+                                    dateFormat: "yy-mm-dd"
+                                });
+                            });
+                        </script>
+                        <br>
+                        <label><input type=checkbox name="DPC" id="DPC" value="DPC"> DPC </label>
+                        <label><input type=checkbox name="DemuTC" id="DemuTC" value="DemuTC"> DemuTC </label>
+                        <label><input type=checkbox name="MemuTC" id="MemuTC" value="MemuTC"> MemuTC </label>
+                        <label><input type=checkbox name="MC" id="MC" value="MC"> MC </label><br>
+
+                        
+                        <input type="submit" value="Export Excel" style="background-color: lightcoral; color:black" />
+                    </form>
+
+                </th>
+
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+{%endblock content%}
+{%block afterbody%}
+
+{%endblock afterbody%}

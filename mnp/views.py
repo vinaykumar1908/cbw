@@ -61,18 +61,26 @@ def status(request):
 
 @login_required
 def AddMnp(request):
+    print('***********StartAddMnP**************')
     data = []
     if request.method == 'POST':
         print(request.POST)
-        if request.POST.get("Shop") and request.POST.get("Section") and request.POST.get("MachineName") and request.POST.get("Type"):
-            if MNPShop.objects.all().filter(Shop=request.POST.get("Shop")).exists():
-                data.append(f'all details filled Shop {request.POST.get("Shop")} !')
-                if MNPSection.objects.all().filter(Section=request.POST.get("Section")).exists():
-                    data.append(f'all details filled Section {request.POST.get("Section")} !')
+        if request.POST.get("Section") and request.POST.get("MachineName") and request.POST.get("Type"):
+            t = request.POST.get("Section")
+            m = t.split('-',1)
+            Shop = m[0]
+            Section = m[1]
+            print(m)
+            print(Shop)
+            print(Section)
+            if MNPShop.objects.all().filter(Shop=Shop).exists():
+                data.append(f'all details filled Shop {Shop} !')
+                if MNPSection.objects.all().filter(Section=Section).exists():
+                    data.append(f'all details filled Section {Section} !')
                     if MNPType.objects.all().filter(Type=request.POST.get("Type")).exists():
                         data.append(f'all details filled Type {request.POST.get("Type")}!')
-                        q = MNPShop.objects.get(Shop=request.POST.get("Shop"))
-                        w = MNPSection.objects.get(Section=request.POST.get("Section"))
+                        q = MNPShop.objects.filter(Shop=Shop).first()
+                        w = MNPSection.objects.filter(Shop=q.id,Section=Section).first()
                         e = MNPType.objects.get(Type=request.POST.get("Type"))
                         newMNP = MnP(MachineName=request.POST.get("MachineName"),Shop=q,Section=w,Type=e,author=request.user)
                         print(newMNP)
@@ -94,17 +102,11 @@ def AddMnp(request):
     mnpSection = MNPSection.objects.all().order_by('-Date')
     for x in mnpShop:
         r = mnpSection.filter(Shop=x)
-        print(x)
-        print(r)
         list2 = []
         for c in r:
             t = mnp.filter(Section=c)
             list2.append({c.Section:t})
-            print(c)
-            print(list2)
         list1.append({x.Shop:list2})
-    print('list1')
-    print(list1)
 
 
     context = {
@@ -193,33 +195,33 @@ def togglestatus(request,Serial):
     return render(request, 'mnp/mnpdetail.html', context)
 
 
-@login_required
-def ShopAutocomplete(request):
-    if request.is_ajax():
-        print("request.GET")
-        print(request.GET)
-        if 'term' in request.GET:
-            #print(term)
-            qs = MNPShop.objects.all().exclude(Shop='Default')
-            print("qs")
-            print(qs)
-            itemTerm = request.GET.get('term')
-            print("itemTerm")
-            print(itemTerm)
-            res = qs.filter(Shop__icontains=itemTerm)
-            print("res")
-            print(res)
-            Item = list()
-            for product in res:
-                place_json = {}
-                place_json = product.Shop
-                Item.append(place_json)
-                print("*------JsonResponse Start-----*")
-                print(Item)
-                print("*------JsonResponse End-----*")
-            return JsonResponse(Item, safe=False)
+# @login_required
+# def ShopAutocomplete(request):
+#     if request.is_ajax():
+#         print("request.GET")
+#         print(request.GET)
+#         if 'term' in request.GET:
+#             #print(term)
+#             qs = MNPShop.objects.all().exclude(Shop='Default')
+#             print("qs")
+#             print(qs)
+#             itemTerm = request.GET.get('term')
+#             print("itemTerm")
+#             print(itemTerm)
+#             res = qs.filter(Shop__icontains=itemTerm)
+#             print("res")
+#             print(res)
+#             Item = list()
+#             for product in res:
+#                 place_json = {}
+#                 place_json = product.Shop
+#                 Item.append(place_json)
+#                 print("*------JsonResponse Start-----*")
+#                 print(Item)
+#                 print("*------JsonResponse End-----*")
+#             return JsonResponse(Item, safe=False)
 
-            return render(request, 'mnp/addMnpData.html')
+#             return render(request, 'mnp/addMnpData.html')
 
 @login_required
 def SectionAutocomplete(request):
@@ -240,7 +242,7 @@ def SectionAutocomplete(request):
             Item = list()
             for product in res:
                 place_json = {}
-                place_json = product.Section
+                place_json = f'{product.Shop}-{product.Section}'
                 Item.append(place_json)
                 print("*------JsonResponse Start-----*")
                 print(Item)

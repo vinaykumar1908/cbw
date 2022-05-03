@@ -33,4 +33,7 @@ urlpatterns = [
     #path('CC/', views.CCHomePageView, name='CC_home'),
     path('List0/', views.DefiListHome20, name='defi_list_home0'),
     path('DTMsearch0/', views.DTMsearch0, name='DTMsearch0'),
+
+    path('Exporthome0/', views.Exporthome0, name='Export_home0'),
+    path('ExportExcel0/', views.ExportExcel0, name='exportexcel0'),
 ]

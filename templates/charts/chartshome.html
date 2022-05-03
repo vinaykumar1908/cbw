@@ -14,31 +14,8 @@ Home
     <table class="table table-bordered ">
         <thead>
             <tr>
-                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'dpcchart'%}">
-                    
-                    {% csrf_token %}
-                    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="From" aria-label="From" id="datepicker1">
-                    <script>
-                        $(function () {
-                            $("#datepicker1").datepicker({
-                                dateFormat: "yy-mm-dd"
-                            });
-                        });
-                    </script>
-                    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="To"
-                        aria-label="To" id="datepicker">
                 
-                    <script>
-                        $(function () {
-                            $("#datepicker").datepicker({
-                                dateFormat: "yy-mm-dd"
-                            });
-                        });
-                    </script>
-                    <input type="submit" value="DPC Failed Parts" style="background-color: lightcoral; color:black" />
-                </form>
-                    </th>
-                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'tcchart'%}">
+                <th><form style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;" method="POST" action="{%url 'partschart'%}">
                     
                     {% csrf_token %}
                     <input type="text" name="datepicker3" style="background-color: white; color:black" placeholder="From"
@@ -60,33 +37,49 @@ Home
                             });
                         });
                     </script>
-                    <input type="submit" value="TC Failed Parts" style="background-color: lightcoral; color:black" />
+                    <br>
+                    <label><input type=checkbox name="DPC" id="DPC" value="DPC"> DPC </label>
+                    <label><input type=checkbox name="DemuTC" id="DemuTC" value="DemuTC"> DemuTC </label>
+                    <label><input type=checkbox name="MemuTC" id="MemuTC" value="MemuTC"> MemuTC </label>
+                    <label><input type=checkbox name="MC" id="MC" value="MC"> MC </label><br>
+                    
+                    <input type="number" id="threshold" name="threshold" min="1" max="20"><br>
+                    <label>Threshold ?</label><br>
+                    <input type="submit" value="Part wise Failure" style="background-color: lightcoral; color:black" />
                 </form></th>
                 <th><form
                     style="background-color:rgb(30, 144, 255); color:rgb(0, 0, 0); font-weight: 500; font-size: 12px; margin-right:0px; margin-top:5px;"
-                    method="POST" action="{%url 'mcchart2'%}">
-                    
+                    method="POST" action="{%url 'sectionchart'%}">
+                
                     {% csrf_token %}
-                    <input type="text" name="datepicker5" style="background-color: white; color:black" placeholder="From"
-                        aria-label="From" id="datepicker5">
+                    <input type="text" name="datepicker" style="background-color: white; color:black" placeholder="From"
+                        aria-label="From" id="datepicker">
                     <script>
                         $(function () {
-                            $("#datepicker5").datepicker({
+                            $("#datepicker").datepicker({
                                 dateFormat: "yy-mm-dd"
                             });
                         });
                     </script>
-                    <input type="text" name="datepicker6" style="background-color: white; color:black" placeholder="To" aria-label="To"
-                        id="datepicker6">
+                    <input type="text" name="datepicker1" style="background-color: white; color:black" placeholder="To" aria-label="To"
+                        id="datepicker1">
                 
                     <script>
                         $(function () {
-                            $("#datepicker6").datepicker({
+                            $("#datepicker1").datepicker({
                                 dateFormat: "yy-mm-dd"
                             });
                         });
                     </script>
-                    <input type="submit" value="MC Failed Parts" style="background-color: lightcoral; color:black" />
+                    <br>
+                    <label><input type=checkbox name="DPC" id="DPC" value="DPC"> DPC </label>
+                    <label><input type=checkbox name="DemuTC" id="DemuTC" value="DemuTC"> DemuTC </label>
+                    <label><input type=checkbox name="MemuTC" id="MemuTC" value="MemuTC"> MemuTC </label>
+                    <label><input type=checkbox name="MC" id="MC" value="MC"> MC </label><br>
+                
+                    <input type="number" id="threshold" name="threshold" min="1" max="20"><br>
+                    <label>Threshold ?</label><br>
+                    <input type="submit" value="Section wise Failure" style="background-color: lightcoral; color:black" />
                 </form></th>
             </tr>
         </thead>
@@ -94,8 +87,12 @@ Home
 </div>
 <div class='center' style="background: rgb(246, 245, 245);">
     {%if RolStock%}
-<h3>{{RolStock}}: Failure Cases Breakup from {{from}} to {{to}}</h3>
-{%endif%}
+<h3>{%for x in RolStock%} {{x}}, {%endfor%}: Part wise Failure Cases Breakup from {{from}} to {{to}}.</h3>
+    {%endif%}
+    {%if RolStock2%}
+    <h3>{%for x in RolStock%} {{x}}, {%endfor%}: Section Wise Failure Cases Breakup from {{from}} to {{to}}.
+    </h3>
+    {%endif%}
 <canvas  id="myChart" style="background: rgb(246, 245, 245);" width="40" height="16"></canvas>
 </div>
 <script>

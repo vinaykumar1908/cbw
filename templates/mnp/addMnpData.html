@@ -23,15 +23,7 @@ CBW - MnP Section
         {% csrf_token %}
         <h3 style="color:black; font-family:sans-serif; font-style:italic"> Add New MnP</h3>
         <div class="center4 ">
-            <input type="text" id="Shop" name="Shop" style="background-color: white; color:black" placeholder="Shop"
-                aria-label="Shop" />
-
-            <script>
-                $("#Shop").autocomplete({
-                    source: '{%url 'Shop'%}'
-                                      });
-                                      
-            </script>
+            
             <input type="text" name="Section" style="background-color: white; color:black" placeholder="Section"
                 aria-label="Section" id="Section">
 
