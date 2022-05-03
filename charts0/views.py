@@ -196,7 +196,7 @@ def sectionchart0(request):
             qs4 = MCRemark0.objects.all().order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1)
             qs5 = MCDef0.objects.all()
             for x in qs2:
-                q = MCRemark.objects.all().order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1).filter(Section=x.id).count()
+                q = MCRemark0.objects.all().order_by('-POHDate').filter(POHDate__lt=date2, POHDate__gt=date1).filter(Section=x.id).count()
                 if q >= int(threshold):
                     defi.append({f'MC-{x.Section}':q})
             print(defi)
