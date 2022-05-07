@@ -32,7 +32,7 @@ def DefiHome2(request):
             'tc' : tc,
             'mc' : mc,
     }
-    print('successful')
+    print('successful2')
     return render(request, 'deficiencies/defhome.html', context)
 
 @login_required
@@ -907,6 +907,7 @@ def DTMsectionAutocomplete(request):
 def DTMsearch(request):
     list1 = []
     list2 = []
+    print(request)
     if request.POST:
         if request.POST.get('datepicker') and request.POST.get('datepicker1'):
             if request.POST.get('Part') and not request.POST.get('Section'):
@@ -914,7 +915,7 @@ def DTMsearch(request):
                 if q.startswith("DPC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = DPCArea.objects.all().filter(DPCArea__icontains=r[0])
+                    t = DPCArea.objects.all().filter(DPCArea__iexact=r[0])
                     w = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
@@ -922,7 +923,7 @@ def DTMsearch(request):
                 elif q.startswith("TC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = TCArea.objects.all().filter(TCCArea__icontains=r[0])
+                    t = TCArea.objects.all().filter(TCCArea__iexact=r[0])
                     w = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
@@ -931,7 +932,7 @@ def DTMsearch(request):
                 elif q.startswith("MC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = MCArea.objects.all().filter(MCArea__icontains=r[0])
+                    t = MCArea.objects.all().filter(MCArea__iexact=r[0])
                     w = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=t[0].id)
                     for x in w:
                         list1.append(x)
@@ -943,7 +944,7 @@ def DTMsearch(request):
                 if q.startswith("DPC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
+                    t = DPCSection.objects.all().filter(Section__iexact=r[0])
                     w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
@@ -951,7 +952,7 @@ def DTMsearch(request):
                 elif q.startswith("TC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
+                    t = TCSection.objects.all().filter(Section__iexact=r[0])
                     w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
@@ -959,7 +960,7 @@ def DTMsearch(request):
                 elif q.startswith("MC-"):
                     r = q.split("-")
                     r.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
+                    t = MCSection.objects.all().filter(Section__iexact=r[0])
                     w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     for x in w:
                         list2.append(x)
@@ -974,8 +975,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    t = DPCSection.objects.all().filter(Section__iexact=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__iexact=u[0])
                     w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
@@ -988,8 +989,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    t = TCSection.objects.all().filter(Section__iexact=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__iexact=u[0])
                     w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
@@ -1002,8 +1003,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    t = MCSection.objects.all().filter(Section__iexact=r[0])
+                    g = MCArea.objects.all().filter(MCArea__iexact=u[0])
                     w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
@@ -1016,8 +1017,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    t = DPCSection.objects.all().filter(Section__iexact=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__iexact=u[0])
                     w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:
@@ -1030,8 +1031,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    t = TCSection.objects.all().filter(Section__iexact=r[0])
+                    g = MCArea.objects.all().filter(MCArea__iexact=u[0])
                     w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
@@ -1044,8 +1045,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    t = MCSection.objects.all().filter(Section__iexact=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__iexact=u[0])
                     w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
@@ -1058,8 +1059,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = DPCSection.objects.all().filter(Section__icontains=r[0])
-                    g = MCArea.objects.all().filter(MCArea__icontains=u[0])
+                    t = DPCSection.objects.all().filter(Section__iexact=r[0])
+                    g = MCArea.objects.all().filter(MCArea__iexact=u[0])
                     w = DPCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = MCRemark.objects.all().order_by("-POHDate").filter(MCDefArea=g[0].id)
                     for x in w:
@@ -1072,8 +1073,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = TCSection.objects.all().filter(Section__icontains=r[0])
-                    g = DPCArea.objects.all().filter(DPCArea__icontains=u[0])
+                    t = TCSection.objects.all().filter(Section__iexact=r[0])
+                    g = DPCArea.objects.all().filter(DPCArea__iexact=u[0])
                     w = TCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = DPCRemark.objects.all().order_by("-POHDate").filter(DPCDefArea=g[0].id)
                     for x in w:
@@ -1086,8 +1087,8 @@ def DTMsearch(request):
                     u = d.split("-")
                     r.pop(0)
                     u.pop(0)
-                    t = MCSection.objects.all().filter(Section__icontains=r[0])
-                    g = TCArea.objects.all().filter(TCCArea__icontains=u[0])
+                    t = MCSection.objects.all().filter(Section__iexact=r[0])
+                    g = TCArea.objects.all().filter(TCCArea__iexact=u[0])
                     w = MCRemark.objects.all().order_by("-POHDate").filter(Section=t[0].id)
                     y = TCRemark.objects.all().order_by("-POHDate").filter(TCDefArea=g[0].id)
                     for x in w:

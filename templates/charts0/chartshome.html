@@ -1,5 +1,5 @@
 {%extends 'charts/base.html'%}
-
+<!-- https://github.com/DavideViolante/chartjs-plugin-labels -->
 
 {%block title%}
 Home
@@ -127,9 +127,10 @@ Home
                 }
             }, plugins: {
                 labels: {
-                    render: 'value'
+                    render: 'value',
+                    fontSize: 16,
                 }
-            },
+            }
         }
     });
 </script>

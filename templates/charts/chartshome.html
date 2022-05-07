@@ -8,7 +8,7 @@ Home
 
 
 {%block content%}
-<h4 style="font-family:'Apple Chancery'; font-size: 32px;">IC0 Charts Home {{time}}</h4>
+<h4 style="font-family:'Apple Chancery'; font-size: 32px;">IC0 Charts Home v2 {{time}}</h4>
 
 <div class="overflow-auto w-100 h-10 center3" style="background-color:rgb(30, 144, 255);">
     <table class="table table-bordered ">
@@ -96,45 +96,136 @@ Home
 <canvas  id="myChart" style="background: rgb(246, 245, 245);" width="40" height="16"></canvas>
 </div>
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [{%for x in data %} {%for key, value in x.items %} '{{key}}', {% endfor %} {% endfor %}],
-    datasets: [{
-        label: 'No of Cases',
-        data: [{%for x in data %} {%for key, value in x.items %} {{ value }}, {% endfor %} {% endfor %}],
-    backgroundColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-    ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
+    
+    const data = {
+        labels: [{%for x in labels %}  '{{x}}', {% endfor %}],
+        data2: [{%for y in listx %}'{{y.0}}', {%endfor%}],
+        datasets: [{
+            label: 'No. of cases',
+            data:[{%for y in listx %}{Name: '{{y.1}}', Val: '{{ y.0}}', D1: '{{ y.2}}', D2: '{{ y.3}}', d3: '{{ y.4}}' , side: '{{ y.5}}' }, {% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+                 'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
             borderWidth: 2
-            }]
-        },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
+        }]
+    };
+     const config = {
+            plugins: [ChartDataLabels],
+            type: 'bar',
+            data: data,
+            options: {
+                plugins: {
+                    datalabels: {
+                        formatter: function (value, context) {
+                            return context.chart.data.data2[context.dataIndex];
+                        }
+                    }
+                },
+                parsing: {
+                    xAxisKey: 'Name',
+                    yAxisKey: 'Val',
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+
             }
-        }, plugins: {
-            labels: {
-                render: 'value'
-            }
-        },
-    }
-    });
+        };
+
+   const ctx = document.getElementById('myChart');
+    // render init block
+    const myChart = new Chart(
+        ctx,
+        config
+    ); 
+    function clickHandler(click) {
+            const points = myChart.getElementsAtEventForMode(click, 'nearest', { intersect: true }, true);
+            if (points.length) {
+
+                const firstPoint = points[0];
+                // console.log(points)
+                // console.log(firstPoint);
+                // const value2 = myChart.data.labels[firstPoint.index];
+                const value = myChart.data.datasets[0].data[firstPoint.index];
+
+                // console.log(value.products.link);
+                // console.log(value2);
+                // window.open('https://www.google.com', '_blank');
+                //location.href = value.products.link;
+                // window.open(value.products.link, '_blank');
+                const data = {
+                    'headline': value.Name,
+                    'tag': value.Val,
+                    'D1': value.D1,
+                    'D2': value.D2,
+                    'd3': value.d3,
+                    'side': value.side,
+                };
+
+                console.log(data)
+
+                var formData = new FormData();
+                //console.log(name);
+                formData.append('headline', data['headline']);
+                formData.append('tag', data['tag']);
+                formData.append('D1', data['D1']);
+                formData.append('D2', data['D2']);
+                formData.append('d3', data['d3']);
+                formData.append('side', data['side']);
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                console.log(formData.entries());
+
+                let tre = fetch("{%url 'partsdata'%}", {
+                    method: 'POST',
+                    body: formData,
+                }).then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+
+
+
+                // let response = fetch("{%url 'partsdata'%}", {
+                //     method: 'POST',
+                //     body: data,
+                //     headers: {
+                //         'Content-Type': 'application/json',                
+                //     }
+                // })
+                window.open('{%url 'partsdata'%}', formData, '_blank')
+                // var childwin = window.open('{%url 'partsdata'%}', data, 'height=300px, width=500px');
+                // childwin.postMessage(data, '*')// childwin is the targetWindow
+                // childwin.focus();
+                // sendMessage()
+
+                //fetch("{%url 'partsdata'%}").then((response) => console.log(response.json())); //3
+            };
+            // response.then(console.log.bind(console, 'new args'));
+
+
+        }
+
+
+        ctx.onclick = clickHandler
 </script>
 
 {%endblock content%}
